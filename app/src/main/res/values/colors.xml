@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="purple_200">#FFBB86FC</color>
+    <color name="purple_500">#FF6200EE</color>
+    <color name="purple_700">#FF3700B3</color>
+    <color name="teal_200">#FF03DAC5</color>
+    <color name="teal_700">#FF018786</color>
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+
+    <color name="colorSnackBarError">#8BC34A</color>
+    <color name="backGroundColour">#ffffff</color>
+    <color name="colorSnackBarSuccess">#F72400</color>
+    <color name="colorPrimaryText">#FF000000</color>
+    <color name="colorSecondaryText">#ffffff</color>
+    <color name="colorPrimary">#8826ed</color>
+    <color name="colorPrimaryVariant">#4f00b9</color>
+    <color name="colorOnPrimary">#bf5cff</color>
+    <color name="colorSecondary">#2626ed</color>
+    <color name="colorSecondaryVariant">#0000b9</color>
+    <color name="colorOnSecondary">#7555ff</color>
+    <color name="colorAscent">#ffffff</color>
+    <color name="hintGrey">#EBA8A7A7</color>
+    <color name="isFav">#BA0808</color>
+    <color name="rating_yellow">#ffc107</color>
+    <color name="colorLightGrey">#F1F1F1</color>
+    <color name="note_background_color">#ffee58</color>
+    <color name="reminder_background_color">#f48fb1</color>
+    <color name="badgeGreen">#15CF1C</color>
+    <color name="grey_btm_nav">#919191</color>
+
+</resources>

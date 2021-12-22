@@ -1,0 +1,394 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/backGroundColour"
+    tools:context=".activities.ViewNoteActivity">
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fitsSystemWindows="true"
+        android:background="@color/fui_transparent"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark">
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbarViewNoteActivity"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="@drawable/app_gradient_color_background"
+            app:contentInsetLeft="0dp"
+            app:contentInsetStart="0dp"
+            app:contentInsetStartWithNavigation="0dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_scrollFlags="scroll|enterAlways">
+
+            <com.nema.eduup.utils.EdUpTextViewBold
+                android:id="@+id/tv_note_title"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:paddingStart="@dimen/toolbar_title_paddingStart"
+                android:paddingEnd="0dp"
+                android:text="@string/view_note"
+                android:textColor="@color/white"
+                android:textSize="@dimen/toolbar_title_text_size" />
+
+        </androidx.appcompat.widget.Toolbar>
+
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <androidx.core.widget.NestedScrollView
+        android:id="@+id/nestedScrollView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true"
+        android:fitsSystemWindows="true"
+        android:scrollbars="none"
+        app:layout_anchor="@+id/nestedScrollView"
+        app:layout_anchorGravity="center"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:id="@+id/img_share"
+                android:layout_width="40dp"
+                android:layout_height="38dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="16dp"
+                android:padding="4dp"
+                android:foreground="?attr/selectableItemBackground"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/ic_share_black_24"
+                app:tint="@color/grey_btm_nav" />
+
+            <com.nema.eduup.utils.EdUpTextView
+                android:id="@+id/tv_uploaded_static"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="2"
+                android:padding="10dp"
+                android:text="@string/uploaded"
+                android:textColor="@color/grey_btm_nav"
+                app:layout_constraintEnd_toStartOf="@+id/tv_upload_date"
+                app:layout_constraintHorizontal_bias="1.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@id/tv_upload_date" />
+
+            <com.nema.eduup.utils.EdUpTextView
+                android:id="@+id/tv_upload_date"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="2"
+                android:padding="10dp"
+                android:text="@string/dateSample"
+                android:textColor="@color/grey_btm_nav"
+                app:layout_constraintEnd_toStartOf="@id/img_bookmark"
+                app:layout_constraintTop_toTopOf="@id/img_bookmark" />
+
+            <ImageView
+                android:id="@+id/img_bookmark"
+                android:layout_width="40dp"
+                android:layout_height="38dp"
+                android:layout_marginTop="16dp"
+                android:padding="4dp"
+                app:tint="@color/grey_btm_nav"
+                app:layout_constraintEnd_toStartOf="@+id/img_share"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/ic_bookmark_border_black_24" />
+
+            <com.nema.eduup.utils.EdUpTextView
+                android:id="@+id/tv_note_rating"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="8dp"
+                android:layout_weight="1.2"
+                android:drawableLeft="@drawable/ic_star_rate_gold_24"
+                android:drawablePadding="4dp"
+                android:gravity="center"
+                android:padding="4dp"
+                android:text="4.5"
+                android:textColor="#ffca28"
+                android:textSize="15sp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="1.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/img_bookmark" />
+
+            <com.nema.eduup.utils.EdUpTextView
+                android:id="@+id/tv_level"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:padding="@dimen/et_note_padding"
+                android:textColor="@color/grey_btm_nav"
+                android:text="Level"
+                android:textSize="14sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/tv_subject" />
+
+            <com.nema.eduup.utils.EdUpTextView
+                android:id="@+id/tv_subject"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="8dp"
+                android:padding="@dimen/et_note_padding"
+                android:text="@string/noteSubject"
+                android:textColor="@color/colorPrimaryText"
+                android:textSize="16sp"
+                app:layout_constraintEnd_toEndOf="@+id/tv_note_rating"
+                app:layout_constraintStart_toEndOf="@+id/tv_level"
+                app:layout_constraintTop_toBottomOf="@+id/tv_note_rating" />
+
+
+            <com.nema.eduup.utils.EdUpTextView
+                android:id="@+id/tv_note_description"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:gravity="start|top"
+                android:padding="@dimen/et_note_padding"
+                android:text="@string/noteDescription"
+                android:textColor="@color/colorPrimaryText"
+                android:textSize="14sp"
+                app:layout_constraintEnd_toEndOf="@+id/tv_subject"
+                app:layout_constraintHorizontal_bias="0.466"
+                app:layout_constraintStart_toStartOf="@+id/tv_level"
+                app:layout_constraintTop_toBottomOf="@id/tv_level" />
+
+            <com.nema.eduup.utils.EdUpTextView
+                android:id="@+id/tv_note_body"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:padding="@dimen/et_note_padding"
+                android:text="@string/noteBody"
+                android:textColor="@color/colorPrimaryText"
+                android:textSize="14sp"
+                app:layout_constraintEnd_toEndOf="@+id/tv_note_description"
+                app:layout_constraintStart_toStartOf="@+id/tv_note_description"
+                app:layout_constraintTop_toBottomOf="@id/tv_note_description" />
+
+
+            <androidx.cardview.widget.CardView
+
+                android:id="@+id/cv_download"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="8dp"
+                android:elevation="4dp"
+                android:foreground="?attr/selectableItemBackground"
+                app:cardBackgroundColor="@color/colorPrimary"
+                app:cardCornerRadius="4dp"
+                app:layout_constraintEnd_toEndOf="@+id/tv_note_body"
+                app:layout_constraintStart_toStartOf="@+id/tv_note_body"
+                app:layout_constraintTop_toBottomOf="@id/tv_note_body">
+
+                <LinearLayout
+                    android:id="@+id/download_file_layout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="#C1C0C0"
+                    android:gravity="end|bottom"
+                    android:orientation="horizontal">
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="2dp"
+                        android:background="#E6E5E5">
+
+                        <com.nema.eduup.utils.EdUpTextViewBold
+                            android:id="@+id/txt_download_file"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="16dp"
+                            android:padding="10dp"
+                            android:text="@string/download"
+                            android:textColor="@color/colorPrimaryText"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <com.nema.eduup.utils.EdUpTextView
+                            android:id="@+id/txt_file_name"
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:padding="10dp"
+                            android:text="@string/pdf_name"
+                            android:maxLines="1"
+                            android:textColor="@color/colorSecondaryText"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toStartOf="@id/img_file_type"
+                            app:layout_constraintStart_toEndOf="@+id/txt_download_file"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <ImageView
+                            android:id="@+id/img_file_type"
+                            android:layout_width="50dp"
+                            android:layout_height="50dp"
+                            android:layout_gravity="center"
+                            android:layout_weight="0.5"
+                            android:padding="4dp"
+                            android:scaleType="fitCenter"
+                            app:tint="@color/grey_btm_nav"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:srcCompat="@drawable/ic_note_alt_black_24" />
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                </LinearLayout>
+
+            </androidx.cardview.widget.CardView>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/cl_ratings_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="8dp"
+                app:layout_constraintEnd_toEndOf="@+id/cv_download"
+                app:layout_constraintStart_toStartOf="@+id/cv_download"
+                app:layout_constraintTop_toBottomOf="@id/cv_download">
+
+                <com.nema.eduup.utils.EdUpTextView
+                    android:id="@+id/tv_rate_note"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:foreground="?attr/selectableItemBackground"
+                    android:padding="10dp"
+                    android:text="@string/rate_note"
+                    android:textColor="#ffca28"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+
+                <com.nema.eduup.utils.EdUpTextViewBold
+                    android:id="@+id/tv_comments_static"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:padding="@dimen/et_note_padding"
+                    android:text="@string/reviews"
+                    android:textColor="@color/colorPrimaryText"
+                    android:textSize="14sp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_rate_note" />
+
+                <com.nema.eduup.utils.EdUpTextView
+                    android:id="@+id/tv_num_comments"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:padding="@dimen/et_note_padding"
+                    android:text="@string/numComments"
+                    android:textColor="@color/colorPrimaryText"
+                    android:textSize="14sp"
+                    app:layout_constraintStart_toEndOf="@+id/tv_comments_static"
+                    app:layout_constraintTop_toTopOf="@+id/tv_comments_static" />
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/user_rating_layout"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="@+id/tv_comments_static"
+                    app:layout_constraintTop_toBottomOf="@id/tv_comments_static">
+
+                    <com.nema.eduup.utils.EdUpTextViewBold
+                        android:id="@+id/tv_edit_review"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:foreground="?attr/selectableItemBackground"
+                        android:padding="8dp"
+                        android:text="@string/edit_review"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <com.nema.eduup.utils.EdUpTextViewBold
+                        android:id="@+id/tv_your_comment_static"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:padding="@dimen/txt_padding"
+                        android:text="@string/yourComment"
+                        android:textColor="@color/colorPrimaryText"
+                        android:textSize="14sp"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <com.nema.eduup.utils.EdUpTextView
+                        android:id="@+id/tv_user_review_date"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="2"
+                        android:padding="@dimen/txt_padding"
+                        android:textSize="14sp"
+                        android:text="@string/dateSample"
+                        app:layout_constraintStart_toEndOf="@id/tv_your_comment_static"
+                        app:layout_constraintTop_toTopOf="@+id/tv_your_comment_static" />
+
+                    <RatingBar
+                        android:id="@+id/user_rating_value_bar"
+                        style="?android:attr/ratingBarStyleSmall"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginStart="10dp"
+                        android:clickable="true"
+                        android:focusable="true"
+                        android:numStars="5"
+                        android:rating="0.0"
+                        android:stepSize="1"
+                        android:theme="@style/RatingBar"
+                        app:layout_constraintStart_toStartOf="@id/tv_your_comment_static"
+                        app:layout_constraintTop_toBottomOf="@id/tv_your_comment_static" />
+
+
+                    <com.nema.eduup.utils.EdUpTextView
+                        android:id="@+id/tv_user_rating_comment"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="start|top"
+                        android:padding="@dimen/txt_padding"
+                        android:text="@string/yourComment"
+                        android:textColor="@color/colorPrimaryText"
+                        android:textSize="14sp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="@id/user_rating_value_bar"
+                        app:layout_constraintTop_toBottomOf="@id/user_rating_value_bar" />
+
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/note_comments_recycler_view"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginBottom="8dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/user_rating_layout"
+                    tools:listitem="@layout/item_rating" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.core.widget.NestedScrollView>
+
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

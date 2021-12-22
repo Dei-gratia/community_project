@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="16dp">
+
+    <FrameLayout
+        android:id="@+id/fl_group_image"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:background="@color/colorPrimaryText"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <com.nema.eduup.utils.EdUpTextView
+            android:id="@+id/tv_add_group_image"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/backGroundColour"
+            android:gravity="center"
+            android:layout_margin="5dp"
+            android:layout_weight="2"
+            android:foreground="?attr/selectableItemBackground"
+            android:padding="10dp"
+            android:text="Add Group Image"
+            android:textColor="@color/colorPrimaryText"
+            app:layout_constraintStart_toStartOf="@+id/til_group_name"
+            app:layout_constraintTop_toBottomOf="@+id/til_group_name" />
+
+        <ImageView
+            android:visibility="gone"
+            android:id="@+id/img_group_photo"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="@dimen/profile_user_photo_margin"
+            android:background="@color/colorLightGrey"
+            android:contentDescription="@string/app_name"
+            android:scaleType="fitXY"
+            android:src="@drawable/ic_person_black_24" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/ic_user_image_background" />
+
+    </FrameLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/til_group_name"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:hint="@string/group_name"
+        android:textColorHint="@color/colorPrimaryText"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/fl_group_image">
+
+        <com.nema.eduup.utils.EdUpEditText
+            android:id="@+id/et_group_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="top"
+            android:gravity="top"
+            android:inputType="textMultiLine"
+            android:padding="8dp"
+            android:textColor="@color/colorPrimaryText"
+            android:textSize="@dimen/et_textSize" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.nema.eduup.utils.EdUpTextView
+        android:id="@+id/tv_security_static"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:layout_weight="2"
+        android:foreground="?attr/selectableItemBackground"
+        android:padding="10dp"
+        android:text="Group security mode: "
+        android:textColor="@color/colorPrimaryText"
+        app:layout_constraintStart_toStartOf="@+id/til_group_name"
+        app:layout_constraintTop_toBottomOf="@+id/til_group_name" />
+
+    <Spinner
+        android:id="@+id/spinner_security_mode"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:padding="0dp"
+        android:textColor="@color/colorPrimaryText"
+        android:textSize="@dimen/et_textSize"
+        app:layout_constraintBottom_toBottomOf="@+id/tv_security_static"
+        app:layout_constraintStart_toEndOf="@+id/tv_security_static"
+        app:layout_constraintTop_toTopOf="@+id/tv_security_static" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

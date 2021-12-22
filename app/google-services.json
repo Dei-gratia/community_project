@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "727341459393",
+    "project_id": "eduup-7b788",
+    "storage_bucket": "eduup-7b788.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:727341459393:android:178b4a9fb14af066c5b140",
+        "android_client_info": {
+          "package_name": "com.nema.eduup"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "727341459393-lihqa2o2d824vlbf7kkrisom72ljs2sf.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.nema.eduup",
+            "certificate_hash": "5f36f34ce9a6cab09750e311b26155e20c063d22"
+          }
+        },
+        {
+          "client_id": "727341459393-g4jom5cu36hs1l39itsp25gc23cve800.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBOMoO-ntdwYCSvRPOS0jgVuBj0GNRCoC4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "727341459393-g4jom5cu36hs1l39itsp25gc23cve800.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

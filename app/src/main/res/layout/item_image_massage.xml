@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_margin="8dp">
+    <RelativeLayout
+        android:id="@+id/rlMessage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="end"
+        android:background="@drawable/rect_round_primary_color">
+
+        <com.nema.eduup.utils.EdUpTextView
+            android:visibility="gone"
+            android:id="@+id/txtSenderName"
+            android:layout_width="wrap_content"
+            android:background="#4D000000"
+            android:textColor="@color/white"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:padding="8dp"
+            android:textSize="12sp"
+            tools:text="01/12/2021 7:00 PM" />
+        <ImageView
+            android:id="@+id/imgMessageImage"
+            android:layout_width="250dp"
+            android:layout_height="wrap_content"
+            android:scaleType="fitCenter"
+            android:layout_below="@id/txtSenderName"
+            android:adjustViewBounds="true"
+            android:paddingStart="8dp"
+            android:paddingEnd="8dp"
+            android:paddingTop="4dp"
+            tools:src="@drawable/ic_image_black_24" />
+        <TextView
+            android:id="@+id/txtMessageTime"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/imgMessageImage"
+            android:layout_alignEnd="@id/imgMessageImage"
+            android:layout_marginEnd="8dp"
+            android:textSize="12sp"
+            tools:text="3/15/2018 3:00 PM"/>
+    </RelativeLayout>
+
+</FrameLayout>

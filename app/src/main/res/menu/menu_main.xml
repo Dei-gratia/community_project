@@ -1,0 +1,46 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="com.psdemo.notetaker.ListActivity">
+
+    <item
+        android:visible="false"
+        android:id="@+id/action_sort"
+        android:icon="@drawable/ic_sort_black_24"
+        android:title="sort"
+        app:showAsAction="always" />
+
+    <item
+        android:id="@+id/action_upload"
+        android:icon="@drawable/ic_upload_black_24"
+        android:title="@string/action_upload"
+        android:visible="true" />
+
+    <item
+        android:id="@+id/action_bookmarks"
+        android:icon="@drawable/ic_bookmark_filled_blue_24"
+        android:title="@string/bookmarks"
+        android:visible="true" />
+
+    <item
+        android:id="@+id/action_history"
+        android:icon="@drawable/ic_history_black_24"
+        android:title="@string/history"
+        android:visible="true" />
+
+
+    <item
+        android:id="@+id/action_settings"
+        android:icon="@drawable/ic_settings_black_24"
+        android:title="@string/action_settings"
+        android:visible="true" />
+
+    <item
+        android:id="@+id/action_logout"
+        android:icon="@drawable/ic_logout_black_24"
+        android:title="@string/action_logout"
+        android:orderInCategory="100"
+        android:visible="true" />
+
+
+</menu>
