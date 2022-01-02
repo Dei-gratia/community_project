@@ -17,4 +17,4 @@ Features
 
 
 appscreenshorts
-[](https://github.com/Dei-gratia/community_project/tree/master/appscreenshorts)
+[appscreenshots](community_project/tree/master/appscreenshorts)
