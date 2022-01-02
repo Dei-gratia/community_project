@@ -3,7 +3,8 @@
     <dimen name="title_textSize">18sp</dimen>
     <dimen name="et_padding">16dp</dimen>
     <dimen name="et_padding1">8dp</dimen>
-    <dimen name="et_margin_top">4dp</dimen>
+    <dimen name="et_margin_top">8dp</dimen>
+    <dimen name="et_margin">8dp</dimen>
     <dimen name="et_note_padding">16dp</dimen>
     <dimen name="et_textSize">16sp</dimen>
     <dimen name="clickable_text_view_padding">10dp</dimen>
@@ -38,4 +39,5 @@
     <dimen name="et_title_textSize">18sp</dimen>
     <dimen name="txt_padding">8dp</dimen>
     <dimen name="view_pager_gap">8dp</dimen>
+    <dimen name="fab_margin">16dp</dimen>
 </resources>

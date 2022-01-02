@@ -3,9 +3,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/backGroundColour"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".fragments.HistoryFragment">
+    tools:context=".history.HistoryFragment">
 
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
@@ -69,4 +68,5 @@
             app:layout_constraintTop_toBottomOf="@+id/edUpTextView"
             app:layout_constraintVertical_bias="0.0" />
     </androidx.constraintlayout.widget.ConstraintLayout>
+
 </FrameLayout>

@@ -4,7 +4,7 @@ import android.util.Log
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.messaging.FirebaseMessagingService
 import com.google.firebase.messaging.RemoteMessage
-import com.nema.eduup.firebase.FirestoreUtil
+import com.nema.eduup.repository.UserRepository
 
 
 class MyFirebaseMessagingService: FirebaseMessagingService() {
@@ -25,12 +25,12 @@ class MyFirebaseMessagingService: FirebaseMessagingService() {
         fun addTokenToFirestore(newRegistrationToken: String?) {
             if (newRegistrationToken == null ) throw NullPointerException("FCM token is null.")
 
-            FirestoreUtil.getFCMRegistrationTokens { tokens ->
+            UserRepository.getFCMRegistrationTokens { tokens ->
                 if (tokens.contains(newRegistrationToken))
                     return@getFCMRegistrationTokens
 
                 tokens.add(newRegistrationToken)
-                FirestoreUtil.setFCMRegistrationTokens(tokens)
+                UserRepository.setFCMRegistrationTokens(tokens)
             }
         }
     }

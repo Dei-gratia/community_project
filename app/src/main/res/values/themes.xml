@@ -12,7 +12,6 @@
         <!-- Status bar color. -->
         <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
         <item name="bottomNavigationStyle">@style/BottomNavigationViewStyle</item>
-        <item name="android:windowSoftInputMode">stateAlwaysHidden|adjustPan</item>
         <!-- Customize your theme here. -->
     </style>
     <style name="ToolbarTheme" parent="Theme.AppCompat.Light.NoActionBar">

@@ -8,9 +8,9 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
 
-    <color name="colorSnackBarError">#8BC34A</color>
+    <color name="colorSnackBarError">#F72400</color>
     <color name="backGroundColour">#ffffff</color>
-    <color name="colorSnackBarSuccess">#F72400</color>
+    <color name="colorSnackBarSuccess">#8BC34A</color>
     <color name="colorPrimaryText">#FF000000</color>
     <color name="colorSecondaryText">#ffffff</color>
     <color name="colorPrimary">#8826ed</color>
@@ -21,6 +21,8 @@
     <color name="colorOnSecondary">#7555ff</color>
     <color name="colorAscent">#ffffff</color>
     <color name="hintGrey">#EBA8A7A7</color>
+    <color name="text_hint_color">#EBA8A7A7</color>
+    <color name="text_black_color">#EB434343</color>
     <color name="isFav">#BA0808</color>
     <color name="rating_yellow">#ffc107</color>
     <color name="colorLightGrey">#F1F1F1</color>

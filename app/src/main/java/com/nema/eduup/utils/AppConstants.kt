@@ -2,12 +2,17 @@ package com.nema.eduup.utils
 
 import android.Manifest
 import android.app.Activity
+import android.content.ActivityNotFoundException
+import android.content.ContentResolver
 import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.database.Cursor
 import android.net.Uri
 import android.os.Build
 import android.os.Environment
+import android.provider.BaseColumns
+import android.provider.DocumentsContract
 import android.provider.Settings
 import android.webkit.MimeTypeMap
 import androidx.activity.result.contract.ActivityResultContracts
@@ -17,11 +22,23 @@ import androidx.core.content.ContextCompat
 import java.lang.Exception
 import java.util.*
 import android.text.format.DateUtils
+import android.util.Log
+import android.util.Patterns
+import android.view.View
+import android.view.inputmethod.InputMethodManager
+import android.widget.Toast
 import androidx.core.content.ContextCompat.startActivity
+import androidx.core.content.FileProvider
+import androidx.fragment.app.Fragment
+import com.nema.eduup.R
+import com.nema.eduup.repository.FirebaseStorageUtil
+import java.io.File
+import java.util.regex.Pattern
 
 
 object AppConstants {
 
+    private val TAG = AppConstants::class.qualifiedName
     const val APP_THEME: String = "appTheme"
     const val EDUUP_PREFERENCES = "EduUpPreferences"
     const val USERS = "users"
@@ -38,6 +55,12 @@ object AppConstants {
     const val READ_STORAGE_PERMISSION_CODE = 0
     const val PICK_IMAGE_REQUEST_CODE = 1
     const val SLIDER_IMAGE_URLS = "sliderImageURLS"
+    const val USER_IMAGE_URI = "userImageUrl"
+    const val IMAGE_URI = "imageUri"
+    const val IMAGE_TITLE = "imageTitle"
+    const val SELECTED_IMAGE_BYTES = "selectedImageBytes"
+    const val NOTE_ID = "noteId"
+    const val HISTORY = "history"
 
     //view note constants
     const val PERSONAL_NOTE = "personalNote"
@@ -59,6 +82,7 @@ object AppConstants {
     //firestore user fields
     const val FIRST_NAMES = "firstNames"
     const val FAMILY_NAME = "familyName"
+    const val NICKNAME = "nickname"
     const val EMAIL = "email"
     const val IMAGE_URL = "imageUrl"
     const val MOBILE = "mobile"
@@ -88,13 +112,81 @@ object AppConstants {
     const val NEW_NOTE = "new_note"
     const val UPLOAD_NOTE = "upload_note"
 
+    // key for passed in data
+    const val KEY_DATA = "reminder_data"
+    const val KEY_ID = "id"
+    const val KEY_ADMINISTERED = "administered"
+
+    // opcodes for success
+    const val REMINDER_CREATED = 0
+    const val REMINDER_UPDATED = 1
+    const val REMINDER_DELETED = 2
+
+    // error states for validation
+    const val ERROR_NO_NAME = 0
+    const val ERROR_NO_TIME = 2
+    const val ERROR_NO_DAYS = 3
+    const val ERROR_NO_DESC = 4
+    const val ERROR_SAVE_FAILED = 5
+    const val ERROR_DELETE_FAILED = 6
+    const val ERROR_UPDATE_FAILED = 7
+
+
+    fun CharSequence?.isValidEmail() = !isNullOrEmpty() && Patterns.EMAIL_ADDRESS.matcher(this).matches()
+
+    fun isValidPassword(password: String?) : Boolean {
+        password?.let {
+            val passwordPattern = "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=])(?=\\S+$).{4,}$"
+            val passwordMatcher = Regex(passwordPattern)
+
+            return passwordMatcher.find(password) != null
+        } ?: return false
+    }
 
     fun getFileExtension(activity: Activity, uri: Uri?): String? {
         return MimeTypeMap.getSingleton()
             .getExtensionFromMimeType(activity.contentResolver.getType(uri!!))
     }
 
-    fun checkInternetConnection(context: Context): Boolean {
+    fun uriExist(context: Context, uri: Uri): Boolean {
+        return when(uri.scheme) {
+            "content" -> {
+                if (DocumentsContract.isDocumentUri(context, uri))
+                    documentUriExists(context,uri)
+
+                else // Content URI is not from a document provider
+                    contentUriExists(context,uri)
+            }
+            "file" -> {
+                File(uri.path).exists()
+            }
+            else -> false
+        }
+
+    }
+
+    private fun documentUriExists(context: Context, uri: Uri): Boolean =
+        resolveUri(context,uri, DocumentsContract.Document.COLUMN_DOCUMENT_ID)
+
+    private fun contentUriExists(context: Context,uri: Uri): Boolean =
+        resolveUri(context,uri, BaseColumns._ID)
+
+    private fun resolveUri(context: Context, uri: Uri, column: String): Boolean {
+
+        val cursor = context.contentResolver.query(uri,
+            arrayOf(column), // Empty projections are bad for performance
+            null,
+            null,
+            null)
+
+        val result = cursor?.moveToFirst() ?: false
+
+        cursor?.close()
+
+        return result
+    }
+
+    fun networkConnection(context: Context): Boolean {
         if (ConnectionManager().isNetworkAvailable(context)){
             return true
         }
@@ -106,13 +198,22 @@ object AppConstants {
                 val settingsIntent = Intent(Settings.ACTION_WIRELESS_SETTINGS)
                 context.startActivity(settingsIntent)
             }
-            dialog.setNegativeButton("Exit") { _, _ ->
-
+            dialog.setNegativeButton("Exit") { mDialog, _ ->
+                mDialog.cancel()
             }
             dialog.create()
             dialog.show()
+            return false
         }
-        return false
+    }
+
+    fun Double.roundTo(n : Int) : Double {
+        return "%.${n}f".format(this).toDouble()
+    }
+
+    fun String.isValidMobile() : Boolean {
+        val patterns =  "^\\s*(?:\\+?(\\d{1,3}))?[-. (]*(\\d{3})[-. )]*(\\d{3})[-. ]*(\\d{4})(?: *x(\\d+))?\\s*$"
+        return Pattern.compile(patterns).matcher(this).matches()
     }
 
     fun Date.getTimeAgo(): String {
@@ -153,10 +254,81 @@ object AppConstants {
         }
     }
 
+    fun fileTypeImage(fileType: String): Int{
+        var imgFileTypeId = 0
+        when (fileType) {
+            "pdf" -> {
+                imgFileTypeId = R.drawable.image_pdf
+            }
+            "docx" -> {
+                imgFileTypeId = R.drawable.word_file_image
+            }
+            "txt" -> {
+                imgFileTypeId = R.drawable.ic_note_alt_black_24
+            }
+            "png" -> {
+                imgFileTypeId = R.drawable.image_icon
+            }
+            "mp4" -> {
+                imgFileTypeId = R.drawable.video_image
+            }
+            "ppt" -> {
+                imgFileTypeId = R.drawable.ppt_image
+            }
+        }
+        return imgFileTypeId
+    }
+
     fun isYesterday(d: Date): Boolean {
         return DateUtils.isToday(d.time + DateUtils.DAY_IN_MILLIS)
     }
 
+    fun View.setFocusAndKeyboard(){
+        this.requestFocus()
+        this.showKeyboard()
+    }
+
+    fun View.showKeyboard() {
+        this.requestFocus()
+        val inputMethodManager = context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+        inputMethodManager.showSoftInput(this, InputMethodManager.SHOW_IMPLICIT)
+    }
+
+    fun Fragment.hideKeyboard() {
+        view?.let { activity?.hideKeyboard(it) }
+    }
+
+    fun Context.hideKeyboard(view: View) {
+        val inputMethodManager = getSystemService(Activity.INPUT_METHOD_SERVICE) as InputMethodManager
+        inputMethodManager.hideSoftInputFromWindow(view.windowToken, 0)
+    }
+
+
+
+    fun openDownloadedAttachment(context: Context, attachmentUri: Uri, attachmentMimeType: String) {
+        var attachmentUri: Uri? = attachmentUri
+        if (attachmentUri != null) {
+            // Get Content Uri.
+            if (ContentResolver.SCHEME_FILE == attachmentUri.scheme) {
+                // FileUri - Convert it to contentUri.
+                val file = File(attachmentUri.path)
+                attachmentUri =
+                    FileProvider.getUriForFile(context, "com.nema.eduup.provider", file)
+            }
+            val openAttachmentIntent = Intent(Intent.ACTION_VIEW)
+            openAttachmentIntent.setDataAndType(attachmentUri, attachmentMimeType)
+            openAttachmentIntent.flags = Intent.FLAG_GRANT_READ_URI_PERMISSION
+            try {
+                context.startActivity(openAttachmentIntent)
+            } catch (e: ActivityNotFoundException) {
+                Toast.makeText(
+                    context,
+                    context.getString(R.string.read_store_permission_denied),
+                    Toast.LENGTH_LONG
+                ).show()
+            }
+        }
+    }
 
 }
 

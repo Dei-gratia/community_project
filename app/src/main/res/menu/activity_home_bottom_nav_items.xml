@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <group android:checkableBehavior="single">
+
+        <item
+            android:id="@+id/fragmentHome"
+            android:icon="@drawable/ic_home_black_24"
+            android:title="@string/home"/>
+
+        <item
+            android:id="@+id/fragmentBrowse"
+            android:icon="@drawable/ic_dashboard_black_24"
+            android:title="@string/browse"/>
+
+        <item
+            android:id="@+id/fragmentDownloads"
+            android:icon="@drawable/ic_cloud_download_black_24"
+            android:title="@string/downloads"/>
+
+        <item
+            android:id="@+id/fragmentDiscussions"
+            android:icon="@drawable/ic_messaging"
+            android:title="@string/discussions"/>
+
+        <item
+            android:id="@+id/fragmentProfile"
+            android:icon="@drawable/ic_person_outline_black_24"
+            android:title="@string/profile" />
+
+    </group>
+
+</menu>

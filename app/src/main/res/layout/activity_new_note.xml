@@ -4,8 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/note_paper"
-    tools:context=".activities.NewNoteActivity">
+    android:background="@color/backGroundColour"
+    tools:context=".home.NewNoteActivity">
 
     <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
@@ -21,7 +21,7 @@
             app:contentInsetLeft="0dp"
             app:contentInsetStart="0dp"
             app:contentInsetStartWithNavigation="0dp"
-            android:background="@drawable/app_gradient_color_background"
+            android:background="@color/colorPrimaryVariant"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
@@ -48,25 +48,95 @@
         android:fillViewport="true"
         android:scrollbars="none"
         android:fitsSystemWindows="true"
+        android:focusableInTouchMode="true"
+        android:clickable="true"
+        android:focusable="true"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:focusableInTouchMode="true"
+            android:clickable="true"
+            android:focusable="true">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/cl_top_elements"
+                android:layout_marginTop="16dp"
+                android:layout_width="match_parent"
+                android:padding="4dp"
+                android:layout_height="wrap_content"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <ImageView
+                    android:id="@+id/img_share"
+                    android:layout_width="40dp"
+                    android:layout_height="30dp"
+                    android:layout_marginEnd="8dp"
+                    android:padding="4dp"
+                    android:foreground="?attr/selectableItemBackground"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:srcCompat="@drawable/ic_share_black_24"
+                    app:tint="@color/text_hint_color" />
+
+                <ImageView
+                    android:id="@+id/img_reminder"
+                    android:layout_width="40dp"
+                    android:layout_height="30dp"
+                    android:padding="4dp"
+                    android:foreground="?attr/selectableItemBackground"
+                    app:layout_constraintBottom_toBottomOf="@+id/img_share"
+                    app:layout_constraintEnd_toStartOf="@+id/img_share"
+                    app:layout_constraintTop_toTopOf="@+id/img_share"
+                    app:srcCompat="@drawable/ic_notification_add_black_24"
+                    app:tint="@color/text_hint_color" />
+
+                <com.nema.eduup.utils.EdUpTextView
+                    android:id="@+id/tv_uploaded_static"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2"
+                    android:padding="10dp"
+                    android:text="@string/created_on"
+                    android:textColor="@color/text_hint_color"
+                    app:layout_constraintBottom_toBottomOf="@+id/tv_created_date"
+                    app:layout_constraintEnd_toStartOf="@+id/tv_created_date"
+                    app:layout_constraintHorizontal_bias="1.0"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="@id/tv_created_date" />
+
+                <com.nema.eduup.utils.EdUpTextView
+                    android:id="@+id/tv_created_date"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2"
+                    android:padding="10dp"
+                    android:text="@string/dateSample"
+                    android:textColor="@color/text_hint_color"
+                    app:layout_constraintBottom_toBottomOf="@+id/img_reminder"
+                    app:layout_constraintEnd_toStartOf="@id/img_reminder"
+                    app:layout_constraintTop_toTopOf="@id/img_reminder" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/til_subject"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="@string/noteSubject"
-                android:textColorHint="@color/colorPrimaryText"
+                android:textColorHint="@color/text_hint_color"
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="20dp"
                 android:layout_marginEnd="8dp"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent">
+                app:layout_constraintTop_toBottomOf="@id/cl_top_elements">
 
                 <AutoCompleteTextView
                     android:id="@+id/et_subject"
@@ -74,7 +144,7 @@
                     android:layout_height="wrap_content"
                     android:inputType="text"
                     android:padding="@dimen/et_note_padding"
-                    android:textColor="@color/colorPrimaryText"
+                    android:textColor="@color/text_black_color"
                     android:textSize="@dimen/et_title_textSize">
 
                 </AutoCompleteTextView>
@@ -86,7 +156,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="@string/noteTitle"
-                android:textColorHint="@color/colorPrimaryText"
+                android:textColorHint="@color/text_hint_color"
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="8dp"
                 android:layout_marginEnd="8dp"
@@ -102,7 +172,7 @@
                     android:layout_height="wrap_content"
                     android:inputType="text"
                     android:padding="@dimen/et_note_padding"
-                    android:textColor="@color/colorPrimaryText"
+                    android:textColor="@color/text_black_color"
                     android:textSize="@dimen/et_textSize"/>
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -115,7 +185,7 @@
                 android:layout_marginEnd="8dp"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:hint="@string/noteDescription"
-                android:textColorHint="@color/colorPrimaryText"
+                android:textColorHint="@color/text_hint_color"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/til_title">
@@ -126,7 +196,7 @@
                     android:layout_height="wrap_content"
                     android:inputType="text"
                     android:padding="@dimen/et_note_padding"
-                    android:textColor="@color/colorPrimaryText"
+                    android:textColor="@color/text_black_color"
                     android:textSize="@dimen/et_textSize"
                     android:gravity="start|top"
                     android:minLines="3" />
@@ -142,7 +212,7 @@
                 android:layout_marginEnd="8dp"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:hint="@string/noteBody"
-                android:textColorHint="@color/colorPrimaryText"
+                android:textColorHint="@color/text_hint_color"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/til_note_description">
@@ -153,7 +223,7 @@
                     android:layout_height="wrap_content"
                     android:inputType="textMultiLine"
                     android:padding="@dimen/et_note_padding"
-                    android:textColor="@color/colorPrimaryText"
+                    android:textColor="@color/text_black_color"
                     android:textSize="@dimen/et_textSize"
                     android:minLines="10"
                     android:gravity="start|top"/>
@@ -161,6 +231,7 @@
             </com.google.android.material.textfield.TextInputLayout>
 
             <LinearLayout
+                android:visibility="gone"
                 android:id="@+id/ll_pdf"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -176,7 +247,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="2"
                     android:foreground="?attr/selectableItemBackground"
-                    android:textColor="@color/colorSecondaryText"
+                    android:textColor="@color/text_black_color"
                     android:padding="10dp"
                     android:text="@string/pdf_name"
                     android:layout_margin="5dp"
@@ -189,7 +260,7 @@
                     android:layout_weight="1"
                     android:gravity="end"
                     android:foreground="?attr/selectableItemBackground"
-                    android:textColor="@color/colorPrimaryText"
+                    android:textColor="@color/text_black_color"
                     android:text="@string/upload_file"
                     android:layout_margin="5dp"
                     />
@@ -200,6 +271,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/save"
+                android:layout_margin="16dp"
+                android:textColor="@color/colorSecondaryText"
                 android:background="@drawable/button_background"
                 android:foreground="?attr/selectableItemBackground"
                 android:gravity="center"

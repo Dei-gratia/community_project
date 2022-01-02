@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:background="@color/backGroundColour"
     android:layout_height="match_parent"
-    tools:context=".activities.NewNoteActivity">
+    tools:context=".browse.UploadNoteActivity">
 
     <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
@@ -89,8 +89,8 @@
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="16dp"
                 android:layout_marginEnd="8dp"
-                app:boxStrokeColor="@color/colorPrimaryText"
-                android:textColorHint="@color/colorPrimaryText"
+                app:boxStrokeColor="@color/text_black_color"
+                android:textColorHint="@color/text_hint_color"
                 android:hint="@string/noteSubject"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/upload_spinner_level"
@@ -102,7 +102,7 @@
                     android:layout_height="wrap_content"
                     android:inputType="text"
                     android:padding="@dimen/et_note_padding"
-                    android:textColor="@color/colorPrimaryText"
+                    android:textColor="@color/text_black_color"
                     android:textSize="@dimen/et_title_textSize">
 
                 </AutoCompleteTextView>
@@ -114,8 +114,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="@string/noteTitle"
-                app:boxStrokeColor="@color/colorPrimaryText"
-                android:textColorHint="@color/colorPrimaryText"
+                app:boxStrokeColor="@color/text_black_color"
+                android:textColorHint="@color/text_hint_color"
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="8dp"
                 android:layout_marginEnd="8dp"
@@ -131,7 +131,7 @@
                     android:layout_height="wrap_content"
                     android:inputType="text"
                     android:padding="@dimen/et_note_padding"
-                    android:textColor="@color/colorPrimaryText"
+                    android:textColor="@color/text_black_color"
                     android:textSize="@dimen/et_textSize"/>
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -144,8 +144,8 @@
                 android:layout_marginEnd="8dp"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:hint="@string/noteDescription"
-                app:boxStrokeColor="@color/colorPrimaryText"
-                android:textColorHint="@color/colorPrimaryText"
+                app:boxStrokeColor="@color/text_black_color"
+                android:textColorHint="@color/text_hint_color"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/til_title">
@@ -156,7 +156,7 @@
                     android:layout_height="wrap_content"
                     android:inputType="text"
                     android:padding="@dimen/et_note_padding"
-                    android:textColor="@color/colorPrimaryText"
+                    android:textColor="@color/text_black_color"
                     android:textSize="@dimen/et_textSize"
                     android:gravity="start|top"
                     android:minLines="3" />
@@ -172,8 +172,8 @@
                 android:layout_marginEnd="8dp"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:hint="@string/noteBody"
-                app:boxStrokeColor="@color/colorPrimaryText"
-                android:textColorHint="@color/colorPrimaryText"
+                app:boxStrokeColor="@color/text_black_color"
+                android:textColorHint="@color/text_hint_color"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/til_note_description">
@@ -184,7 +184,7 @@
                     android:layout_height="wrap_content"
                     android:inputType="textMultiLine"
                     android:padding="@dimen/et_note_padding"
-                    android:textColor="@color/colorPrimaryText"
+                    android:textColor="@color/text_black_color"
                     android:textSize="@dimen/et_textSize"
                     android:minLines="10"
                     android:gravity="start|top"/>
@@ -212,18 +212,18 @@
                     android:text="@string/pdf_name"
                     android:layout_margin="5dp"
                     android:visibility="invisible"/>
+
                 <com.nema.eduup.utils.EdUpTextViewBold
                     android:id="@+id/tv_upload_file"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:padding="10dp"
-                    android:layout_weight="1"
-                    android:gravity="end"
-                    android:foreground="?attr/selectableItemBackground"
-                    android:textColor="@color/colorPrimaryText"
-                    android:text="@string/upload_file"
                     android:layout_margin="5dp"
-                    />
+                    android:layout_weight="1"
+                    android:foreground="?attr/selectableItemBackground"
+                    android:gravity="end"
+                    android:padding="10dp"
+                    android:text="@string/upload_file"
+                    android:textColor="@color/text_black_color" />
             </LinearLayout>
 
             <com.nema.eduup.utils.EdUpButton
@@ -234,6 +234,7 @@
                 android:foreground="?attr/selectableItemBackground"
                 android:text="@string/save"
                 android:gravity="center"
+                android:textColor="@color/colorSecondaryText"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/ll_pdf" />

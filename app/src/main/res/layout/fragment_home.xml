@@ -1,259 +1,375 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:focusableInTouchMode="true"
-    android:clickable="true"
-    android:focusable="true"
-    tools:context=".fragments.HomeFragment">
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".home.HomeFragment">
 
-    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
-        android:id="@+id/pull_to_refresh"
+    <androidx.core.widget.NestedScrollView
+        android:id="@+id/scrollView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:focusableInTouchMode="true"
         android:clickable="true"
-        android:focusable="true">
+        android:focusable="true"
+        android:scrollbars="none">
 
-        <androidx.core.widget.NestedScrollView
-            android:id="@+id/scrollView"
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:focusableInTouchMode="true"
             android:clickable="true"
-            android:focusable="true"
-            android:scrollbars="none">
+            android:focusable="true">
 
             <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/cl_home_static_container"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:focusableInTouchMode="true"
                 android:clickable="true"
-                android:focusable="true">
+                android:focusable="true"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <FrameLayout
+                    android:id="@+id/frameLayout"
+                    android:layout_width="match_parent"
+                    android:layout_marginTop="2dp"
+                    android:layout_height="200dp"
+                    android:background="@color/colorPrimary"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
+                    <com.smarteist.autoimageslider.SliderView
+                        android:id="@+id/img_slider"
+                        android:layout_width="match_parent"
+                        android:layout_height="200dp"
+                        app:sliderAnimationDuration="600"
+                        app:sliderAutoCycleDirection="back_and_forth"
+                        app:sliderAutoCycleEnabled="true"
+                        app:sliderIndicatorRadius="1.3dp"
+                        app:sliderIndicatorAnimationDuration="600"
+                        app:sliderIndicatorGravity="center_horizontal|bottom"
+                        app:sliderIndicatorOrientation="horizontal"
+                        app:sliderIndicatorSelectedColor="#5A5A5A"
+                        app:sliderIndicatorUnselectedColor="#FFF"
+                        app:sliderScrollTimeInSec="1"
+                        app:sliderStartAutoCycle="true" />
+
+                </FrameLayout>
 
                 <androidx.constraintlayout.widget.ConstraintLayout
-                    android:id="@+id/cl_home_static_container"
-                    android:layout_width="match_parent"
+                    android:id="@+id/cl_home_grid"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="2dp"
                     android:focusableInTouchMode="true"
                     android:clickable="true"
                     android:focusable="true"
+                    android:background="@color/white"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/frameLayout">
+
+                    <androidx.cardview.widget.CardView
+                        android:id="@+id/cv_home1"
+                        android:layout_width="0dp"
+                        android:layout_height="150dp"
+                        android:layout_margin="2dp"
+                        app:cardCornerRadius="4dp"
+                        app:cardBackgroundColor="@color/colorPrimaryVariant"
+                        app:layout_constraintEnd_toStartOf="@+id/divider2"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent">
+
+                        <androidx.constraintlayout.widget.ConstraintLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent">
+
+                            <ImageView
+                                android:id="@+id/img_quiez"
+                                android:layout_width="35dp"
+                                android:layout_height="35dp"
+                                android:layout_marginTop="24dp"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toTopOf="parent"
+                                app:srcCompat="@drawable/ic_quiz_black_24"
+                                app:tint="@color/white" />
+
+                            <com.nema.eduup.utils.EdUpTextView
+                                android:id="@+id/tv_home_grid_mcq"
+                                android:layout_width="match_parent"
+                                android:layout_height="0dp"
+                                android:gravity="center"
+                                android:padding="8dp"
+                                android:text="@string/practice"
+                                android:textColor="@color/white"
+                                android:textSize="14sp"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toBottomOf="@+id/img_quiez" />
+
+                        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+                    </androidx.cardview.widget.CardView>
+
+                    <androidx.cardview.widget.CardView
+                        android:id="@+id/cv_home_2"
+                        android:layout_width="0dp"
+                        android:layout_height="150dp"
+                        app:cardCornerRadius="4dp"
+                        android:layout_margin="2dp"
+                        app:cardBackgroundColor="@color/colorPrimary"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toEndOf="@+id/divider2"
+                        app:layout_constraintTop_toTopOf="parent">
+
+                        <androidx.constraintlayout.widget.ConstraintLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent">
+
+                            <ImageView
+                                android:id="@+id/img_new_content"
+                                android:layout_width="35dp"
+                                android:layout_height="35dp"
+                                android:layout_marginTop="24dp"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toTopOf="parent"
+                                app:srcCompat="@drawable/ic_new_releases_black_24"
+                                app:tint="@color/white" />
+
+
+                            <com.nema.eduup.utils.EdUpTextView
+                                android:id="@+id/tv_home_grid_new_content"
+                                android:layout_width="match_parent"
+                                android:layout_height="0dp"
+                                android:gravity="center"
+                                android:padding="8dp"
+                                android:text="@string/get_online_note"
+                                android:textColor="@color/white"
+                                android:textSize="14sp"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toBottomOf="@+id/img_new_content" />
+
+                        </androidx.constraintlayout.widget.ConstraintLayout>
+
+                    </androidx.cardview.widget.CardView>
+
+                    <androidx.cardview.widget.CardView
+                        android:id="@+id/cv_home_3"
+                        android:layout_width="0dp"
+                        android:layout_height="150dp"
+                        android:layout_margin="2dp"
+                        app:cardBackgroundColor="@color/colorSecondaryVariant"
+                        app:layout_constraintEnd_toStartOf="@+id/divider2"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/cv_home1">
+
+                        <androidx.constraintlayout.widget.ConstraintLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent">
+
+                            <ImageView
+                                android:id="@+id/img_discussion"
+                                android:layout_width="35dp"
+                                android:layout_height="35dp"
+                                android:layout_marginTop="24dp"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toTopOf="parent"
+                                app:srcCompat="@drawable/ic_messaging"
+                                app:tint="@color/white" />
+
+                            <com.nema.eduup.utils.EdUpTextView
+                                android:id="@+id/tv_home_grid_join_group"
+                                android:layout_width="match_parent"
+                                android:layout_height="0dp"
+                                android:gravity="center"
+                                android:padding="8dp"
+                                android:text="@string/join_group"
+                                android:textColor="@color/white"
+                                android:textSize="14sp"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toBottomOf="@+id/img_discussion" />
+                        </androidx.constraintlayout.widget.ConstraintLayout>
+
+                    </androidx.cardview.widget.CardView>
+
+                    <androidx.cardview.widget.CardView
+                        android:id="@+id/cv_home_4"
+                        android:layout_width="0dp"
+                        android:layout_height="150dp"
+                        android:layout_margin="2dp"
+                        app:cardBackgroundColor="@color/colorSecondaryVariant"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toEndOf="@+id/divider2"
+                        app:layout_constraintTop_toBottomOf="@id/cv_home_2">
+
+
+                        <androidx.constraintlayout.widget.ConstraintLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent">
+
+                            <ImageView
+                                android:id="@+id/img_share"
+                                android:layout_width="35dp"
+                                android:layout_height="35dp"
+                                android:layout_marginTop="24dp"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toTopOf="parent"
+                                app:srcCompat="@drawable/ic_share_black_24"
+                                app:tint="@color/white" />
+
+                            <com.nema.eduup.utils.EdUpTextView
+                                android:id="@+id/tv_home_grid_share"
+                                android:layout_width="match_parent"
+                                android:layout_height="0dp"
+                                android:gravity="center"
+                                android:padding="8dp"
+                                android:text="@string/share_with_others"
+                                android:textColor="@color/white"
+                                android:textSize="14sp"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toBottomOf="@+id/img_share" />
+                        </androidx.constraintlayout.widget.ConstraintLayout>
+                    </androidx.cardview.widget.CardView>
+
+                    <View
+                        android:id="@+id/divider2"
+                        android:visibility="invisible"
+                        android:layout_width="1dp"
+                        android:layout_height="298dp"
+                        android:layout_marginTop="2dp"
+                        android:background="?android:attr/listDivider"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="56dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/cl_home_static_container">
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/list_edu_up_reminders_recycler_view"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:focusableInTouchMode="true"
+                    android:layout_marginTop="2dp"
+                    android:layout_marginBottom="0dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:listitem="@layout/item_note" />
+
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/list_notes_recycler_view"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="2dp"
+                    android:layout_marginTop="2dp"
+                    android:layout_marginEnd="2dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/list_edu_up_reminders_recycler_view"
+                    tools:listitem="@layout/item_dashboard" />
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/cl_progress_layout"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:orientation="horizontal"
+                    android:padding="@dimen/progress_dialog_content_padding"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent">
 
-                    <FrameLayout
-                        android:id="@+id/frameLayout"
-                        android:layout_width="match_parent"
-                        android:layout_height="200dp"
-                        android:background="@color/colorPrimary"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent">
-                        <com.smarteist.autoimageslider.SliderView
-                            android:id="@+id/img_slider"
-                            android:layout_width="match_parent"
-                            android:layout_height="200dp"
-                            app:sliderAnimationDuration="600"
-                            app:sliderAutoCycleDirection="back_and_forth"
-                            app:sliderAutoCycleEnabled="true"
-                            app:sliderIndicatorRadius="1.3dp"
-                            app:sliderIndicatorAnimationDuration="600"
-                            app:sliderIndicatorGravity="center_horizontal|bottom"
-                            app:sliderIndicatorOrientation="horizontal"
-                            app:sliderIndicatorSelectedColor="#5A5A5A"
-                            app:sliderIndicatorUnselectedColor="#FFF"
-                            app:sliderScrollTimeInSec="1"
-                            app:sliderStartAutoCycle="true" />
+                    <ProgressBar
+                        android:id="@+id/progressBar"
+                        android:layout_width="@dimen/progress_bar_size"
+                        android:layout_height="@dimen/progress_bar_size"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toStartOf="@+id/tv_progress_text"
+                        app:layout_constraintBaseline_toTopOf="parent"
+                        app:layout_constraintLeft_toLeftOf="parent"/>
 
-                    </FrameLayout>
-
-                    <androidx.constraintlayout.widget.ConstraintLayout
-                        android:id="@+id/cl_home_grid"
-                        android:layout_width="0dp"
+                    <com.nema.eduup.utils.EdUpTextView
+                        android:id="@+id/tv_progress_text"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="8dp"
-                        android:focusableInTouchMode="true"
-                        android:clickable="true"
-                        android:focusable="true"
-                        android:background="@drawable/app_gradient_color_background"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/frameLayout">
-
-                        <androidx.cardview.widget.CardView
-                            android:id="@+id/cv_home1"
-                            android:layout_width="0dp"
-                            android:layout_height="150dp"
-                            android:layout_margin="8dp"
-                            app:cardBackgroundColor="@color/colorAccent"
-                            app:layout_constraintEnd_toStartOf="@+id/divider2"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="parent">
-
-                            <com.nema.eduup.utils.EdUpTextViewBold
-                                android:id="@+id/tv_home_grid_1"
-                                android:layout_width="match_parent"
-                                android:layout_height="match_parent"
-                                android:gravity="center"
-                                android:paddingStart="@dimen/toolbar_title_paddingStart"
-                                android:paddingEnd="0dp"
-                                android:text="@string/view_note"
-                                android:textColor="@color/white"
-                                android:textSize="@dimen/toolbar_title_text_size" />
-                        </androidx.cardview.widget.CardView>
-
-                        <androidx.cardview.widget.CardView
-                            android:id="@+id/cv_home_2"
-                            android:layout_width="0dp"
-                            android:layout_height="150dp"
-                            android:layout_margin="8dp"
-                            app:cardBackgroundColor="@color/colorPrimaryVariant"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintStart_toEndOf="@+id/divider2"
-                            app:layout_constraintTop_toTopOf="parent">
-
-                            <com.nema.eduup.utils.EdUpTextViewBold
-                                android:id="@+id/tv_home_grid_2"
-                                android:layout_width="match_parent"
-                                android:layout_height="match_parent"
-                                android:gravity="center"
-                                android:paddingStart="@dimen/toolbar_title_paddingStart"
-                                android:paddingEnd="0dp"
-                                android:text="@string/view_note"
-                                android:textColor="@color/white"
-                                android:textSize="@dimen/toolbar_title_text_size" />
-
-                        </androidx.cardview.widget.CardView>
-
-                        <androidx.cardview.widget.CardView
-                            android:id="@+id/cv_home_3"
-                            android:layout_width="0dp"
-                            android:layout_height="150dp"
-                            android:layout_margin="8dp"
-                            app:cardBackgroundColor="@color/colorSecondaryText"
-                            app:layout_constraintEnd_toStartOf="@+id/divider2"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toBottomOf="@id/cv_home1">
-
-                            <com.nema.eduup.utils.EdUpTextViewBold
-                                android:id="@+id/tv_home_grid_3"
-                                android:layout_width="match_parent"
-                                android:layout_height="match_parent"
-                                android:gravity="center"
-                                android:paddingStart="@dimen/toolbar_title_paddingStart"
-                                android:paddingEnd="0dp"
-                                android:text="@string/view_note"
-                                android:textColor="@color/white"
-                                android:textSize="@dimen/toolbar_title_text_size" />
-                        </androidx.cardview.widget.CardView>
-
-                        <androidx.cardview.widget.CardView
-                            android:id="@+id/cv_home_4"
-                            android:layout_width="0dp"
-                            android:layout_height="150dp"
-                            android:layout_margin="8dp"
-                            app:cardBackgroundColor="@color/colorPrimary"
-                            app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintStart_toEndOf="@+id/divider2"
-                            app:layout_constraintTop_toBottomOf="@id/cv_home_2">
-
-
-                            <com.nema.eduup.utils.EdUpTextViewBold
-                                android:id="@+id/tv_home_grid_4"
-                                android:layout_width="match_parent"
-                                android:layout_height="match_parent"
-                                android:gravity="center"
-                                android:paddingStart="@dimen/toolbar_title_paddingStart"
-                                android:paddingEnd="0dp"
-                                android:text="@string/view_note"
-                                android:textColor="@color/white"
-                                android:textSize="@dimen/toolbar_title_text_size" />
-                        </androidx.cardview.widget.CardView>
-
-                        <View
-                            android:id="@+id/divider2"
-                            android:visibility="invisible"
-                            android:layout_width="1dp"
-                            android:layout_height="298dp"
-                            android:layout_marginTop="2dp"
-                            android:background="?android:attr/listDivider"
-                            app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="parent" />
-                    </androidx.constraintlayout.widget.ConstraintLayout>
+                        android:layout_marginStart="@dimen/progress_text_marginStart"
+                        android:text="@string/please_wait"
+                        android:textColor="@color/colorPrimaryText"
+                        android:textSize="@dimen/progress_text_size"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toEndOf="@+id/progressBar"
+                        app:layout_constraintTop_toTopOf="parent"/>
 
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
-
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="56dp"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/cl_home_static_container">
+                    android:layout_height="match_parent"
+                    android:id="@+id/cl_no_notes">
 
-                    <androidx.recyclerview.widget.RecyclerView
-                        android:id="@+id/list_edu_up_notes_recycler_view"
-                        android:layout_width="match_parent"
+                    <com.nema.eduup.utils.EdUpTextView
+                        android:id="@+id/edUpTextView"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="8dp"
-                        android:layout_marginBottom="8dp"
+                        android:layout_marginStart="32dp"
+                        android:layout_marginEnd="32dp"
+                        android:padding="8dp"
+                        android:text="@string/make_some_notes_and_see_them_here"
+                        android:textAlignment="center"
+                        android:textColor="@color/colorPrimaryText"
+                        android:textSize="18sp"
+                        app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent"
-                        tools:listitem="@layout/item_note" />
+                        app:layout_constraintVertical_bias="0.25" />
 
-
-                    <androidx.constraintlayout.widget.ConstraintLayout
-                        android:id="@+id/cl_progress_layout"
+                    <Button
+                        android:id="@+id/btn_add_note"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:gravity="center"
-                        android:orientation="horizontal"
-                        android:padding="@dimen/progress_dialog_content_padding"
+                        android:layout_marginTop="16dp"
+                        android:backgroundTint="@color/colorPrimary"
+                        android:text="@string/add_personal_note"
+                        app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent">
-
-                        <ProgressBar
-                            android:id="@+id/progressBar"
-                            android:layout_width="@dimen/progress_bar_size"
-                            android:layout_height="@dimen/progress_bar_size"
-                            app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintEnd_toStartOf="@+id/tv_progress_text"
-                            app:layout_constraintBaseline_toTopOf="parent"
-                            app:layout_constraintLeft_toLeftOf="parent"/>
-
-                        <com.nema.eduup.utils.EdUpTextView
-                            android:id="@+id/tv_progress_text"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="@dimen/progress_text_marginStart"
-                            android:text="@string/please_wait"
-                            android:textColor="@color/colorPrimaryText"
-                            android:textSize="@dimen/progress_text_size"
-                            app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintStart_toEndOf="@+id/progressBar"
-                            app:layout_constraintTop_toTopOf="parent"/>
-
-
-                    </androidx.constraintlayout.widget.ConstraintLayout>
-
-
+                        app:layout_constraintTop_toBottomOf="@+id/edUpTextView"
+                        app:layout_constraintVertical_bias="0.0" />
                 </androidx.constraintlayout.widget.ConstraintLayout>
+
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
-        </androidx.core.widget.NestedScrollView>
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
-    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
-
+    </androidx.core.widget.NestedScrollView>
 
 </FrameLayout>

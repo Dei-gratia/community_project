@@ -8,7 +8,7 @@ import androidx.room.Query
 @Dao
 interface DownloadDao {
     @Insert
-    fun insert(download: Download)
+    suspend fun insert(download: Download)
 
     @get:Query("SELECT * FROM download ORDER BY date DESC")
     val allDownloads: LiveData<List<Download>>

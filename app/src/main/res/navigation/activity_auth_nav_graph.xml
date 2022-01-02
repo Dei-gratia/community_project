@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/discussions_nav_graph"
+    app:startDestination="@id/fragmentLogin">
+
+    <fragment
+        android:id="@+id/fragmentLogin"
+        android:name="com.nema.eduup.auth.LoginFragment"
+        android:label=""
+        tools:layout="@layout/fragment_login" />
+
+    <fragment
+        android:id="@+id/fragmentRegister"
+        android:name="com.nema.eduup.auth.RegisterFragment"
+        android:label="@string/create_an_account"
+        tools:layout="@layout/fragment_register" />
+
+    <fragment
+        android:id="@+id/fragmentForgotPassword"
+        android:name="com.nema.eduup.auth.ForgotPasswordFragment"
+        android:label=""
+        tools:layout="@layout/fragment_forgot_password" />
+</navigation>

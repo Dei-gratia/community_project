@@ -23,8 +23,8 @@
     <string name="register"><u>Register</u></string>
     <string name="create_an_account">CREATE AN ACCOUNT</string>
     <string name="btn_lbl_register">Register</string>
-    <string name="hint_first_name">First Name*</string>
-    <string name="hint_last_name">Last Name*</string>
+    <string name="hint_first_names">First Names*</string>
+    <string name="hint_family_name">Family Name*</string>
     <string name="hint_confirm_password">Confirm Password*</string>
     <string name="i_agree_to_the_terms_and_condition">I Agree To The <u>Terms &amp; Condition</u></string>
     <string name="login"><u>Login</u></string>
@@ -34,19 +34,19 @@
     <string name="forgot_password_title_description">Enter your e-mail address</string>
 
     <string name="err_msg_enter_first_name">Please enter first name.</string>
-    <string name="err_msg_enter_last_name">Please enter last name.</string>
+    <string name="err_msg_enter_family_name">Please enter family name.</string>
     <string name="err_msg_enter_email">Please enter email.</string>
     <string name="err_msg_enter_password">Please enter password.</string>
     <string name="err_msg_enter_confirm_password">Please confirm your password.</string>
     <string name="err_msg_password_and_confirm_password_mismatch">Entered passwords do not match.</string>
-    <string name="err_msg_agree_terms_and_condition">Please agree terms and conditions.</string>
+    <string name="err_msg_agree_terms_and_condition">Please agree terms and conditions to continue using this application.</string>
     <string name="registering_successful">Thank you for registering!</string>
     <string name="action_logout">Logout</string>
     <string name="nav_user_email">user@email.com</string>
     <string name="nav_header_desc">Navigation header</string>
     <string name="nav_user_name">Username</string>
     <!-- TODO: Remove or change this placeholder text -->
-    <string name="email_sent_success">Email sent successfully to reset your password!</string>
+    <string name="email_sent_success">Check your email for link to reset your password!</string>
 
     <string name="title_complete_profile">PROFILE</string>
     <string name="et_hint_mobile_number">Mobile Number</string>
@@ -55,7 +55,7 @@
     <string name="btn_lbl_save">Save</string>
     <string name="err_msg_enter_mobile_number">Please enter mobile number</string>
     <string name="err_msg_enter_school">Please enter School/Institute</string>
-    <string name="msg_profile_update_success">Your profile is updated successfully</string>
+    <string name="msg_profile_update_success">Your profile has been successfully updated</string>
     <string name="read_store_permission_denied">Oops, you just denied the permission for storage. You can also allow it from settings.</string>
     <string name="image_selection_failed">Image selection Failed!</string>
     <string name="err_msg_select_level">Please select your  school level</string>
@@ -77,7 +77,7 @@
     <string name="view_note">View Note</string>
     <string name="download_file">Download File</string>
     <string name="download">Download</string>
-    <string name="uploaded">"Uploaded on: "</string>
+    <string name="uploaded">"Uploaded : "</string>
     <string name="dateSample">28/11/2021</string>
     <string name="rate_note"><u>Rate note</u></string>
     <string name="bookmarks">Bookmarks</string>
@@ -110,5 +110,61 @@
     <string name="share_with_others">Share with others</string>
     <string name="coming_soon">Coming Soon</string>
     <string name="practice_exam_questions">Practice Exam Questions</string>
-
+    <string name="password_must_be">Password must be 8 characters minimum container at least one capital letter, one number and one symbol</string>
+    <string name="name_must_be_3_characters">Name should be at least 3 characters</string>
+    <string name="enter_valid_email">Please enter a valid email address</string>
+    <string name="reset_password">Reset Password</string>
+    <string name="i_agree_to_the">I Agree To The</string>
+    <string name="terms_conditions"><u><![CDATA[Terms & Conditions]]></u></string>
+    <string name="enter_valid_phone_number">Please enter a valid phone number</string>
+    <string name="enter_program">Please enter your program</string>
+    <string name="enter_school">Enter your School/Institute</string>
+    <string name="hint_nick_name">Nickname</string>
+    <string name="err_nick_name_too_short">Nickname too short</string>
+    <string name="uploading_image">Uploading Image</string>
+    <string name="view_photo">View Photo</string>
+    <string name="btn_save_image">Save photo</string>
+    <string name="btn_set_image">Set Image</string>
+    <string name="you_have_not_bookmarked_anything_yet">You haven\'t bookmarked anything yet</string>
+    <string name="note_saved">Note saved</string>
+    <string name="created_on">"Created: "</string>
+    <string name="action_notify_continue_studying">com.nema.eduup.action.CONTINUE_STUDYING</string>
+    <string name="create_reminder">Create Reminder</string>
+    <string name="opened">Opened</string>
+    <string name="type">Type</string>
+    <string name="study">Study</string>
+    <string name="share">Share</string>
+    <string name="other">Other</string>
+    <string name="description">Reminder Description</string>
+    <string name="time">Time</string>
+    <string name="select_time">SELECT A TIME</string>
+    <string name="days">Day(s)</string>
+    <string name="note">Additional notes</string>
+    <string-array name="days">
+        <item>Sunday</item>
+        <item>Monday</item>
+        <item>Tuesday</item>
+        <item>Wednesday</item>
+        <item>Thursday</item>
+        <item>Friday</item>
+        <item>Saturday</item>
+    </string-array>
+    <string name="action_delete_reminder">Delete Reminder</string>
+    <string name="unknown_error">Unknown error occurred.</string>
+    <string name="nothing_to_delete">Nothing to delete</string>
+    <string name="name_required">Name is a required field.</string>
+    <string name="desc_required">Description is required.</string>
+    <string name="type_required">Type is a required field</string>
+    <string name="days_required">You must choose at least one day.</string>
+    <string name="time_required">Time is a required field</string>
+    <string name="save_failed">Reminder not created. Try again.</string>
+    <string name="update_failed">Reminder could not be updated.</string>
+    <string name="delete_failed">Reminder could not be deleted.</string>
+    <string name="edit_reminder">Edit Reminder</string>
+    <string name="cant_administer_medicine">Can\'t administer medicine at this time.</string>
+    <string name="title">Title</string>
+    <string name="add_personal_note">Add personal note</string>
+    <string name="make_some_notes_and_see_them_here">make some notes and see them here</string>
+    <string name="start_or_join_discussion">Start or Join discussion</string>
+    <string name="you_do_not_have_active_discussions_yet">You do not have active discussions yet</string>
 </resources>

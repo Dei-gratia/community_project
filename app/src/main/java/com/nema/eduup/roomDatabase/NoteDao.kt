@@ -12,4 +12,5 @@ interface NoteDao {
 
     @get:Query("SELECT * FROM note ORDER BY date DESC")
     val allNotes: LiveData<List<Note>>
+
 }

@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/home_nav_graph"
+    app:startDestination="@id/fragmentHome">
+
+    <fragment
+        android:id="@+id/fragmentHome"
+        android:name="com.nema.eduup.home.HomeFragment"
+        android:label="@string/home"
+        tools:layout="@layout/fragment_home" />
+
+    <fragment
+        android:id="@+id/fragmentBrowse"
+        android:name="com.nema.eduup.browse.BrowseFragment"
+        android:label="@string/browse"
+        tools:layout="@layout/fragment_home" />
+
+    <fragment
+        android:id="@+id/fragmentDownloads"
+        android:name="com.nema.eduup.downloads.DownloadsFragment"
+        android:label="@string/downloads"
+        tools:layout="@layout/fragment_home" />
+
+    <fragment
+        android:id="@+id/fragmentDiscussions"
+        android:name="com.nema.eduup.discussions.DiscussionsFragment"
+        android:label="@string/discussions"
+        tools:layout="@layout/fragment_home" />
+
+    <fragment
+        android:id="@+id/fragmentProfile"
+        android:name="com.nema.eduup.profile.ProfileFragment"
+        android:label="@string/profile"
+        tools:layout="@layout/fragment_home" />
+
+
+    <fragment
+        android:id="@+id/fragmentBookmarks"
+        android:name="com.nema.eduup.bookmarks.BookmarksFragment"
+        android:label="@string/bookmarks"
+        tools:layout="@layout/fragment_bookmarks" />
+
+    <fragment
+        android:id="@+id/fragmentHistory"
+        android:name="com.nema.eduup.history.HistoryFragment"
+        android:label="@string/history"
+        tools:layout="@layout/fragment_history" />
+
+
+
+</navigation>

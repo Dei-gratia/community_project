@@ -21,17 +21,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.EduUp">
         <activity
-            android:name=".activities.PractiseQuestionsActivity"
-            android:exported="false" />
-        <activity
-            android:name=".activities.NewDiscussionActivity"
-            android:exported="false" />
-        <activity
-            android:name=".activities.UploadNoteActivity"
-            android:exported="false"
-            android:windowSoftInputMode="adjustResize|stateVisible" />
-        <activity
-            android:name=".activities.ChatActivity"
+            android:name=".discussions.chat.ChatActivity"
             android:exported="false">
             <intent-filter>
                 <action android:name="ChatActivity" />
@@ -40,28 +30,35 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".activities.ViewNoteActivity"
+            android:name=".discussions.NewDiscussionActivity"
             android:exported="false" />
         <activity
-            android:name=".activities.NewNoteActivity"
+            android:name=".viewnote.ViewNoteActivity"
+            android:exported="false" />
+        <activity
+            android:name=".home.NewNoteActivity"
             android:exported="false"
             android:windowSoftInputMode="adjustResize|stateVisible" />
         <activity
-            android:name=".activities.MainActivity"
-            android:exported="false"
-            android:windowSoftInputMode="adjustResize|stateVisible|adjustPan" />
-        <activity
-            android:name=".activities.ForgotPasswordActivity"
-            android:exported="false" />
-        <activity
-            android:name=".activities.RegisterActivity"
-            android:exported="false" />
-        <activity
-            android:name=".activities.LoginActivity"
+            android:name=".browse.UploadNoteActivity"
             android:exported="false"
             android:windowSoftInputMode="adjustResize|stateVisible" />
         <activity
-            android:name=".activities.SplashActivity"
+            android:name=".viewnote.ViewImageActivity"
+            android:exported="false" />
+        <activity
+            android:name=".home.HomeActivity"
+            android:exported="false"
+            android:windowSoftInputMode="adjustResize|stateVisible" />
+        <activity
+            android:name=".auth.AuthActivity"
+            android:exported="false"
+            android:windowSoftInputMode="adjustResize|stateVisible" />
+        <activity
+            android:name=".quiz.PractiseQuestionsActivity"
+            android:exported="false" />
+        <activity
+            android:name=".auth.SplashActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -83,15 +80,6 @@
         <meta-data
             android:name="com.google.firebase.messaging.default_notification_icon"
             android:resource="@drawable/ic_messaging" />
-
-        <service
-            android:name=".service.MyFirebaseMessagingService"
-            android:exported="false"
-            android:stopWithTask="false">
-            <intent-filter>
-                <action android:name="com.google.firebase.MESSAGING_EVENT" />
-            </intent-filter>
-        </service>
     </application>
 
 </manifest>
