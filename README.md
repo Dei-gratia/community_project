@@ -17,4 +17,4 @@ Features
 
 
 appscreenshorts
-[appscreenshots](community_project/tree/master/appscreenshorts)
+[appscreenshots](/appscreenshorts)
