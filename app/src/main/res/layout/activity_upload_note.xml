@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:background="@color/backGroundColour"
     android:layout_height="match_parent"
-    tools:context=".browse.UploadNoteActivity">
+    tools:context=".uploadnote.UploadNoteActivity">
 
     <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"

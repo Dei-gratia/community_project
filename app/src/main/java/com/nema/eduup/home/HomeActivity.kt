@@ -5,7 +5,6 @@ import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
-import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
@@ -40,8 +39,7 @@ import com.nema.eduup.R
 import com.nema.eduup.auth.AuthActivity
 import com.nema.eduup.auth.SplashActivity
 import com.nema.eduup.auth.User
-import com.nema.eduup.browse.BrowseFragmentViewModel
-import com.nema.eduup.browse.UploadNoteActivity
+import com.nema.eduup.uploadnote.UploadNoteActivity
 import com.nema.eduup.databinding.ActivityHomeBinding
 import com.nema.eduup.discussions.DiscussionsFragment
 import com.nema.eduup.roomDatabase.Note

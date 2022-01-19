@@ -1,4 +1,4 @@
-package com.nema.eduup.home
+package com.nema.eduup.newnote
 
 import android.Manifest
 import android.app.Activity
@@ -13,6 +13,7 @@ import android.os.Environment
 import android.provider.Settings
 import android.text.TextUtils
 import android.text.format.DateUtils
+import android.util.Log
 import android.view.Gravity
 import android.view.View
 import android.widget.*
@@ -22,20 +23,23 @@ import androidx.appcompat.widget.Toolbar
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.app.NotificationManagerCompat
 import androidx.core.content.ContextCompat
+import androidx.core.content.FileProvider
+import androidx.core.net.toUri
 import androidx.documentfile.provider.DocumentFile
 import androidx.fragment.app.DialogFragment
 import androidx.lifecycle.ViewModelProvider
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.gson.Gson
 import com.nema.eduup.BaseActivity
+import com.nema.eduup.BuildConfig
 import com.nema.eduup.R
 import com.nema.eduup.databinding.ActivityNewNoteBinding
 import com.nema.eduup.auth.User
 import com.nema.eduup.reminder.ReminderDialog
 import com.nema.eduup.roomDatabase.Note
-import com.nema.eduup.utils.AppConstants
+import com.nema.eduup.utils.*
 import com.nema.eduup.utils.AppConstants.hideKeyboard
-import com.nema.eduup.utils.NotificationHelper
+import java.io.File
 import java.io.IOException
 import java.lang.Exception
 import java.util.*
@@ -97,6 +101,12 @@ class NewNoteActivity : BaseActivity(), View.OnClickListener, View.OnFocusChange
             setNoteDetails()
         }
         setTopElementsVisibility()
+
+        if (this.proposalExists(noteId, note.title)) {
+            txtUploadFile.text = "pdf exist"
+        } else {
+            txtUploadFile.text = "generate pdf"
+        }
 
         NotificationHelper.createNotificationChannel(this,
             NotificationManagerCompat.IMPORTANCE_DEFAULT, false,
@@ -205,6 +215,7 @@ class NewNoteActivity : BaseActivity(), View.OnClickListener, View.OnFocusChange
     private fun displayCreateReminder() {
         val args = Bundle()
         args.putString(AppConstants.KEY_DATA, noteId)
+        args.putString(AppConstants.NOTE_TITLE, note.title)
         val reminderDialog = ReminderDialog.newInstance(args)
         reminderDialog.setStyle(DialogFragment.STYLE_NORMAL, R.style.Theme_EduUp)
         reminderDialog.show(supportFragmentManager, ReminderDialog.TAG)
@@ -231,21 +242,69 @@ class NewNoteActivity : BaseActivity(), View.OnClickListener, View.OnFocusChange
                     checkFile()
                 }
                 R.id.tv_upload_file -> {
-                    checkPermission()
+                    //checkPermission()
+                    //generatePdf()
                 }
                 R.id.img_reminder -> {
                     //setReminder()
                     displayCreateReminder()
                 }
                 R.id.img_share -> {
-                    shareNote()
+                    checkPdf()
                 }
             }
         }
     }
 
-    private fun shareNote() {
+    private fun generatePdf(onComplete: () -> Unit) {
+        this.buildPdf(note){
+            if (it == 1){
+                onComplete()
+            }
+            else {
+                val toast = Toast.makeText(this, resources.getString(R.string.pdf_generation_failed), Toast.LENGTH_LONG)
+                toast.setGravity(Gravity.CENTER, 0, 0)
+                toast.show()
+            }
+        }
+    }
 
+    private fun checkPdf() {
+        if (this.proposalExists(noteId, note.title)){
+            sharePdf()
+        }
+        else {
+            generatePdf {
+                sharePdf()
+            }
+        }
+    }
+
+    private fun sharePdf() {
+        val pdfs = this.getFiles(note.id)
+        for (pdf in pdfs) {
+            if (pdf.name == "${note.title}.pdf") {
+                Log.e(TAG, "correct pdf is ${pdf.name}")
+                val intent = Intent(Intent.ACTION_SEND)
+                intent.type = "application/pdf"
+                intent.putExtra(Intent.EXTRA_STREAM,  uriFromFile(this,pdf))
+                Log.e(TAG, pdf.toUri().toString())
+                intent.flags = Intent.FLAG_GRANT_READ_URI_PERMISSION
+                startActivity(Intent.createChooser(intent, "Share Note as pdf"))
+            }
+        }
+
+    }
+
+    fun uriFromFile(context:Context, file:File):Uri {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N)
+        {
+            return FileProvider.getUriForFile(context, BuildConfig.APPLICATION_ID + ".provider", file)
+        }
+        else
+        {
+            return Uri.fromFile(file)
+        }
     }
 
     private fun setReminder() {
@@ -378,6 +437,7 @@ class NewNoteActivity : BaseActivity(), View.OnClickListener, View.OnFocusChange
                 toast.setGravity(Gravity.CENTER, 0, 0)
                 toast.show()
                 note = newNote
+                generatePdf {}
                 setTopElementsVisibility()
             }
         }
@@ -397,6 +457,7 @@ class NewNoteActivity : BaseActivity(), View.OnClickListener, View.OnFocusChange
                 toast.setGravity(Gravity.CENTER, 0, 0)
                 toast.show()
                 note = newNote
+                generatePdf{}
                 setTopElementsVisibility()
             }
         }

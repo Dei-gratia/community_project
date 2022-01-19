@@ -40,7 +40,7 @@ class ReminderViewModel(application: Application) : AndroidViewModel(application
         }
     }
 
-    fun getReminderById(reminderId: String, onComplete: (Reminder?) -> Unit){
+    fun getReminderById(reminderId: Int, onComplete: (Reminder?) -> Unit){
         viewModelScope.launch {
             reminder = reminderDao.getReminderById(reminderId)
             onComplete(reminderDao.getReminderById(reminderId))

@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/backGroundColour"
-    tools:context=".home.NewNoteActivity">
+    tools:context=".newnote.NewNoteActivity">
 
     <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
@@ -231,7 +231,6 @@
             </com.google.android.material.textfield.TextInputLayout>
 
             <LinearLayout
-                android:visibility="gone"
                 android:id="@+id/ll_pdf"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -261,7 +260,7 @@
                     android:gravity="end"
                     android:foreground="?attr/selectableItemBackground"
                     android:textColor="@color/text_black_color"
-                    android:text="@string/upload_file"
+                    android:text="Generate pdf"
                     android:layout_margin="5dp"
                     />
             </LinearLayout>

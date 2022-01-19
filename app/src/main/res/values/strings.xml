@@ -129,6 +129,7 @@
     <string name="note_saved">Note saved</string>
     <string name="created_on">"Created: "</string>
     <string name="action_notify_continue_studying">com.nema.eduup.action.CONTINUE_STUDYING</string>
+    <string name="action_studied">com.nema.eduup.action.STUDIED</string>
     <string name="create_reminder">Create Reminder</string>
     <string name="opened">Opened</string>
     <string name="type">Type</string>
@@ -167,4 +168,9 @@
     <string name="make_some_notes_and_see_them_here">make some notes and see them here</string>
     <string name="start_or_join_discussion">Start or Join discussion</string>
     <string name="you_do_not_have_active_discussions_yet">You do not have active discussions yet</string>
+    <string name="group_notification_for">This is the %s notification group.</string>
+    <string name="some_text" formatted="true">
+    Use for String.format method. Parameter one: %s1
+    </string>
+    <string name="pdf_generation_failed">Failed to generate pdf</string>
 </resources>

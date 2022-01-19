@@ -60,6 +60,7 @@ object AppConstants {
     const val IMAGE_TITLE = "imageTitle"
     const val SELECTED_IMAGE_BYTES = "selectedImageBytes"
     const val NOTE_ID = "noteId"
+    const val NOTE_TITLE = "noteTitle"
     const val HISTORY = "history"
 
     //view note constants
@@ -130,6 +131,7 @@ object AppConstants {
     const val ERROR_SAVE_FAILED = 5
     const val ERROR_DELETE_FAILED = 6
     const val ERROR_UPDATE_FAILED = 7
+    const val STUDY_REQUEST_CODE = 8
 
 
     fun CharSequence?.isValidEmail() = !isNullOrEmpty() && Patterns.EMAIL_ADDRESS.matcher(this).matches()

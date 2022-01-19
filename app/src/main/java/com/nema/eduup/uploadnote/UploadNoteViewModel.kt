@@ -1,4 +1,4 @@
-package com.nema.eduup.browse
+package com.nema.eduup.uploadnote
 
 import android.app.Application
 import android.net.Uri

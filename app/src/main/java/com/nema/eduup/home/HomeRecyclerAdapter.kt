@@ -2,7 +2,6 @@ package com.nema.eduup.home
 
 import android.content.Context
 import android.content.Intent
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,12 +11,10 @@ import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.nema.eduup.R
-import com.nema.eduup.browse.AllNotesRecyclerAdapter
-import com.nema.eduup.browse.UploadNoteActivity
+import com.nema.eduup.newnote.NewNoteActivity
 import com.nema.eduup.roomDatabase.Note
 import com.nema.eduup.utils.AppConstants
 import com.nema.eduup.utils.NotesDiffCallback
-import com.nema.eduup.viewnote.ViewNoteActivity
 import java.text.SimpleDateFormat
 import java.util.*
 

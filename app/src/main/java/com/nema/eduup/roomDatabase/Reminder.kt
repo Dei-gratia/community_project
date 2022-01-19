@@ -14,7 +14,7 @@ import java.util.*
 data class Reminder(
     @PrimaryKey
     @get:Exclude
-    var id: String = "",
+    var id: Int = 0,
     var name: String = "",
     var type: ReminderType = ReminderType.Other,
     var desc: String = "",

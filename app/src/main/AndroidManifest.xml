@@ -36,11 +36,11 @@
             android:name=".viewnote.ViewNoteActivity"
             android:exported="false" />
         <activity
-            android:name=".home.NewNoteActivity"
+            android:name=".newnote.NewNoteActivity"
             android:exported="false"
             android:windowSoftInputMode="adjustResize|stateVisible" />
         <activity
-            android:name=".browse.UploadNoteActivity"
+            android:name=".uploadnote.UploadNoteActivity"
             android:exported="false"
             android:windowSoftInputMode="adjustResize|stateVisible" />
         <activity
@@ -80,6 +80,8 @@
         <meta-data
             android:name="com.google.firebase.messaging.default_notification_icon"
             android:resource="@drawable/ic_messaging" />
+        <receiver android:name=".utils.AlarmReceiver" />
+
     </application>
 
 </manifest>
