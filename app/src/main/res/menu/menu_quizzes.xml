@@ -1,0 +1,25 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="com.psdemo.notetaker.ListActivity">
+
+    <item
+        android:visible="false"
+        android:id="@+id/action_sort"
+        android:icon="@drawable/ic_sort_black_24"
+        android:title="sort"
+        app:showAsAction="always" />
+
+    <item
+        android:visible="false"
+        android:id="@+id/action_filter"
+        android:icon="@drawable/ic_filter_list_black_24"
+        android:title="Filter Quizzes" />
+
+    <item
+        android:visible="false"
+        android:id="@+id/action_upload_quiz"
+        android:icon="@drawable/ic_upload_black_24"
+        android:title="@string/action_upload_quiz" />
+
+</menu>

@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".quiz.QuizResultFragment">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <com.nema.eduup.utils.EdUpTextViewBold
+            android:id="@+id/tv_result_reaction"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:gravity="center"
+            android:padding="12dp"
+            android:text="Don't worry you cant try again!!"
+            android:textColor="@color/red_wrong"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <com.nema.eduup.utils.EdUpTextViewBold
+            android:id="@+id/tv_right_qns"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:gravity="center"
+            android:padding="12dp"
+            android:text="Correct: 0"
+            android:textColor="@color/badgeGreen"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_result_reaction" />
+
+        <com.nema.eduup.utils.EdUpTextViewBold
+            android:id="@+id/tv_score"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:gravity="center"
+            android:padding="12dp"
+            android:text="Score: 0"
+            android:textColor="@color/red_wrong"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="@+id/tv_right_qns"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/tv_right_qns"
+            app:layout_constraintTop_toTopOf="@+id/tv_right_qns" />
+
+        <com.nema.eduup.utils.EdUpTextViewBold
+            android:id="@+id/tv_wrong_qns"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:gravity="center"
+            android:padding="12dp"
+            android:text="Wrong: 0"
+            android:textColor="@color/red_wrong"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="@+id/tv_right_qns"
+            app:layout_constraintTop_toBottomOf="@+id/tv_right_qns" />
+
+
+        <com.nema.eduup.utils.EdUpTextViewBold
+            android:id="@+id/tv_skipped_qns"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:padding="12dp"
+            android:text="Skipped: 0"
+            android:textColor="@color/text_black_color"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="@+id/tv_wrong_qns"
+            app:layout_constraintEnd_toEndOf="@+id/tv_score"
+            app:layout_constraintHorizontal_bias="0.01"
+            app:layout_constraintStart_toStartOf="@+id/tv_score"
+            app:layout_constraintTop_toTopOf="@+id/tv_wrong_qns" />
+
+        <com.nema.eduup.utils.EdUpTextViewBold
+            android:id="@+id/tv_retake_quiz"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="32dp"
+            android:layout_marginEnd="8dp"
+            android:background="@drawable/default_option_border_bg"
+            android:gravity="center"
+            android:padding="16sp"
+            android:text="Retake Quiz"
+            android:textColor="@color/text_black_color"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_wrong_qns" />
+
+        <com.nema.eduup.utils.EdUpTextViewBold
+            android:id="@+id/tv_share_score"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:background="@drawable/default_option_border_bg"
+            android:gravity="center"
+            android:padding="16sp"
+            android:text="Share Score"
+            android:textColor="@color/text_black_color"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_retake_quiz" />
+
+        <com.nema.eduup.utils.EdUpTextViewBold
+            android:id="@+id/tv_take_another_quiz"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:background="@drawable/default_option_border_bg"
+            android:gravity="center"
+            android:padding="16sp"
+            android:text="Select another Quiz"
+            android:textColor="@color/text_black_color"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_share_score" />
+
+        <com.nema.eduup.utils.EdUpTextViewBold
+            android:id="@+id/tv_home"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:background="@drawable/default_option_border_bg"
+            android:gravity="center"
+            android:padding="16sp"
+            android:text="Home"
+            android:textColor="@color/text_black_color"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_take_another_quiz" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</FrameLayout>

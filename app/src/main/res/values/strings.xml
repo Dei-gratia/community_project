@@ -72,7 +72,7 @@
     <string name="action_share">share</string>
     <string name="action_upload">upload</string>
     <string name="upload_note">Upload Notes</string>
-    <string name="upload_notice">Note the files uploaded here are public and can be viewed by everyone using ZNotes</string>
+    <string name="upload_notice">Note Everything uploaded here is made public and can be viewed and used by everyone using EduUp</string>
     <string name="search_notes">Search notes</string>
     <string name="view_note">View Note</string>
     <string name="download_file">Download File</string>
@@ -107,7 +107,7 @@
     <string name="start_new_discussion">start new discussion</string>
     <string name="you_have_not_downloaded_anything_yet">You haven\'t downloaded anything yet</string>
     <string name="you_have_not_viewed_anything_yet">You haven\'t viewed anything yet</string>
-    <string name="share_with_others">Share with others</string>
+    <string name="share_with_others">Share your notes with others</string>
     <string name="coming_soon">Coming Soon</string>
     <string name="practice_exam_questions">Practice Exam Questions</string>
     <string name="password_must_be">Password must be 8 characters minimum container at least one capital letter, one number and one symbol</string>
@@ -173,4 +173,26 @@
     Use for String.format method. Parameter one: %s1
     </string>
     <string name="pdf_generation_failed">Failed to generate pdf</string>
+    <string name="start_when_you_are_ready">Start when you are ready</string>
+    <string name="start">START</string>
+    <string name="upload_quiz">Upload Quiz</string>
+    <string name="quiz_title">Quiz title</string>
+    <string name="quiz_description">Quiz Description</string>
+    <string name="quiz_time_in_minutes">Quiz time</string>
+    <string name="quiz_time">Quiz duration</string>
+    <string name="add_question">Add Question</string>
+    <string name="question">Question</string>
+    <string name="option_1">Option 1</string>
+    <string name="option_2">Option 2</string>
+    <string name="option_3">Option 3</string>
+    <string name="option_4">Option 4</string>
+    <string name="correct_option">Correct option :</string>
+    <string name="err_msg_quiz_no_qns">A quiz can not have 0 questions</string>
+    <string name="enter_duration">\"Duration must be a number, minutes\"</string>
+    <string name="personal_note">Personal Note</string>
+    <string name="reminder_title">Reminder title</string>
+    <string name="study_reminder">Study reminder</string>
+    <string name="share_reminder">Share reminder</string>
+    <string name="action_upload_quiz">Upload quiz</string>
+    <string name="quiz_saved">Thank you for uploading the quiz</string>
 </resources>

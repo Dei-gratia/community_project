@@ -24,11 +24,7 @@ object NoteRepository {
     private val TAG = NoteRepository::class.qualifiedName
     private val userRepository = UserRepository
     private val currentUserId = userRepository.getCurrentUserID()
-    private val auth by lazy { FirebaseAuth.getInstance() }
     private val firestoreInstance: FirebaseFirestore by lazy { FirebaseFirestore.getInstance() }
-    private val currentUserDocRef by lazy { firestoreInstance.collection(AppConstants.USERS).document(currentUserId) }
-    private val chatChannelsCollectionRef by lazy { firestoreInstance.collection(AppConstants.CHAT_CHANNELS) }
-    private val groupChatChannelsCollectionRef by lazy { firestoreInstance.collection(AppConstants.GROUP_CHAT_CHANNELS) }
 
 
     fun updateRating(noteRef: DocumentReference, rating: Rating): Task<Void> {
@@ -83,7 +79,7 @@ object NoteRepository {
                 onComplete()
             }
             .addOnFailureListener { e ->
-                Log.e(TAG, "Error adding note", e)
+                Log.e(TAG, "Error updating note", e)
                 return@addOnFailureListener
             }
     }
@@ -261,6 +257,35 @@ object NoteRepository {
     fun addNotesListener(collection: CollectionReference, onListen: (MutableList<Note>) -> Unit): ListenerRegistration{
         val notes = mutableListOf<Note>()
         return collection
+            .orderBy(AppConstants.DATE, Query.Direction.ASCENDING)
+            .addSnapshotListener{ querySnapshot, firebaseFirestoreException ->
+                if (firebaseFirestoreException != null) {
+                    Log.e(TAG, "Notes listener error.", firebaseFirestoreException)
+                    return@addSnapshotListener
+                }
+                for (document in querySnapshot!!.documentChanges) {
+                    when (document.type) {
+                        DocumentChange.Type.ADDED -> {
+                            notes.add(0, parseNoteDocument(document.document))
+                        }
+                        DocumentChange.Type.REMOVED -> {
+                            notes.remove(parseNoteDocument(document.document))
+                        }
+                        DocumentChange.Type.MODIFIED -> {
+                            val note = parseNoteDocument(document.document)
+                            val notePosition = notes.indexOf(notes.find { it.id == note.id })
+                            notes[notePosition] = note
+                        }
+                    }
+                }
+                onListen(notes)
+
+            }
+    }
+
+    fun addLevelNotesListener(level: String, onListen: (MutableList<Note>) -> Unit): ListenerRegistration{
+        val notes = mutableListOf<Note>()
+        return firestoreInstance.collectionGroup("${level}${AppConstants.PUBLIC_NOTES}")
             .orderBy(AppConstants.DATE, Query.Direction.ASCENDING)
             .addSnapshotListener{ querySnapshot, firebaseFirestoreException ->
                 if (firebaseFirestoreException != null) {

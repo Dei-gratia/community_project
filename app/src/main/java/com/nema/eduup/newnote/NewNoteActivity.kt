@@ -24,7 +24,6 @@ import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.app.NotificationManagerCompat
 import androidx.core.content.ContextCompat
 import androidx.core.content.FileProvider
-import androidx.core.net.toUri
 import androidx.documentfile.provider.DocumentFile
 import androidx.fragment.app.DialogFragment
 import androidx.lifecycle.ViewModelProvider
@@ -48,23 +47,23 @@ class NewNoteActivity : BaseActivity(), View.OnClickListener, View.OnFocusChange
 
     private val TAG = NewNoteActivity::class.qualifiedName
     private lateinit var binding: ActivityNewNoteBinding
+    private lateinit var tvTitle: TextView
     private lateinit var toolbar: Toolbar
     private lateinit var clTopElements: ConstraintLayout
     private lateinit var tvCreatedDate: TextView
     private lateinit var imgReminder: ImageView
     private lateinit var imgShare: ImageView
-    private lateinit var etNoteSubject: AutoCompleteTextView
+    private lateinit var acNoteSubject: AutoCompleteTextView
     private lateinit var etNoteTitle: EditText
     private lateinit var etNoteDescription: EditText
     private lateinit var etNoteBody: EditText
-    private lateinit var txtFileName: TextView
-    private lateinit var txtUploadFile: TextView
+    private lateinit var tvFileName: TextView
+    private lateinit var tvFile: TextView
     private lateinit var btnSave: Button
     private lateinit var noteSubject: String
     private lateinit var noteTitle: String
     private lateinit var noteDescription: String
     private lateinit var noteBody: String
-    private lateinit var noteId: String
     private lateinit var sharedPreferences: SharedPreferences
     private lateinit var chooseFileResultLauncher: ActivityResultLauncher<Intent>
     private lateinit var askStoragePermissions: ActivityResultLauncher<Array<String>>
@@ -76,6 +75,7 @@ class NewNoteActivity : BaseActivity(), View.OnClickListener, View.OnFocusChange
     private var selectedFileType: String = "text"
     private var uploadedFileURI: String = ""
     private var userLevel = ""
+    private var noteId = "1"
     private var userId = "-1"
 
     private val viewModel by lazy { ViewModelProvider(this)[NewNoteActivityViewModel::class.java] }
@@ -100,12 +100,16 @@ class NewNoteActivity : BaseActivity(), View.OnClickListener, View.OnFocusChange
             noteId = note.id
             setNoteDetails()
         }
+        if (note == Note()) {
+            tvTitle.text = "New Personal Note"
+            acNoteSubject.requestFocus()
+        }
         setTopElementsVisibility()
 
         if (this.proposalExists(noteId, note.title)) {
-            txtUploadFile.text = "pdf exist"
+            tvFile.text = "open as pdf"
         } else {
-            txtUploadFile.text = "generate pdf"
+            tvFile.text = "generate pdf"
         }
 
         NotificationHelper.createNotificationChannel(this,
@@ -119,12 +123,16 @@ class NewNoteActivity : BaseActivity(), View.OnClickListener, View.OnFocusChange
             NotificationManagerCompat.IMPORTANCE_DEFAULT, true,
             name, "Continue where you left of.")
 
+        val subjectAdapter: ArrayAdapter<String> = ArrayAdapter<String>(this,
+            android.R.layout.select_dialog_item, AppConstants.subjects.distinct().sorted())
+        acNoteSubject.threshold = 1
+        acNoteSubject.setAdapter(subjectAdapter)
 
         requestStoragePermissionsResultLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {result ->
             if (result.resultCode == RESULT_OK) {
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
                     if (Environment.isExternalStorageManager()) {
-                        showFileChooser()
+                        generatePdf {  }
                     } else {
                         Toast.makeText(this, resources.getString(R.string.read_store_permission_denied),
                             Toast.LENGTH_LONG).show()
@@ -135,7 +143,7 @@ class NewNoteActivity : BaseActivity(), View.OnClickListener, View.OnFocusChange
 
         askStoragePermissions = registerForActivityResult(ActivityResultContracts.RequestMultiplePermissions()) { map: MutableMap<String, Boolean> ->
             if (!map.values.contains(false)){
-                showFileChooser()
+                generatePdf {  }
             } else {
                 Toast.makeText(this, resources.getString(R.string.read_store_permission_denied),
                     Toast.LENGTH_LONG).show()
@@ -144,13 +152,13 @@ class NewNoteActivity : BaseActivity(), View.OnClickListener, View.OnFocusChange
 
         chooseFileResultLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
             if (result.resultCode == Activity.RESULT_OK) {
-                txtFileName.visibility = View.VISIBLE
+                tvFileName.visibility = View.VISIBLE
                 val data: Intent? = result.data
                 selectedFileUri = data?.data
                 if (selectedFileUri != null) {
                     try {
                         val file = DocumentFile.fromSingleUri(this, selectedFileUri!!)
-                        txtFileName.text = file?.name
+                        tvFileName.text = file?.name
                         selectedFileType = AppConstants.getFileExtension(this, selectedFileUri).toString()
 
                     }catch (e: IOException) {
@@ -162,10 +170,10 @@ class NewNoteActivity : BaseActivity(), View.OnClickListener, View.OnFocusChange
         }
 
         btnSave.setOnClickListener(this)
-        txtUploadFile.setOnClickListener(this)
+        tvFile.setOnClickListener(this)
         imgShare.setOnClickListener(this)
         imgReminder.setOnClickListener(this)
-        etNoteSubject.onFocusChangeListener = this
+        acNoteSubject.onFocusChangeListener = this
         etNoteTitle.onFocusChangeListener = this
         etNoteDescription.onFocusChangeListener = this
         etNoteBody.onFocusChangeListener = this
@@ -177,12 +185,13 @@ class NewNoteActivity : BaseActivity(), View.OnClickListener, View.OnFocusChange
         tvCreatedDate = binding.tvCreatedDate
         imgReminder = binding.imgReminder
         imgShare = binding.imgShare
-        etNoteSubject = binding.etSubject
+        acNoteSubject = binding.etSubject
         etNoteTitle = binding.etTitle
         etNoteDescription = binding.etNoteDescription
         etNoteBody = binding.etNoteBody
-        txtFileName = binding.txtFileName
-        txtUploadFile = binding.tvUploadFile
+        tvFileName = binding.txtFileName
+        tvFile = binding.tvFile
+        tvTitle = binding.tvTitle
         btnSave = binding.btnSave
 
     }
@@ -204,7 +213,7 @@ class NewNoteActivity : BaseActivity(), View.OnClickListener, View.OnFocusChange
             DateUtils.MINUTE_IN_MILLIS
         )
         tvCreatedDate.text = formattedDate
-        etNoteSubject.setText(note.subject)
+        acNoteSubject.setText(note.subject)
         etNoteTitle.setText(note.title)
         etNoteDescription.setText(note.description)
         etNoteBody.setText(note.body)
@@ -241,16 +250,15 @@ class NewNoteActivity : BaseActivity(), View.OnClickListener, View.OnFocusChange
                     hideKeyboard(view)
                     checkFile()
                 }
-                R.id.tv_upload_file -> {
-                    //checkPermission()
-                    //generatePdf()
+                R.id.tv_file -> {
+                    checkPdf("open")
                 }
                 R.id.img_reminder -> {
                     //setReminder()
                     displayCreateReminder()
                 }
                 R.id.img_share -> {
-                    checkPdf()
+                    checkPdf("share")
                 }
             }
         }
@@ -269,41 +277,54 @@ class NewNoteActivity : BaseActivity(), View.OnClickListener, View.OnFocusChange
         }
     }
 
-    private fun checkPdf() {
+    private fun checkPdf(mode: String) {
         if (this.proposalExists(noteId, note.title)){
-            sharePdf()
+            checkMode(mode)
         }
         else {
             generatePdf {
-                sharePdf()
+                checkMode(mode)
             }
         }
+        tvFile.text = "open as pdf"
     }
 
-    private fun sharePdf() {
+    private fun checkMode(mode: String) {
         val pdfs = this.getFiles(note.id)
         for (pdf in pdfs) {
             if (pdf.name == "${note.title}.pdf") {
-                Log.e(TAG, "correct pdf is ${pdf.name}")
-                val intent = Intent(Intent.ACTION_SEND)
-                intent.type = "application/pdf"
-                intent.putExtra(Intent.EXTRA_STREAM,  uriFromFile(this,pdf))
-                Log.e(TAG, pdf.toUri().toString())
-                intent.flags = Intent.FLAG_GRANT_READ_URI_PERMISSION
-                startActivity(Intent.createChooser(intent, "Share Note as pdf"))
+                if (mode == "share"){
+                    sharePdf(pdf)
+                }
+                else if (mode == "open"){
+                    openPdf(pdf)
+                }
             }
         }
+    }
+
+
+    private fun openPdf(pdf: File) {
+        val intent = Intent(Intent.ACTION_VIEW)
+        intent.setDataAndType(uriFromFile(this, pdf),"application/pdf")
+        intent.flags = Intent.FLAG_GRANT_READ_URI_PERMISSION
+        startActivity(Intent.createChooser(intent, "Share Note as pdf"))
 
     }
 
-    fun uriFromFile(context:Context, file:File):Uri {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N)
-        {
-            return FileProvider.getUriForFile(context, BuildConfig.APPLICATION_ID + ".provider", file)
-        }
-        else
-        {
-            return Uri.fromFile(file)
+    private fun sharePdf(pdf: File) {
+        val intent = Intent(Intent.ACTION_SEND)
+        intent.type = "application/pdf"
+        intent.putExtra(Intent.EXTRA_STREAM,  uriFromFile(this,pdf))
+        intent.flags = Intent.FLAG_GRANT_READ_URI_PERMISSION
+        startActivity(Intent.createChooser(intent, "Share Note as pdf"))
+    }
+
+    private fun uriFromFile(context:Context, file:File):Uri {
+        return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+            FileProvider.getUriForFile(context, BuildConfig.APPLICATION_ID + ".provider", file)
+        } else {
+            Uri.fromFile(file)
         }
     }
 
@@ -320,12 +341,16 @@ class NewNoteActivity : BaseActivity(), View.OnClickListener, View.OnFocusChange
     private fun setTopElementsVisibility() {
         if (note == Note()) {
             clTopElements.visibility = View.GONE
+            tvFile.visibility = View.GONE
+        }
+        else {
+            clTopElements.visibility = View.VISIBLE
+            tvFile.visibility = View.VISIBLE
         }
     }
 
 
     private fun checkFile() {
-
         if (selectedFileUri != null){
             showProgressDialog(resources.getString(R.string.saving))
             val fileExtension = AppConstants.getFileExtension(this, selectedFileUri)
@@ -370,7 +395,7 @@ class NewNoteActivity : BaseActivity(), View.OnClickListener, View.OnFocusChange
     }
 
     private fun setNewNote() {
-        noteSubject =  etNoteSubject.text.toString()
+        noteSubject =  acNoteSubject.text.toString()
         noteTitle = etNoteTitle.text.toString()
         noteDescription = etNoteDescription.text.toString()
         noteBody = etNoteBody.text.toString()
@@ -466,7 +491,7 @@ class NewNoteActivity : BaseActivity(), View.OnClickListener, View.OnFocusChange
     private fun checkPermission() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
             if (Environment.isExternalStorageManager()) {
-                showFileChooser()
+                generatePdf {  }
             }
             else {
                 try {
@@ -486,7 +511,7 @@ class NewNoteActivity : BaseActivity(), View.OnClickListener, View.OnFocusChange
             if ((ContextCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED)
                 &&
                 (ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED)) {
-                showFileChooser()
+                generatePdf {  }
             }else {
                 val permissions = arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE)
                 askStoragePermissions.launch(permissions)

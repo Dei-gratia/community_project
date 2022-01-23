@@ -43,6 +43,15 @@ class UserProfileViewModel(private val app: Application): AndroidViewModel(app) 
         }
     }
 
+    fun getCurrentUserDetails(onComplete: (User) -> Unit) {
+        viewModelScope.launch {
+            userRepository.getCurrentUser {
+                onComplete(it)
+                storeUserDetails(it)
+            }
+        }
+    }
+
 
     fun uploadFile(fileURI: Uri?, fileExtension: String, storagePath: String, onComplete: (Uri?) -> Unit){
         firebaseStorageUtil.uploadFileToCloudStorage(fileURI, fileExtension, storagePath) {

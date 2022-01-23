@@ -8,7 +8,7 @@ import com.nema.eduup.repository.NoteRepository
 import com.nema.eduup.roomDatabase.Note
 import kotlinx.coroutines.launch
 
-class HistoryFragmentViewModel(private val app: Application): AndroidViewModel(app) ,
+class HistoryFragmentViewModel(app: Application): AndroidViewModel(app) ,
     DefaultLifecycleObserver {
     private lateinit var historyListenerRegistration: ListenerRegistration
     private var historyIds : MutableLiveData<List<String>> = MutableLiveData()

@@ -2,6 +2,7 @@ package com.nema.eduup.home
 
 import android.app.Activity
 import android.content.Context
+import android.content.DialogInterface
 import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
@@ -42,6 +43,7 @@ import com.nema.eduup.auth.User
 import com.nema.eduup.uploadnote.UploadNoteActivity
 import com.nema.eduup.databinding.ActivityHomeBinding
 import com.nema.eduup.discussions.DiscussionsFragment
+import com.nema.eduup.uploadquiz.UploadQuizActivity
 import com.nema.eduup.roomDatabase.Note
 import com.nema.eduup.utils.AppConstants
 
@@ -120,7 +122,11 @@ class HomeActivity : BaseActivity() {
             if (result.resultCode == Activity.RESULT_OK) {
                 val uploadNote = result.data?.getParcelableExtra<Note>(AppConstants.UPLOAD_NOTE)
                 if (uploadNote != null) {
-                    val collection = firestoreInstance.collection(AppConstants.NOTES).document(AppConstants.PUBLIC_NOTES).collection(uploadNote.level)
+                    var noteSubject = "All Levels"
+                    if (uploadNote.subject.isNotBlank()){
+                        noteSubject = uploadNote.subject
+                    }
+                    val collection = firestoreInstance.collection(uploadNote.level.lowercase()).document(noteSubject.lowercase()).collection("${uploadNote.level.lowercase()}${AppConstants.PUBLIC_NOTES}")
 
                     viewModel.addNoteToFirestore(uploadNote, collection){
                         Toast.makeText(this, "New note saved to firestore!", Toast.LENGTH_LONG).show()
@@ -132,8 +138,6 @@ class HomeActivity : BaseActivity() {
         }
 
     }
-
-
 
     private fun init() {
         appBarLayout = binding.appBarLayout
@@ -147,7 +151,10 @@ class HomeActivity : BaseActivity() {
     private fun setupActionBar() {
         setSupportActionBar(toolbar)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
+    }
 
+    fun setActionBarTitle(title: String?) {
+        supportActionBar?.title = title
     }
 
     private fun initGoogleSignInClient() {
@@ -177,7 +184,7 @@ class HomeActivity : BaseActivity() {
             }
 
             R.id.action_upload -> {
-                uploadNote()
+                upload()
                 return true
             }
 
@@ -245,6 +252,30 @@ class HomeActivity : BaseActivity() {
         finishAffinity()
     }
 
+    private fun upload() {
+        val options = arrayOf("Upload Notes", "Upload Quiz")
+
+        val builder: android.app.AlertDialog.Builder = android.app.AlertDialog.Builder(this)
+        builder.setItems(options) { _, which ->
+            when (which) {
+                0 -> {
+                    uploadNote()
+                }
+                1 -> {
+                    uploadQuiz()
+                }
+            }
+        }
+
+        builder.show()
+    }
+
+    private fun uploadQuiz() {
+        val uploadIntent = Intent(this, UploadQuizActivity::class.java)
+        uploadIntent.putExtra(AppConstants.USER_LEVEL, currentUser.schoolLevel)
+        startUploadActivityForResult.launch(uploadIntent)
+    }
+
     private fun toggleTheme() {
         settingsView = View.inflate(
             this,
@@ -276,6 +307,8 @@ class HomeActivity : BaseActivity() {
             .show()
     }
 
+
+
     private fun  setTheme(theme: String) {
         AlertDialog.Builder(this)
             .setTitle("Restart")
@@ -298,15 +331,25 @@ class HomeActivity : BaseActivity() {
     }
 
     private fun signOut(){
-        for (user in auth.currentUser!!.providerData) {
-            if (user.providerId == "password") {
-                authActivity()
-            } else {
-                googleSignInClient.signOut().addOnCompleteListener {
-                    authActivity()
+        AlertDialog.Builder(this)
+            .setTitle("Logout")
+            .setMessage("Are you sure you want to Logout")
+            .setPositiveButton("Logout") { _, _ ->
+                for (user in auth.currentUser!!.providerData) {
+                    if (user.providerId == "password") {
+                        authActivity()
+                    } else {
+                        googleSignInClient.signOut().addOnCompleteListener {
+                            authActivity()
+                        }
+                    }
                 }
             }
-        }
+            .setNegativeButton("Cancel") { _, _ ->
+
+            }
+            .create()
+            .show()
     }
 
 }

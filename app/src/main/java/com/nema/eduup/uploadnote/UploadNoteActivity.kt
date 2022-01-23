@@ -33,7 +33,7 @@ class UploadNoteActivity : BaseActivity(), View.OnClickListener {
     private lateinit var binding: ActivityUploadNoteBinding
     private lateinit var sharedPreferences: SharedPreferences
     private lateinit var toolbar: Toolbar
-    private lateinit var etNoteSubject: AutoCompleteTextView
+    private lateinit var acNoteSubject: AutoCompleteTextView
     private lateinit var etNoteTitle: EditText
     private lateinit var etNoteDescription: EditText
     private lateinit var etNoteBody: EditText
@@ -66,14 +66,19 @@ class UploadNoteActivity : BaseActivity(), View.OnClickListener {
         setupActionBar()
 
         val levels = arrayOf("All Levels","College", "A Level", "O Level", "Primary")
-        val spinnerAdapter = ArrayAdapter<String>(
-            this, R.layout.spinner_item, levels)
+        val spinnerAdapter = ArrayAdapter(
+            this, R.layout.spinner_item, AppConstants.levels)
         spinnerLevel.adapter = spinnerAdapter
         if (intent.hasExtra(AppConstants.USER_LEVEL)) {
             val userLevel = intent.getStringExtra(AppConstants.USER_LEVEL)
             levelPosition = spinnerAdapter.getPosition(userLevel)
         }
         spinnerLevel.setSelection(levelPosition)
+
+        val subjectAdapter: ArrayAdapter<String> = ArrayAdapter<String>(this,
+            android.R.layout.select_dialog_item, AppConstants.subjects.distinct().sorted())
+        acNoteSubject.threshold = 1
+        acNoteSubject.setAdapter(subjectAdapter)
 
         requestStoragePermissionsResultLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {result ->
             if (result.resultCode == RESULT_OK) {
@@ -118,7 +123,7 @@ class UploadNoteActivity : BaseActivity(), View.OnClickListener {
     private fun init() {
         toolbar = binding.toolbarUploadNoteActivity
         spinnerLevel = binding.uploadSpinnerLevel
-        etNoteSubject = binding.etSubject
+        acNoteSubject = binding.etSubject
         etNoteTitle = binding.etTitle
         etNoteDescription = binding.etNoteDescription
         etNoteBody = binding.etNoteBody
@@ -186,7 +191,7 @@ class UploadNoteActivity : BaseActivity(), View.OnClickListener {
 
     private fun saveNote() {
         noteLevel = spinnerLevel.selectedItem.toString()
-        noteSubject =  etNoteSubject.text.toString()
+        noteSubject =  acNoteSubject.text.toString()
         noteTitle = etNoteTitle.text.toString()
         noteDescription = etNoteDescription.text.toString()
         noteBody = etNoteBody.text.toString()

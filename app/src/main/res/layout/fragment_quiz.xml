@@ -1,0 +1,194 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/backGroundColour"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".quiz.QuizFragment">
+
+    <ImageView
+        android:id="@+id/img_quiz_share"
+        android:layout_width="40dp"
+        android:layout_height="38dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="8dp"
+        android:padding="8dp"
+        android:foreground="?attr/selectableItemBackground"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/ic_share_black_24"
+        app:tint="@color/grey_btm_nav" />
+
+    <ImageView
+        android:id="@+id/img_quiz_reminder"
+        android:layout_width="40dp"
+        android:layout_height="38dp"
+        android:layout_marginTop="16dp"
+        android:padding="8dp"
+        app:tint="@color/grey_btm_nav"
+        app:layout_constraintEnd_toStartOf="@+id/img_quiz_share"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/ic_notification_add_black_24" />
+
+    <com.nema.eduup.utils.EdUpTextView
+        android:id="@+id/tv_quiz_upload_date"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="2"
+        android:padding="10dp"
+        android:text="@string/dateSample"
+        android:textColor="@color/grey_btm_nav"
+        app:layout_constraintEnd_toStartOf="@id/img_quiz_reminder"
+        app:layout_constraintTop_toTopOf="@id/img_quiz_reminder" />
+
+    <com.nema.eduup.utils.EdUpTextView
+        android:id="@+id/tv_uploaded_static"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="2"
+        android:padding="10dp"
+        android:text="@string/uploaded"
+        android:textColor="@color/grey_btm_nav"
+        app:layout_constraintEnd_toStartOf="@+id/tv_quiz_upload_date"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@id/tv_quiz_upload_date" />
+
+    <com.nema.eduup.utils.EdUpTextView
+        android:id="@+id/tv_number_of_questions"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:layout_marginStart="8dp"
+        android:drawableTint="@color/text_hint_color"
+        android:drawableLeft="@drawable/ic_format_list_numbered_black_24"
+        android:drawablePadding="8dp"
+        android:gravity="center"
+        android:padding="4dp"
+        android:text="20 questions"
+        android:textColor="@color/text_black_color"
+        android:textSize="14sp"
+        app:layout_constraintEnd_toStartOf="@+id/tv_quiz_duration"
+        app:layout_constraintHorizontal_bias="0.03"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/img_quiz_reminder" />
+
+    <com.nema.eduup.utils.EdUpTextView
+        android:id="@+id/tv_quiz_duration"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:drawableLeft="@drawable/ic_timer_black_24"
+        android:drawablePadding="8dp"
+        android:drawableTint="@color/text_hint_color"
+        android:gravity="center"
+        android:padding="4dp"
+        android:text="30 minutes"
+        android:textColor="@color/text_black_color"
+        android:textSize="14sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/img_quiz_reminder" />
+
+    <com.nema.eduup.utils.EdUpTextView
+        android:id="@+id/tv_quiz_level"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:padding="@dimen/et_note_padding"
+        android:textColor="@color/text_black_color"
+        android:text="Level"
+        android:textSize="14sp"
+        android:textStyle="italic"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/tv_quiz_subject" />
+
+    <com.nema.eduup.utils.EdUpTextView
+        android:id="@+id/tv_quiz_subject"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:textStyle="italic"
+        android:padding="@dimen/et_note_padding"
+        android:text="@string/noteSubject"
+        android:textColor="@color/text_black_color"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="@+id/tv_quiz_duration"
+        app:layout_constraintStart_toEndOf="@+id/tv_quiz_level"
+        app:layout_constraintTop_toBottomOf="@+id/tv_quiz_duration" />
+
+
+    <com.nema.eduup.utils.EdUpTextView
+        android:id="@+id/tv_quiz_description"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:gravity="start|top"
+        android:padding="@dimen/et_note_padding"
+        android:text="@string/noteDescription"
+        android:textColor="@color/text_black_color"
+        android:textSize="14sp"
+        app:layout_constraintEnd_toEndOf="@+id/tv_quiz_subject"
+        app:layout_constraintHorizontal_bias="0.466"
+        app:layout_constraintStart_toStartOf="@+id/tv_quiz_level"
+        app:layout_constraintTop_toBottomOf="@id/tv_quiz_level" />
+
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardView2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        app:cardBackgroundColor="@android:color/white"
+        app:cardCornerRadius="10dp"
+        app:cardElevation="5dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_quiz_description"
+        app:layout_constraintVertical_bias="0.0">
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="16dp">
+
+            <com.nema.eduup.utils.EdUpTextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="Take Quiz"
+                android:textColor="#363A43"
+                android:textSize="32sp"
+                android:textStyle="bold" />
+
+            <com.nema.eduup.utils.EdUpTextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="@string/start_when_you_are_ready"
+                android:textColor="#7A8089"
+                android:textSize="16sp" />
+
+
+            <com.nema.eduup.utils.EdUpButton
+                android:id="@+id/btn_start"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:background="@color/colorPrimary"
+                android:text="@string/start"
+                android:textColor="@android:color/white"
+                android:textSize="18sp" />
+
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

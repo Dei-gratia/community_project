@@ -243,7 +243,7 @@ class ReminderDialog : DialogFragment() {
 
 
     private fun setTimeButtonText(date: Date) {
-        val dateFormat = SimpleDateFormat("E dd/MMM/yyyy h:mm a", Locale.getDefault())
+        val dateFormat = SimpleDateFormat("h:mm a E dd/MMM/yyyy ", Locale.getDefault())
         buttonTime!!.text = dateFormat.format(date)
     }
 

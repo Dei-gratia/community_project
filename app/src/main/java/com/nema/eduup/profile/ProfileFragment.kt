@@ -67,6 +67,12 @@ class ProfileFragment : Fragment(), View.OnClickListener, View.OnFocusChangeList
     private lateinit var spinnerLevel: Spinner
     private lateinit var spinnerStream: Spinner
     private lateinit var imgUserPhoto: ImageView
+    private lateinit var tilFirstNames: TextInputLayout
+    private lateinit var tilFamilyName: TextInputLayout
+    private lateinit var tilEmail: TextInputLayout
+    private lateinit var tilNickname: TextInputLayout
+    private lateinit var tilMobileNimber: TextInputLayout
+    private lateinit var tilSchool: TextInputLayout
     private lateinit var etFirstNames: EditText
     private lateinit var etFamilyName: EditText
     private lateinit var etNickname: EditText
@@ -133,7 +139,7 @@ class ProfileFragment : Fragment(), View.OnClickListener, View.OnFocusChangeList
 
         setUserDetails()
         pullToRefresh.setOnRefreshListener {
-            setUserDetails()
+            getCurrentUserDetails()
             pullToRefresh.isRefreshing = false
         }
 
@@ -150,6 +156,7 @@ class ProfileFragment : Fragment(), View.OnClickListener, View.OnFocusChangeList
             etProgram.setText(currentUser.program)
         }
         etEmail.isEnabled = false
+        (activity as HomeActivity?)?.setActionBarTitle("Profile")
 
         if (currentUser.profileCompleted == 0) {
             showCompleteProfileSnackBar()
@@ -252,7 +259,13 @@ class ProfileFragment : Fragment(), View.OnClickListener, View.OnFocusChangeList
         etMobileNumber = binding.etMobileNumber
         etSchool = binding.etSchool
         etProgram = binding.etProgram
+        tilFirstNames = binding.tilFirstName
+        tilFamilyName = binding.tilFamilyName
+        tilNickname = binding.tilNickName
+        tilEmail = binding.tilEmail
+        tilMobileNimber = binding.tilMobileNumber
         tilProgram = binding.tilProgram
+        tilSchool = binding.tilSchool
         rbMale = binding.rbMale
         rbFemale = binding.rbFemale
         spinnerLevel = binding.spinnerLevel
@@ -361,37 +374,37 @@ class ProfileFragment : Fragment(), View.OnClickListener, View.OnFocusChangeList
         val schoolLevel = spinnerLevel.selectedItem.toString()
         return when {
             !isValidFirstNames -> {
-                etFirstNames.error = resources.getString(R.string.name_must_be_3_characters)
+                tilFirstNames.error = resources.getString(R.string.name_must_be_3_characters)
                 etFirstNames.setFocusAndKeyboard()
                 false
             }
             !isValidFamilyName -> {
-                etFamilyName.error = resources.getString(R.string.err_msg_enter_family_name)
+                tilFamilyName.error = resources.getString(R.string.err_msg_enter_family_name)
                 etFamilyName.setFocusAndKeyboard()
                 false
             }
             !isValidFamilyName -> {
-                etFamilyName.error = resources.getString(R.string.err_msg_enter_family_name)
+                tilFamilyName.error = resources.getString(R.string.err_msg_enter_family_name)
                 etFamilyName.setFocusAndKeyboard()
                 false
             }
             !isValidNickname -> {
-                etNickname.error = resources.getString(R.string.err_nick_name_too_short)
+                tilNickname.error = resources.getString(R.string.err_nick_name_too_short)
                 etNickname.setFocusAndKeyboard()
                 false
             }
             !isValidEmail -> {
-                etEmail.error = resources.getString(R.string.enter_valid_email)
+                tilEmail.error = resources.getString(R.string.enter_valid_email)
                 etEmail.setFocusAndKeyboard()
                 false
             }
             !isValidMobileNumber -> {
-                etMobileNumber.error = resources.getString(R.string.enter_valid_phone_number)
+                tilMobileNimber.error = resources.getString(R.string.enter_valid_phone_number)
                 etMobileNumber.setFocusAndKeyboard()
                 false
             }
             !isValidSchool -> {
-                etSchool.error =
+                tilSchool.error =
                     resources.getString(R.string.enter_school)
                 etSchool.setFocusAndKeyboard()
                 false
@@ -641,6 +654,13 @@ class ProfileFragment : Fragment(), View.OnClickListener, View.OnFocusChangeList
 
     }
 
+    private fun getCurrentUserDetails() {
+        viewModel.getCurrentUserDetails {
+            currentUser = it
+            setUserDetails()
+        }
+    }
+
     private fun downloadImage(imageUrl: String) {
         Log.e(TAG, "called $imageUrl")
         viewModel.downloadImage(imageUrl) {
@@ -662,66 +682,73 @@ class ProfileFragment : Fragment(), View.OnClickListener, View.OnFocusChangeList
             when (s.hashCode()) {
                 etEmail.text.hashCode() -> {
                     if (!etEmail.text.toString().isValidEmail()) {
-                        etEmail.error = getString(R.string.enter_valid_email)
+                        tilEmail.error = getString(R.string.enter_valid_email)
                         isValidEmail = false
                     } else {
                         isValidEmail = true
+                        tilEmail.error = null
                     }
                 }
                 etFirstNames.text.hashCode() -> {
                     if (etFirstNames.text.toString().length < 3) {
-                        etFirstNames.error = getString(R.string.name_must_be_3_characters)
+                        tilFirstNames.error = getString(R.string.name_must_be_3_characters)
                         isValidFirstNames = false
                     } else {
                         isValidFirstNames = true
+                        tilFirstNames.error = null
                     }
                 }
                 etFamilyName.text.hashCode() -> {
                     if (etFamilyName.text.toString().isEmpty()) {
-                        etFamilyName.error = getString(R.string.err_msg_enter_family_name)
+                        tilFamilyName.error = getString(R.string.err_msg_enter_family_name)
                         isValidFamilyName = false
                     } else {
                         isValidFamilyName = true
+                        tilFamilyName.error = null
                     }
                 }
 
                 etNickname.text.hashCode() -> {
                     if (etNickname.text.toString().length < 4) {
-                        etNickname.error = getString(R.string.err_nick_name_too_short)
+                        tilNickname.error = getString(R.string.err_nick_name_too_short)
                         isValidNickname = false
                     } else {
                         isValidNickname = true
+                        tilNickname.error = null
                     }
                 }
 
                 etMobileNumber.text.hashCode() -> {
                     val phone = etMobileNumber.text.toString()
                     if (!phone.isValidMobile()) {
-                        etMobileNumber.error = getString(R.string.enter_valid_phone_number)
+                        tilMobileNimber.error = getString(R.string.enter_valid_phone_number)
                         isValidMobileNumber = false
                     }
                     else {
                         isValidMobileNumber = true
+                        tilMobileNimber.error = null
                     }
                 }
 
                 etSchool.text.hashCode() -> {
                     if (etSchool.text.toString().isEmpty()) {
-                        etSchool.error = getString(R.string.enter_program)
+                        tilSchool.error = getString(R.string.enter_program)
                         isValidSchool = false
                     }
                     else {
                         isValidSchool = true
+                        tilSchool.error = null
                     }
                 }
 
                 etProgram.text.hashCode() -> {
                     if (etProgram.text.toString().isEmpty()) {
-                        etProgram.error = getString(R.string.enter_program)
+                        tilProgram.error = getString(R.string.enter_program)
                         isValidProgram = false
                     }
                     else {
                         isValidProgram = true
+                        tilProgram.error = null
                     }
                 }
             }
@@ -749,12 +776,13 @@ class ProfileFragment : Fragment(), View.OnClickListener, View.OnFocusChangeList
     }
 
     private fun showCompleteProfileSnackBar() {
-        completeProfileSnackBarView = Snackbar.make(binding.root, "Finish setting up your profile" , Snackbar.LENGTH_LONG)
+        completeProfileSnackBarView = Snackbar.make(binding.root, "Complete your profile" , Snackbar.LENGTH_LONG)
         if (completeProfileSnackBarView != null) {
             val view = completeProfileSnackBarView!!.view
             val params = view.layoutParams as FrameLayout.LayoutParams
-            view.setBackgroundColor(resources.getColor(R.color.colorSnackBarError))
+            view.setBackgroundColor(resources.getColor(R.color.colorSecondary))
             val tvSnackBarMessage = view.findViewById(com.google.android.material.R.id.snackbar_text) as TextView
+            tvSnackBarMessage.setTextColor(resources.getColor(R.color.colorSecondaryText))
             tvSnackBarMessage.textAlignment = View.TEXT_ALIGNMENT_CENTER
             params.gravity = Gravity.TOP
             view.layoutParams = params

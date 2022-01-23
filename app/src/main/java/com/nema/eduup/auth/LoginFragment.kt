@@ -23,6 +23,7 @@ import androidx.navigation.Navigation
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import com.google.android.gms.common.api.ApiException
+import com.google.android.material.textfield.TextInputLayout
 import com.google.firebase.auth.FirebaseAuth
 import com.nema.eduup.R
 import com.nema.eduup.databinding.FragmentLoginBinding
@@ -36,16 +37,14 @@ class LoginFragment : Fragment(), View.OnClickListener, View.OnFocusChangeListen
 
     private val TAG = LoginFragment::class.qualifiedName
     private lateinit var binding: FragmentLoginBinding
+    private lateinit var tilEmail: TextInputLayout
+    private lateinit var tilPassword: TextInputLayout
     private lateinit var etEmail: EditText
     private lateinit var etPassword: EditText
     private lateinit var tvForgotPassword: TextView
     private lateinit var tvRegister: TextView
     private lateinit var btnLogin: Button
     private lateinit var btnGoogleSignIn: Button
-    private lateinit var firstNames: String
-    private lateinit var familyName: String
-    private lateinit var email: String
-    private lateinit var userId: String
     private lateinit var user: User
     private lateinit var sharedPreferences: SharedPreferences
     private lateinit var googleSignInResultLauncher: ActivityResultLauncher<Intent>
@@ -102,6 +101,8 @@ class LoginFragment : Fragment(), View.OnClickListener, View.OnFocusChangeListen
         etPassword = binding.etPassword
         tvForgotPassword = binding.tvForgotPassword
         tvRegister = binding.tvRegister
+        tilEmail = binding.tilEmail
+        tilPassword = binding.tilPassword
         btnLogin = binding.btnLogin
         btnGoogleSignIn = binding.btnGoogleSignIn
     }
@@ -150,12 +151,12 @@ class LoginFragment : Fragment(), View.OnClickListener, View.OnFocusChangeListen
     private fun validateCredentials(): Boolean {
         return when {
             !isValidEmail -> {
-                etEmail.error = getString(R.string.enter_valid_email)
+                tilEmail.error = getString(R.string.enter_valid_email)
                 etEmail.setFocusAndKeyboard()
                 false
             }
             !isValidPassword -> {
-                etPassword.error = getString(R.string.err_msg_enter_password)
+                tilPassword.error = getString(R.string.err_msg_enter_password)
                 etPassword.setFocusAndKeyboard()
                 false
             }
@@ -206,6 +207,12 @@ class LoginFragment : Fragment(), View.OnClickListener, View.OnFocusChangeListen
         }
     }
 
+    override fun onResume() {
+        super.onResume()
+        tilEmail.error = null
+        tilPassword.error = null
+    }
+
     private fun loadRegisterFragment() {
         Navigation.findNavController(requireActivity(), R.id.nav_host_frag).navigate(R.id.fragmentRegister)
     }
@@ -231,20 +238,22 @@ class LoginFragment : Fragment(), View.OnClickListener, View.OnFocusChangeListen
             when (s.hashCode()) {
                 etEmail.text.hashCode() -> {
                     if (!etEmail.text.toString().isValidEmail()) {
-                        etEmail.error = "Please enter a valid email address"
+                        tilEmail.error = "Please enter a valid email address"
                         isValidEmail = false
                     }
                     else {
+                        tilEmail.error = null
                         isValidEmail = true
                     }
                 }
                 etPassword.text.hashCode() -> {
                     if (etPassword.text.toString().isEmpty()) {
-                        etPassword.error = "Please enter your password"
+                        tilPassword.error = "Please enter your password"
                         isValidPassword = false
                     }
                     else {
                         isValidPassword = true
+                        tilPassword.error = null
                     }
                 }
 

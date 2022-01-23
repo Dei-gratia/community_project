@@ -11,6 +11,12 @@
         app:showAsAction="always" />
 
     <item
+        android:visible="false"
+        android:id="@+id/action_filter"
+        android:icon="@drawable/ic_filter_list_black_24"
+        android:title="Filter notes" />
+
+    <item
         android:id="@+id/action_upload"
         android:icon="@drawable/ic_upload_black_24"
         android:title="@string/action_upload"

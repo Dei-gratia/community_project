@@ -3,14 +3,10 @@ package com.nema.eduup.browse
 import android.app.Application
 import android.content.Context
 import android.content.SharedPreferences
-import android.os.Bundle
-import android.util.Log
 import androidx.lifecycle.*
 import com.google.firebase.firestore.CollectionReference
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ListenerRegistration
-import com.google.gson.Gson
-import com.nema.eduup.R
 import com.nema.eduup.auth.User
 import com.nema.eduup.repository.FirebaseStorageUtil
 import com.nema.eduup.repository.NoteRepository
@@ -56,6 +52,15 @@ class BrowseFragmentViewModel(app: Application): AndroidViewModel(app), DefaultL
     fun getNotes(collection: CollectionReference): LiveData<List<Note>> {
         viewModelScope.launch {
             notesListenerRegistration = noteRepository.addNotesListener(collection) {
+                notes.value = it
+            }
+        }
+        return notes
+    }
+
+    fun getLevelNotes(level: String): LiveData<List<Note>> {
+        viewModelScope.launch {
+            notesListenerRegistration = noteRepository.addLevelNotesListener(level) {
                 notes.value = it
             }
         }

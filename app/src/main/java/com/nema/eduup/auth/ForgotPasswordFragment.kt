@@ -15,6 +15,7 @@ import android.widget.EditText
 import android.widget.Toast
 import androidx.appcompat.widget.Toolbar
 import androidx.lifecycle.ViewModelProvider
+import com.google.android.material.textfield.TextInputLayout
 import com.nema.eduup.R
 import com.nema.eduup.databinding.FragmentForgotPasswordBinding
 import com.nema.eduup.utils.AppConstants
@@ -27,6 +28,7 @@ class ForgotPasswordFragment : Fragment(), View.OnClickListener, View.OnFocusCha
     private lateinit var binding: FragmentForgotPasswordBinding
     private lateinit var toolbarForgotPassword: Toolbar
     private lateinit var btnResetEmail: Button
+    private lateinit var tilEmail: TextInputLayout
     private lateinit var etEmail: EditText
     private var isValidEmail = false
 
@@ -50,6 +52,7 @@ class ForgotPasswordFragment : Fragment(), View.OnClickListener, View.OnFocusCha
         toolbarForgotPassword = binding.toolbarForgotPassword
         btnResetEmail = binding.btnResetPassword
         etEmail = binding.etEmailForgotPassword
+        tilEmail = binding.tilEmail
     }
 
     override fun onClick(view: View?) {
@@ -84,12 +87,13 @@ class ForgotPasswordFragment : Fragment(), View.OnClickListener, View.OnFocusCha
     private fun validateEmail(): Boolean {
         return when {
             !isValidEmail -> {
-                etEmail.error = getString(R.string.enter_valid_email)
+                tilEmail.error = getString(R.string.enter_valid_email)
                 etEmail.setFocusAndKeyboard()
                 false
             }
             else -> {
                 hideKeyboard()
+                tilEmail.error = null
                 true
             }
         }
@@ -104,11 +108,12 @@ class ForgotPasswordFragment : Fragment(), View.OnClickListener, View.OnFocusCha
             when (s.hashCode()) {
                 etEmail.text.hashCode() -> {
                     if (!etEmail.text.toString().isValidEmail()) {
-                        etEmail.error = getString(R.string.enter_valid_email)
+                        tilEmail.error = getString(R.string.enter_valid_email)
                         isValidEmail = false
                     }
                     else {
                         isValidEmail = true
+                        tilEmail.error = null
                     }
                 }
 

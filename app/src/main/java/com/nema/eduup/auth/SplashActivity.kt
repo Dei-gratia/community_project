@@ -13,6 +13,7 @@ import com.google.firebase.auth.FirebaseAuth
 import com.nema.eduup.BaseActivity
 import com.nema.eduup.databinding.ActivitySplashBinding
 import com.nema.eduup.home.HomeActivity
+import com.nema.eduup.quiz.PractiseQuestionsActivity
 
 class SplashActivity : BaseActivity() {
 

@@ -31,6 +31,9 @@
         android:layout_height="match_parent"
         android:clipToPadding="false"
         android:padding="8dp"
+        android:focusableInTouchMode="true"
+        android:clickable="true"
+        android:focusable="true"
         android:scrollbarStyle="outsideInset"
         app:layout_behavior="@string/appbar_scrolling_view_behavior"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -51,7 +54,7 @@
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_margin="8dp"
+                android:hint="@string/reminder_title"
                 app:errorTextColor="@color/text_black_color"
                 android:textColorHint="@color/text_hint_color"
                 app:boxStrokeColor="@color/text_black_color"
@@ -63,7 +66,6 @@
                     android:id="@+id/textInputName"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="@string/title"
                     android:inputType="textCapWords"
                     android:maxLength="40"
                     android:maxLines="1" />
@@ -72,9 +74,9 @@
 
             <CheckBox
                 android:id="@+id/checkBoxAdministered"
-                android:layout_width="0dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_margin="16dp"
+                android:layout_margin="8dp"
                 android:text="@string/opened"
                 android:textColor="@color/text_black_color"
                 app:layout_constraintHorizontal_bias="1"
@@ -86,9 +88,10 @@
                 android:id="@+id/textViewTypeLabel"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_margin="8dp"
+                android:layout_marginTop="16dp"
                 android:text="@string/type"
-                android:textSize="12sp"
+                android:textSize="14sp"
+                android:textColor="@color/text_hint_color"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/textInputLayoutName" />
@@ -97,7 +100,7 @@
                 android:id="@+id/radioGroupType"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_margin="8dp"
+
                 android:orientation="horizontal"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
@@ -108,7 +111,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="@string/study"
+                    android:text="@string/study_reminder"
                     android:textColor="@color/text_black_color"/>
 
                 <com.google.android.material.radiobutton.MaterialRadioButton
@@ -116,7 +119,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="@string/share"
+                    android:text="@string/share_reminder"
                     android:textColor="@color/text_black_color"/>
 
                 <com.google.android.material.radiobutton.MaterialRadioButton
@@ -137,6 +140,7 @@
                 app:errorTextColor="@color/text_black_color"
                 android:textColorHint="@color/text_hint_color"
                 android:textColor="@color/text_black_color"
+                android:hint="@string/description"
                 app:boxStrokeColor="@color/text_black_color"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
@@ -146,8 +150,6 @@
                     android:id="@+id/textInputDesc"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_margin="8dp"
-                    android:hint="@string/description"
                     android:inputType="textMultiLine"
                     android:maxLength="150"
                     android:maxLines="3"
@@ -159,10 +161,10 @@
                 android:id="@+id/textViewTimeLabel"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_margin="8dp"
+                android:layout_marginTop="16dp"
                 android:text="@string/time"
                 android:textColor="@color/text_hint_color"
-                android:textSize="12sp"
+                android:textSize="14sp"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/textInputLayoutDescription" />
@@ -172,11 +174,10 @@
                 style="@style/Widget.AppCompat.Button.Borderless.Colored"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_margin="8dp"
                 android:clickable="true"
                 android:focusable="true"
                 android:gravity="center"
-                android:padding="16dp"
+                android:padding="8dp"
                 android:text="@string/select_time"
                 android:textColor="@color/text_black_color"
                 app:layout_constraintLeft_toLeftOf="parent"
@@ -184,11 +185,11 @@
                 app:layout_constraintTop_toBottomOf="@+id/textViewTimeLabel" />
 
             <com.google.android.material.textfield.TextInputLayout
+                android:visibility="invisible"
                 android:id="@+id/textInputLayoutNote"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_margin="8dp"
                 app:errorTextColor="@color/text_black_color"
                 android:textColorHint="@color/text_hint_color"
                 app:boxStrokeColor="@color/text_black_color"

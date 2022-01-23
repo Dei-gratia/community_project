@@ -1,6 +1,5 @@
 package com.nema.eduup.browse
 
-import android.app.Dialog
 import android.content.Context
 import android.content.SharedPreferences
 import android.os.Bundle
@@ -8,20 +7,15 @@ import android.text.Editable
 import android.text.TextWatcher
 import android.util.Log
 import android.view.*
-import android.view.inputmethod.InputMethodManager
 import android.widget.*
 import androidx.fragment.app.Fragment
 import androidx.appcompat.app.AlertDialog
-import androidx.constraintlayout.widget.ConstraintLayout
-import androidx.core.widget.NestedScrollView
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
-import com.google.firebase.firestore.CollectionReference
 import com.google.firebase.firestore.FirebaseFirestore
-import com.google.firebase.firestore.ListenerRegistration
 import com.google.gson.Gson
 import com.nema.eduup.R
 import com.nema.eduup.auth.User
@@ -29,8 +23,6 @@ import com.nema.eduup.databinding.FragmentBrowseBinding
 import com.nema.eduup.home.HomeActivity
 import com.nema.eduup.roomDatabase.Note
 import com.nema.eduup.utils.AppConstants
-import com.nema.eduup.utils.ConnectionManager
-import com.smarteist.autoimageslider.SliderView
 import java.util.*
 import kotlin.Comparator
 import kotlin.collections.ArrayList
@@ -53,6 +45,12 @@ class BrowseFragment : Fragment(), AllNotesRecyclerAdapter.OnBookmarkListener,
     private lateinit var rbUploadDateNTO: RadioButton
     private lateinit var rbUploadDateOTN: RadioButton
     private lateinit var rbRating: RadioButton
+    private lateinit var filterNotesView: View
+    private lateinit var spinnerNotesLevel: Spinner
+    private lateinit var spinnerNotesSubject: Spinner
+    private lateinit var notesLevel: String
+    private lateinit var notesSubject: String
+    private lateinit var acNotesSubject: AutoCompleteTextView
     private var userLevel: String = "College"
     private var notes : MutableLiveData<List<Note>> = MutableLiveData()
     private var reminders : MutableLiveData<List<Note>> = MutableLiveData()
@@ -79,7 +77,7 @@ class BrowseFragment : Fragment(), AllNotesRecyclerAdapter.OnBookmarkListener,
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         setHasOptionsMenu(true)
         sharedPreferences = activity?.getSharedPreferences(AppConstants.EDUUP_PREFERENCES, Context.MODE_PRIVATE) as SharedPreferences
         binding = FragmentBrowseBinding.inflate(layoutInflater, container, false)
@@ -91,6 +89,16 @@ class BrowseFragment : Fragment(), AllNotesRecyclerAdapter.OnBookmarkListener,
                 userLevel = currentUser.schoolLevel
             }
         }
+        notesLevel =
+            sharedPreferences.getString(AppConstants.NOTES_LEVEL, userLevel).toString()
+        val sub = sharedPreferences.getString(AppConstants.NOTES_SUBJECT, AppConstants.ALL_SUBJECTS).toString()
+        notesSubject = if (sub.isNotBlank()) {
+            sub
+        } else {
+            AppConstants.ALL_SUBJECTS
+        }
+
+
         init()
         adapter = AllNotesRecyclerAdapter(requireContext(),this, this)
         listNotesRecyclerView.layoutManager = LinearLayoutManager(requireContext())
@@ -103,11 +111,12 @@ class BrowseFragment : Fragment(), AllNotesRecyclerAdapter.OnBookmarkListener,
 
         loadReminders()
         loadBookmarks()
-        loadNotes()
+        Log.e(TAG, "level is $notesLevel subject is $notesSubject")
+        loadNotes(notesLevel, notesSubject)
         pullToRefresh.setOnRefreshListener {
             loadReminders()
             loadBookmarks()
-            loadNotes()
+            loadNotes(userLevel, notesSubject)
             pullToRefresh.isRefreshing = false
         }
 
@@ -151,14 +160,20 @@ class BrowseFragment : Fragment(), AllNotesRecyclerAdapter.OnBookmarkListener,
 
     override fun onPrepareOptionsMenu(menu: Menu) {
         super.onPrepareOptionsMenu(menu)
-        val item: MenuItem = menu.findItem(R.id.action_sort)
-        item.isVisible = true
+        val sortItem: MenuItem = menu.findItem(R.id.action_sort)
+        sortItem.isVisible = true
+        val filterItem: MenuItem = menu.findItem(R.id.action_filter)
+        filterItem.isVisible = true
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.action_sort -> {
                 sort()
+                return true
+            }
+            R.id.action_filter -> {
+                filterNotes()
                 return true
             }
         }
@@ -205,6 +220,47 @@ class BrowseFragment : Fragment(), AllNotesRecyclerAdapter.OnBookmarkListener,
             .show()
     }
 
+    private fun filterNotes() {
+        filterNotesView = View.inflate(
+            requireContext(),
+            R.layout.filter_quizzes_layout,
+            null
+        )
+
+        spinnerNotesLevel = filterNotesView.findViewById(R.id.spinner_quizzes_level)
+        spinnerNotesSubject = filterNotesView.findViewById(R.id.spinner_quizzes_subject)
+        acNotesSubject = filterNotesView.findViewById(R.id.et_quizzes_subject)
+        val levels = arrayOf("All Levels","College", "A Level", "O Level", "Primary")
+        val spinnerLevelsAdapter = ArrayAdapter(
+            requireContext(), R.layout.spinner_item, levels)
+        spinnerNotesLevel.adapter = spinnerLevelsAdapter
+        val levelPosition = spinnerLevelsAdapter.getPosition(notesLevel)
+        spinnerNotesLevel.setSelection(levelPosition)
+
+        val subjectAdapter: ArrayAdapter<String> = ArrayAdapter<String>(requireContext(),
+            android.R.layout.select_dialog_item, AppConstants.subjects.distinct().sorted())
+        acNotesSubject.threshold = 1
+        acNotesSubject.setAdapter(subjectAdapter)
+        acNotesSubject.setText(notesSubject)
+
+        AlertDialog.Builder(requireContext())
+            .setTitle("Filter Notes")
+            .setView(filterNotesView)
+            .setPositiveButton("Filter") { _, _ ->
+                notesLevel = spinnerNotesLevel.selectedItem.toString()
+                //notesSubject = spinnerNotesSubject.selectedItem.toString()
+                notesSubject = acNotesSubject.text.toString()
+                loadNotes(notesLevel, notesSubject)
+                sharedPreferences.edit().putString(AppConstants.NOTES_LEVEL, notesLevel).apply()
+                sharedPreferences.edit().putString(AppConstants.NOTES_SUBJECT, notesSubject).apply()
+            }
+            .setNegativeButton("Cancel") { _, _ ->
+
+            }
+            .create()
+            .show()
+    }
+
     private fun filterFun(strTyped: String) {
         val filteredList = arrayListOf<Note>()
         for (item in notesList) {
@@ -231,17 +287,27 @@ class BrowseFragment : Fragment(), AllNotesRecyclerAdapter.OnBookmarkListener,
     }
 
 
-    private fun loadNotes() {
+    private fun loadNotes(level: String, subject: String) {
         val collection =
-            firestoreInstance.collection(AppConstants.NOTES).document(AppConstants.PUBLIC_NOTES)
-                .collection(userLevel)
-
-        viewModel.getNotes(collection).observe(viewLifecycleOwner, androidx.lifecycle.Observer {
-            notes.value = it
-            notesList = it as ArrayList<Note>
-            adapter.setNotes(it)
-        })
+            firestoreInstance.collection(level.lowercase()).document(subject.lowercase())
+                .collection("${level.lowercase()}${AppConstants.PUBLIC_NOTES}")
+        if (subject == AppConstants.ALL_SUBJECTS || subject.isBlank()){
+            viewModel.getLevelNotes(level.lowercase()).observe(viewLifecycleOwner, {
+                notes.value = it
+                notesList = it as ArrayList<Note>
+                adapter.setNotes(it)
+            })
+        }
+        else {
+            viewModel.getNotes(collection).observe(viewLifecycleOwner, {
+                notes.value = it
+                notesList = it as ArrayList<Note>
+                adapter.setNotes(it)
+            })
+        }
     }
+
+
 
     override fun onBookmarkSelected(noteId: String) {
         if (bookmarkList.contains(noteId)){

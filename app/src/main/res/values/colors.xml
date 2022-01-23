@@ -30,5 +30,7 @@
     <color name="reminder_background_color">#f48fb1</color>
     <color name="badgeGreen">#15CF1C</color>
     <color name="grey_btm_nav">#919191</color>
+    <color name="red_wrong">#FF3C3C</color>
+    <color name="timer_warning_1">#E08703</color>
 
 </resources>

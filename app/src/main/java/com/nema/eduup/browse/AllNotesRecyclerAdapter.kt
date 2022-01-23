@@ -61,8 +61,8 @@ AllNotesRecyclerAdapter(private val context: Context,
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val note = notes[position]
-        holder.txtTitle.text = note.title
-        holder.txtDescription.text = note.description
+        holder.txtTitle.text = note.title.trim()
+        holder.txtDescription.text = note.description.trim()
         val avgRating = note.avgRating.roundTo(1)
         holder.txtNoteRating.text = avgRating.toString()
         if (note.reminders) {
@@ -128,9 +128,7 @@ AllNotesRecyclerAdapter(private val context: Context,
         onBookmarkListener = listener
     }
 
-    fun setOnSelectedListener(listener: OnNoteSelectedListener) {
-        onNoteSelectedListener = listener
-    }
+
 
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val imgIcon: ImageView = itemView.findViewById(R.id.img_quiez)

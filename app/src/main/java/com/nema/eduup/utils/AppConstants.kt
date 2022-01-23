@@ -7,6 +7,7 @@ import android.content.ContentResolver
 import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.content.res.ColorStateList
 import android.database.Cursor
 import android.net.Uri
 import android.os.Build
@@ -26,11 +27,15 @@ import android.util.Log
 import android.util.Patterns
 import android.view.View
 import android.view.inputmethod.InputMethodManager
+import android.widget.ImageView
 import android.widget.Toast
+import androidx.annotation.ColorRes
 import androidx.core.content.ContextCompat.startActivity
 import androidx.core.content.FileProvider
+import androidx.core.widget.ImageViewCompat
 import androidx.fragment.app.Fragment
 import com.nema.eduup.R
+import com.nema.eduup.quiz.Question
 import com.nema.eduup.repository.FirebaseStorageUtil
 import java.io.File
 import java.util.regex.Pattern
@@ -43,7 +48,8 @@ object AppConstants {
     const val EDUUP_PREFERENCES = "EduUpPreferences"
     const val USERS = "users"
     const val REMINDERS = "reminders"
-    const val PUBLIC_NOTES = "publicNotes"
+    const val PUBLIC_NOTES = "publicnotes"
+    const val PUBLIC_QUIZZES = "publicquizzes"
     const val BOOKMARKS = "bookmarks"
     const val NOTE_RATINGS = "noteRatings"
     const val USER_NAME = "user_name"
@@ -62,9 +68,32 @@ object AppConstants {
     const val NOTE_ID = "noteId"
     const val NOTE_TITLE = "noteTitle"
     const val HISTORY = "history"
+    const val ALL_SUBJECTS = "allSubjects"
+    const val ALL_LEVELS = "allLevels"
+    const val NOTIFICATION_CHANNEL_ID = "10001"
 
     //view note constants
     const val PERSONAL_NOTE = "personalNote"
+
+    //quizzes
+    const val QUIZZES = "quizzes"
+    const val QUIZ = "quiz"
+    const val TITLE = "title"
+    const val DESCRIPTION = "description"
+    const val SUBJECT = "subject"
+    const val LEVEL = "level"
+    const val TOTAL_QUESTIONS = "totalQuestions"
+    const val DURATION = "duration"
+    const val COLLEGE = "college"
+    const val QUIZ_ID = "quizId"
+    const val QUESTIONS = "questions"
+    const val QUIZZES_LEVEL = "quizzesLevel"
+    const val QUIZZES_SUBJECT = "quizzesSubject"
+    const val NOTES_LEVEL = "notesLevel"
+    const val NOTES_SUBJECT = "notesSubject"
+    const val CORRECT_QUESTIONS = "correctQuestions"
+    const val SKIPPED_QUESTION = "skippedQuestions"
+    const val WRONG_QUESTIONS = "wrongQuestions"
 
     //messaging constants
     const val GROUP_CHAT_CHANNELS = "groupChatChannels"
@@ -133,6 +162,8 @@ object AppConstants {
     const val ERROR_UPDATE_FAILED = 7
     const val STUDY_REQUEST_CODE = 8
 
+    val levels = arrayOf("All Levels","College", "A Level", "O Level", "Primary")
+
 
     fun CharSequence?.isValidEmail() = !isNullOrEmpty() && Patterns.EMAIL_ADDRESS.matcher(this).matches()
 
@@ -143,6 +174,10 @@ object AppConstants {
 
             return passwordMatcher.find(password) != null
         } ?: return false
+    }
+
+    fun ImageView.setTint(@ColorRes colorRes: Int) {
+        ImageViewCompat.setImageTintList(this, ColorStateList.valueOf(ContextCompat.getColor(context, colorRes)))
     }
 
     fun getFileExtension(activity: Activity, uri: Uri?): String? {
@@ -305,8 +340,6 @@ object AppConstants {
         inputMethodManager.hideSoftInputFromWindow(view.windowToken, 0)
     }
 
-
-
     fun openDownloadedAttachment(context: Context, attachmentUri: Uri, attachmentMimeType: String) {
         var attachmentUri: Uri? = attachmentUri
         if (attachmentUri != null) {
@@ -331,6 +364,43 @@ object AppConstants {
             }
         }
     }
+
+
+
+    fun String.intOrString(): Boolean {
+        return when(toIntOrNull()) {
+            null -> false
+            else -> true
+        }
+    }
+
+    val subjects = arrayListOf(
+        AppConstants.ALL_SUBJECTS,"Accounting", "Business law", "Business management", "Consumer education", "Entrepreneurial skills", "Introduction to business", "Marketing", "Personal finance)",
+        "Animation", "App development", "Audio production", "Computer programming", "Computer repair", "Film production", "Graphic design",
+        "Media technology", "Music production", "Typing", "Video game development", "Web design", "Web programming", "Word processing",
+        "American literature", "British literature", "Contemporary literature", "Creative writing", "Communication skills", "Debate",
+        "English language and composition", "English literature and composition", "Humanities", "Journalism", "Literary analysis", "Modern literature", "Poetry",
+        "Popular literature", "Rhetoric", "Technical writing", "Works of Shakespeare", "World literature", "Written and oral communication",
+        "Chemistry of foods", "CPR training", "Culinary arts", "Early childhood development", "Early childhood education", "Family studies",
+        "Fashion and retail merchandising", "Fashion construction", "Home economics", "Interior design", "Nutrition",
+        "American Sign Language", "Ancient Greek", "Arabic", "Chinese", "French", "German", "Hebrew", "Italian", "Japanese", "Korean", "Latin",
+        "Portuguese", "Russian", "Spanish",
+        "Algebra 1", "Algebra 2", "Calculus", "Computer math", "Consumer math", "Fundamentals of math", "Geometry", "Integrated math", "Mathematics",
+        "Math applications", "Multivariable calculus", "Practical math", "Pre-algebra", "Pre-calculus", "Probability", "Quantitative literacy",
+        "Statistics", "Trigonometry",
+        "Choir", "Concert band", "Dance", "Drama", "Guitar", "Jazz band", "Marching band", "Music theory", "Orchestra", "Percussion", "Piano", "Theater technology", "World music",
+        "Aerobics", "Gymnastics", "Health", "Lifeguard training", "Pilates", "Racket sports", "Specialized sports", "Swimming", "Weight training", "Yoga",
+        "Agriculture", "Astronomy", "Biology", "Botany", "Chemistry", "Earth science", "Electronics", "Environmental science",
+        "Environmental studies", "Forensic science", "Geology", "Marine biology", "Oceanography", "Physical science", "Physics", "Zoology",
+        "Cultural anthropology", "Current affairs", "European history", "Geography", "Global studies", "History", "Human geography", "International relations", "Law",
+        "Macroeconomics", "Microeconomics", "Modern world studies", "Physical anthropology", "Political studies", "Psychology",
+        "Religious studies", "Sociology", "Women's studies", "World history", "World politics", "World religions",
+        "3-D art", "African history", "Ceramics", "Digital media", "Drawing", "Film production", "Jewelry design", "Painting", "Photography", "Printmaking", "Sculpture",
+        "Auto body repair", "Auto mechanics", "Building construction", "Computer-aided drafting", "Cosmetology", "Criminal justice", "Driver education", "Electronics", "Fire science",
+        "Heating and cooling systems", "Hospitality and tourism", "JROTC (Junior Reserve Officers' Training Corps)", "Metalworking", "Networking", "Plumbing", "Production technology", "Refrigeration fundamentals", "Robotics", "Woodworking",
+        "Research", "Seminar", "Art history", "Music theory", "Studio art: 2-D design", "Studio art: 3-D design", "Studio art: drawing", "English Language and Composition",
+        "English Literature and Composition", "Comparative government and politics", "Human Geography", "Macroeconomics", "Microeconomics", "Psychology", "Math & Computer Science", "Computer Science "
+    )
 
 }
 

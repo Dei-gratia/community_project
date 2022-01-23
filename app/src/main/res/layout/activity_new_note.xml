@@ -34,7 +34,7 @@
                 android:gravity="center"
                 android:paddingStart="@dimen/toolbar_title_paddingStart"
                 android:paddingEnd="0dp"
-                android:text="@string/create_new_note"
+                android:text="@string/personal_note"
                 android:textColor="@color/white"
                 android:textSize="@dimen/toolbar_title_text_size" />
 
@@ -73,7 +73,7 @@
                     android:id="@+id/img_share"
                     android:layout_width="40dp"
                     android:layout_height="30dp"
-                    android:layout_marginEnd="8dp"
+                    android:layout_marginEnd="4dp"
                     android:padding="4dp"
                     android:foreground="?attr/selectableItemBackground"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -121,18 +121,15 @@
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
-
-
-
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/til_subject"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="@string/noteSubject"
                 android:textColorHint="@color/text_hint_color"
-                android:layout_marginStart="8dp"
+                android:layout_marginStart="4dp"
                 android:layout_marginTop="20dp"
-                android:layout_marginEnd="8dp"
+                android:layout_marginEnd="4dp"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -143,7 +140,11 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="text"
-                    android:padding="@dimen/et_note_padding"
+                    android:paddingTop="@dimen/et_padding"
+                    android:paddingStart="4dp"
+                    android:paddingEnd="4dp"
+                    android:paddingBottom="@dimen/et_padding"
+
                     android:textColor="@color/text_black_color"
                     android:textSize="@dimen/et_title_textSize">
 
@@ -157,9 +158,9 @@
                 android:layout_height="wrap_content"
                 android:hint="@string/noteTitle"
                 android:textColorHint="@color/text_hint_color"
-                android:layout_marginStart="8dp"
+                android:layout_marginStart="4dp"
                 android:layout_marginTop="8dp"
-                android:layout_marginEnd="8dp"
+                android:layout_marginEnd="4dp"
                 android:gravity="bottom"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -171,7 +172,10 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="text"
-                    android:padding="@dimen/et_note_padding"
+                    android:paddingTop="@dimen/et_padding"
+                    android:paddingStart="4dp"
+                    android:paddingEnd="4dp"
+                    android:paddingBottom="@dimen/et_padding"
                     android:textColor="@color/text_black_color"
                     android:textSize="@dimen/et_textSize"/>
             </com.google.android.material.textfield.TextInputLayout>
@@ -180,9 +184,9 @@
                 android:id="@+id/til_note_description"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
+                android:layout_marginStart="4dp"
                 android:layout_marginTop="8dp"
-                android:layout_marginEnd="8dp"
+                android:layout_marginEnd="4dp"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:hint="@string/noteDescription"
                 android:textColorHint="@color/text_hint_color"
@@ -195,7 +199,10 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="text"
-                    android:padding="@dimen/et_note_padding"
+                    android:paddingTop="@dimen/et_padding"
+                    android:paddingStart="4dp"
+                    android:paddingEnd="4dp"
+                    android:paddingBottom="@dimen/et_padding"
                     android:textColor="@color/text_black_color"
                     android:textSize="@dimen/et_textSize"
                     android:gravity="start|top"
@@ -207,9 +214,9 @@
                 android:id="@+id/til_note_body"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
+                android:layout_marginStart="4dp"
                 android:layout_marginTop="8dp"
-                android:layout_marginEnd="8dp"
+                android:layout_marginEnd="4dp"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:hint="@string/noteBody"
                 android:textColorHint="@color/text_hint_color"
@@ -222,7 +229,10 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="textMultiLine"
-                    android:padding="@dimen/et_note_padding"
+                    android:paddingTop="@dimen/et_padding"
+                    android:paddingStart="4dp"
+                    android:paddingEnd="4dp"
+                    android:paddingBottom="@dimen/et_padding"
                     android:textColor="@color/text_black_color"
                     android:textSize="@dimen/et_textSize"
                     android:minLines="10"
@@ -252,7 +262,7 @@
                     android:layout_margin="5dp"
                     android:visibility="invisible"/>
                 <com.nema.eduup.utils.EdUpTextView
-                    android:id="@+id/tv_upload_file"
+                    android:id="@+id/tv_file"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:padding="10dp"

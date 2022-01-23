@@ -40,7 +40,6 @@ class DownloadsFragment : Fragment() {
         listDownloadsRecyclerView.adapter = adapter
         loadDownloads()
 
-
         return binding.root
     }
 

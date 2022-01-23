@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/cardDownload"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:clickable="true"
+    android:focusable="true"
+    android:foreground="?android:attr/selectableItemBackground"
+    app:cardBackgroundColor="@android:color/white"
+    app:cardCornerRadius="4dp"
+    app:cardElevation="4dp">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="10dp">
+
+        <Spinner
+            android:id="@+id/spinner_quizzes_level"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="0dp"
+            android:textColor="@color/text_black_color"
+            android:textSize="@dimen/et_textSize"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/til_subject"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="4dp"
+            android:hint="@string/noteSubject"
+            android:textColorHint="@color/text_hint_color"
+            app:layout_constraintEnd_toEndOf="@+id/spinner_quizzes_level"
+            app:layout_constraintStart_toStartOf="@+id/spinner_quizzes_level"
+            app:layout_constraintTop_toBottomOf="@+id/spinner_quizzes_level">
+
+            <AutoCompleteTextView
+                android:id="@+id/et_quizzes_subject"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="text"
+                android:paddingStart="4dp"
+                android:paddingTop="@dimen/et_padding"
+                android:paddingEnd="4dp"
+                android:paddingBottom="@dimen/et_padding"
+
+                android:textColor="@color/text_black_color"
+                android:textSize="@dimen/et_title_textSize">
+
+            </AutoCompleteTextView>
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <Spinner
+            android:visibility="gone"
+            android:id="@+id/spinner_quizzes_subject"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:padding="0dp"
+            android:textColor="@color/text_black_color"
+            android:textSize="@dimen/et_textSize"
+            app:layout_constraintEnd_toEndOf="@+id/spinner_quizzes_level"
+            app:layout_constraintStart_toStartOf="@+id/spinner_quizzes_level"
+            app:layout_constraintTop_toBottomOf="@+id/spinner_quizzes_level" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</com.google.android.material.card.MaterialCardView>

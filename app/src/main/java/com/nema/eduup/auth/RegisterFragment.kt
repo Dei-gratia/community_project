@@ -1,7 +1,6 @@
 package com.nema.eduup.auth
 
 import android.content.Intent
-import android.content.SharedPreferences
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
@@ -22,6 +21,7 @@ import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.gms.common.api.ApiException
+import com.google.android.material.textfield.TextInputLayout
 import com.nema.eduup.R
 import com.nema.eduup.databinding.FragmentRegisterBinding
 import com.nema.eduup.home.HomeActivity
@@ -36,6 +36,11 @@ class RegisterFragment : Fragment(), View.OnClickListener, View.OnFocusChangeLis
     private val TAG = RegisterFragment::class.qualifiedName
     private lateinit var binding: FragmentRegisterBinding
     private lateinit var toolbarRegisterActivity: Toolbar
+    private lateinit var tilFirstNames: TextInputLayout
+    private lateinit var tilFamilyName: TextInputLayout
+    private lateinit var tilEmail: TextInputLayout
+    private lateinit var tilPassword: TextInputLayout
+    private lateinit var tilConfirmPassword: TextInputLayout
     private lateinit var etFirstNames: EditText
     private lateinit var etFamilyName: EditText
     private lateinit var etEmail: EditText
@@ -132,6 +137,11 @@ class RegisterFragment : Fragment(), View.OnClickListener, View.OnFocusChangeLis
         etEmail = binding.etEmail
         etPassword = binding.etPassword
         etConfirmPassword = binding.etConfirmPassword
+        tilFirstNames = binding.tilFirstName
+        tilFamilyName = binding.tilFamilyName
+        tilEmail = binding.tilEmail
+        tilPassword = binding.tilPassword
+        tilConfirmPassword = binding.tilConfirmPassword
         cbTermsAndCondition = binding.cbTermsAndCondition
         btnRegister = binding.btnRegister
         tvLogin = binding.txtLogin
@@ -234,27 +244,27 @@ class RegisterFragment : Fragment(), View.OnClickListener, View.OnFocusChangeLis
     private fun validateUserDetails(): Boolean{
         return when {
             !isValidFirstNames -> {
-                etFirstNames.error = resources.getString(R.string.name_must_be_3_characters)
+                tilFirstNames.error = resources.getString(R.string.name_must_be_3_characters)
                 etFirstNames.setFocusAndKeyboard()
                 false
             }
             !isValidFamilyName -> {
-                etFamilyName.error = resources.getString(R.string.err_msg_enter_family_name)
+                tilFamilyName.error = resources.getString(R.string.err_msg_enter_family_name)
                 etFamilyName.setFocusAndKeyboard()
                 false
             }
             !isValidEmail -> {
-                etEmail.error = resources.getString(R.string.enter_valid_email)
+                tilEmail.error = resources.getString(R.string.enter_valid_email)
                 etEmail.setFocusAndKeyboard()
                 false
             }
             !isValidPassword -> {
-                etPassword.error = resources.getString(R.string.password_must_be)
+                tilPassword.error = resources.getString(R.string.password_must_be)
                 etPassword.setFocusAndKeyboard()
                 false
             }
             !passwordsMatch -> {
-                etConfirmPassword.error = resources.getString(R.string.err_msg_password_and_confirm_password_mismatch)
+                tilConfirmPassword.error = resources.getString(R.string.err_msg_password_and_confirm_password_mismatch)
                 etConfirmPassword.setFocusAndKeyboard()
                 false
             }
@@ -294,39 +304,43 @@ class RegisterFragment : Fragment(), View.OnClickListener, View.OnFocusChangeLis
             when (s.hashCode()) {
                 etEmail.text.hashCode() -> {
                     if (!etEmail.text.toString().isValidEmail()) {
-                        etEmail.error = getString(R.string.enter_valid_email)
+                        tilEmail.error = getString(R.string.enter_valid_email)
                         isValidEmail = false
                     }
                     else {
                         isValidEmail = true
+                        tilEmail.error = null
                     }
                 }
                 etFirstNames.text.hashCode() -> {
                     if (etFirstNames.text.toString().length < 3) {
-                        etFirstNames.error = getString(R.string.name_must_be_3_characters)
+                        tilFirstNames.error = getString(R.string.name_must_be_3_characters)
                         isValidFirstNames = false
                     }
                     else {
                         isValidFirstNames = true
+                        tilFirstNames.error = null
                     }
                 }
                 etFamilyName.text.hashCode() -> {
                     if (etFamilyName.text.toString().isEmpty()) {
-                        etFamilyName.error = getString(R.string.err_msg_enter_family_name)
+                        tilFamilyName.error = getString(R.string.err_msg_enter_family_name)
                         isValidFamilyName = false
                     }
                     else {
                         isValidFamilyName = true
+                        tilFamilyName.error = null
                     }
                 }
 
                 etPassword.text.hashCode() -> {
                     if (!isValidPassword(etPassword.text.toString()) || etPassword.text.toString().length < 8) {
-                        etPassword.error = getString(R.string.password_must_be)
+                        tilPassword.error = getString(R.string.password_must_be)
                         isValidPassword = false
                     }
                     else {
                         isValidPassword = true
+                        tilPassword.error = null
                     }
                 }
 

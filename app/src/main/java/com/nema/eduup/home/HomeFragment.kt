@@ -16,6 +16,7 @@ import android.widget.Toast
 import androidx.activity.result.ActivityResult
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.cardview.widget.CardView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.widget.NestedScrollView
 import androidx.lifecycle.MutableLiveData
@@ -54,10 +55,11 @@ class HomeFragment : Fragment(), View.OnClickListener {
     private lateinit var sharedPreferences: SharedPreferences
     private lateinit var remindersAdapter: AllNotesRecyclerAdapter
     private lateinit var sliderImageAdapter: AutoSliderImageAdapter
-    private lateinit var tvQuestions: TextView
-    private lateinit var tvJoinGroup: TextView
-    private lateinit var tvNewContent: TextView
-    private lateinit var tvShare: TextView
+    private lateinit var cvQuizzes: CardView
+    private lateinit var cvJoinGroup: CardView
+    private lateinit var cvNewContent: CardView
+    private lateinit var cvShare: CardView
+    private lateinit var uploadQuizView       : View
     private lateinit var startNewNoteActivityForResult: ActivityResultLauncher<Intent>
     private lateinit var listRemindersRecyclerView: RecyclerView
     private lateinit var pullToRefresh: SwipeRefreshLayout
@@ -99,6 +101,7 @@ class HomeFragment : Fragment(), View.OnClickListener {
         }else {
             getImageUrls()
         }
+        (activity as HomeActivity?)?.setActionBarTitle("Home")
 
         sliderImageAdapter = AutoSliderImageAdapter(requireContext())
         imgSlider.setSliderAdapter(sliderImageAdapter)
@@ -132,10 +135,10 @@ class HomeFragment : Fragment(), View.OnClickListener {
         }
 
         fabNewNote.setOnClickListener(this)
-        tvShare.setOnClickListener(this)
-        tvQuestions.setOnClickListener(this)
-        tvJoinGroup.setOnClickListener(this)
-        tvNewContent.setOnClickListener(this)
+        cvShare.setOnClickListener(this)
+        cvQuizzes.setOnClickListener(this)
+        cvJoinGroup.setOnClickListener(this)
+        cvNewContent.setOnClickListener(this)
         btnAddNote.setOnClickListener(this)
 
 
@@ -143,10 +146,10 @@ class HomeFragment : Fragment(), View.OnClickListener {
     }
 
     private fun init() {
-        tvJoinGroup = binding.tvHomeGridJoinGroup
-        tvNewContent = binding.tvHomeGridNewContent
-        tvQuestions = binding.tvHomeGridMcq
-        tvShare = binding.tvHomeGridShare
+        cvJoinGroup = binding.cvHomeDiscussionGroup
+        cvNewContent = binding.cvHomeNewContent
+        cvQuizzes = binding.cvHomeQuizzes
+        cvShare = binding.cvHomeShare
         listNotesRecyclerView = binding.listNotesRecyclerView
         listRemindersRecyclerView = binding.listEduUpRemindersRecyclerView
         fabNewNote = this.requireActivity().findViewById<View>(R.id.fab_new) as FloatingActionButton
@@ -166,16 +169,16 @@ class HomeFragment : Fragment(), View.OnClickListener {
                 R.id.fab_new -> {
                     newNote()
                 }
-                R.id.tv_home_grid_mcq -> {
-                    loadQuestions()
+                R.id.cv_home_quizzes -> {
+                    loadQuizzes()
                 }
-                R.id.tv_home_grid_join_group -> {
+                R.id.cv_home_discussion_group -> {
                     loadGroups()
                 }
-                R.id.tv_home_grid_share -> {
+                R.id.cv_home_share -> {
                     share()
                 }
-                R.id.tv_home_grid_new_content -> {
+                R.id.cv_home_new_content -> {
                     browse()
                 }
                 R.id.btn_add_note -> {
@@ -190,7 +193,7 @@ class HomeFragment : Fragment(), View.OnClickListener {
         startActivity(intent)
     }
 
-    private fun share() {
+    private fun shareAppLink() {
         val intent = Intent(Intent.ACTION_SEND)
         intent.type = "text/html"
         intent.putExtra(Intent.EXTRA_SUBJECT, "EduUp")
@@ -198,12 +201,16 @@ class HomeFragment : Fragment(), View.OnClickListener {
         startActivity(Intent.createChooser(intent, "Share Notes"))
     }
 
+    private fun share() {
+       listNotesRecyclerView.requestFocus()
+    }
+
 
     private fun browse() {
         Navigation.findNavController(requireActivity(), R.id.home_nav_host_frag).navigate(R.id.fragmentBrowse)
     }
 
-    private fun loadQuestions() {
+    private fun loadQuizzes() {
         startActivity(Intent(requireContext(), PractiseQuestionsActivity::class.java))
     }
 
