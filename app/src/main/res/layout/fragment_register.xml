@@ -47,7 +47,7 @@
                 android:layout_height="wrap_content"
                 android:inputType="text"
                 android:padding="@dimen/et_padding"
-                android:textColor="@color/colorPrimaryText"
+                android:textColor="@color/text_black_color"
                 android:textSize="@dimen/et_textSize" />
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -102,12 +102,12 @@
             app:startIconDrawable="@drawable/ic_email_black_24">
 
             <com.nema.eduup.utils.EdUpEditText
-                android:id="@+id/et_email"
+                android:id="@+id/et_email_register"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="textEmailAddress"
                 android:padding="@dimen/et_padding"
-                android:textColor="@color/colorPrimaryText"
+                android:textColor="@color/text_black_color"
                 android:textSize="@dimen/et_textSize" />
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -137,7 +137,7 @@
                 android:layout_height="wrap_content"
                 android:inputType="textPassword"
                 android:padding="@dimen/et_padding"
-                android:textColor="@color/colorPrimaryText"
+                android:textColor="@color/text_black_color"
                 android:textSize="@dimen/et_textSize" />
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -168,7 +168,7 @@
                 android:layout_height="wrap_content"
                 android:inputType="textPassword"
                 android:padding="@dimen/et_padding"
-                android:textColor="@color/colorPrimaryText"
+                android:textColor="@color/text_black_color"
                 android:textSize="@dimen/et_textSize" />
         </com.google.android.material.textfield.TextInputLayout>
 

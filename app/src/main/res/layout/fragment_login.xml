@@ -12,36 +12,36 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:focusableInTouchMode="true"
         android:clickable="true"
-        android:focusable="true">
+        android:focusable="true"
+        android:focusableInTouchMode="true">
 
         <FrameLayout
             android:id="@+id/f1_header_image"
             android:layout_width="match_parent"
             android:layout_height="200dp"
-            android:focusableInTouchMode="true"
+            android:background="@color/colorPrimaryVariant"
             android:clickable="true"
             android:focusable="true"
+            android:focusableInTouchMode="true"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            android:background="@color/colorPrimaryVariant">
+            app:layout_constraintTop_toTopOf="parent">
 
             <androidx.cardview.widget.CardView
                 android:id="@+id/cardView"
                 android:layout_width="150dp"
                 android:layout_height="150dp"
                 android:layout_gravity="center"
-                android:focusableInTouchMode="true"
                 android:clickable="true"
-                android:focusable="true"
                 android:elevation="8dp"
+                android:focusable="true"
+                android:focusableInTouchMode="true"
+                app:cardBackgroundColor="@color/colorPrimaryVariant"
+                app:cardCornerRadius="75dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:cardCornerRadius="75dp"
-                app:cardBackgroundColor="@color/colorPrimaryVariant">
+                app:layout_constraintTop_toTopOf="parent">
 
                 <ImageView
                     android:layout_width="150dp"
@@ -66,7 +66,7 @@
             android:textSize="@dimen/title_textSize"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/f1_header_image"/>
+            app:layout_constraintTop_toBottomOf="@+id/f1_header_image" />
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/til_email"
@@ -76,12 +76,12 @@
             android:layout_marginStart="16dp"
             android:layout_marginTop="35dp"
             android:layout_marginEnd="16dp"
-            android:textColorHint="@color/text_hint_color"
             android:hint="@string/et_hint_email_id"
+            android:textColorHint="@color/text_hint_color"
             app:boxStrokeColor="@color/colorPrimaryText"
+            app:boxStrokeErrorColor="@color/black"
             app:errorIconTint="@color/black"
             app:errorTextColor="@color/black"
-            app:boxStrokeErrorColor="@color/black"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tv_title">
@@ -92,8 +92,8 @@
                 android:layout_height="wrap_content"
                 android:inputType="textEmailAddress"
                 android:padding="@dimen/et_padding"
-                android:textColor="@color/colorPrimaryText"
-                android:textSize="@dimen/et_textSize"/>
+                android:textColor="@color/text_black_color"
+                android:textSize="@dimen/et_textSize" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
@@ -102,18 +102,18 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
-            android:layout_marginTop="35dp"
+            android:layout_marginTop="16dp"
             android:layout_marginEnd="16dp"
             android:hint="@string/et_hint_password"
             android:textColorHint="@color/text_hint_color"
-            app:passwordToggleEnabled="true"
+            app:boxStrokeColor="@color/colorPrimaryText"
+            app:boxStrokeErrorColor="@color/black"
             app:errorIconTint="@color/black"
             app:errorTextColor="@color/black"
-            app:boxStrokeErrorColor="@color/black"
-            app:boxStrokeColor="@color/colorPrimaryText"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/til_email">
+            app:layout_constraintTop_toBottomOf="@+id/til_email"
+            app:passwordToggleEnabled="true">
 
             <com.nema.eduup.utils.EdUpEditText
                 android:id="@+id/etPassword"
@@ -121,7 +121,7 @@
                 android:layout_height="wrap_content"
                 android:inputType="textPassword"
                 android:padding="@dimen/et_padding"
-                android:textColor="@color/colorPrimaryText"
+                android:textColor="@color/text_black_color"
                 android:textSize="@dimen/et_textSize" />
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -136,7 +136,7 @@
             android:textColor="@color/text_black_color"
             android:textSize="@dimen/forgot_password_textSize"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/til_password"/>
+            app:layout_constraintTop_toBottomOf="@+id/til_password" />
 
         <com.nema.eduup.utils.EdUpButton
             android:id="@+id/btnLogin"
@@ -154,24 +154,24 @@
             android:textSize="@dimen/btn_textSize"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tv_forgot_password"/>
+            app:layout_constraintTop_toBottomOf="@+id/tv_forgot_password" />
 
         <com.shobhitpuri.custombuttons.GoogleSignInButton
             android:id="@+id/btnGoogleSignIn"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
             android:layout_marginStart="16dp"
-            android:layout_marginEnd="16dp"
             android:layout_marginTop="10dp"
+            android:layout_marginEnd="16dp"
             android:background="@drawable/gbtn_boundary_background"
+            android:foreground="?attr/selectableItemBackground"
             android:padding="10dp"
             android:text="@string/google_sign_in"
-            android:layout_centerInParent="true"
             app:isDarkTheme="false"
-            android:foreground="?attr/selectableItemBackground"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/btnLogin"/>
+            app:layout_constraintTop_toBottomOf="@+id/btnLogin" />
 
         <LinearLayout
             android:layout_width="wrap_content"
@@ -189,7 +189,6 @@
                 android:id="@+id/tv_don_t_have_an_account"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:foreground="?attr/selectableItemBackground"
                 android:padding="@dimen/clickable_text_view_padding"
                 android:text="@string/don_t_have_an_account"
                 android:textColor="@color/text_hint_color"
@@ -202,10 +201,10 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:foreground="?attr/selectableItemBackground"
-                android:paddingTop="@dimen/clickable_text_view_padding"
-                android:paddingBottom="@dimen/clickable_text_view_padding"
-                android:paddingEnd="@dimen/clickable_text_view_padding"
                 android:paddingStart="0dp"
+                android:paddingTop="@dimen/clickable_text_view_padding"
+                android:paddingEnd="@dimen/clickable_text_view_padding"
+                android:paddingBottom="@dimen/clickable_text_view_padding"
                 android:text="@string/register"
                 android:textColor="@color/text_black_color"
                 android:textSize="@dimen/forgot_password_textSize"

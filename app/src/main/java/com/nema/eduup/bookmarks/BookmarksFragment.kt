@@ -103,9 +103,8 @@ AllNotesRecyclerAdapter.OnNoteSelectedListener {
 
     private fun getBookmarks() {
         val collection =
-            firestoreInstance.collection(AppConstants.NOTES).document(AppConstants.PUBLIC_NOTES)
-                .collection(userLevel)
-
+            firestoreInstance.collection(userLevel.lowercase()).document(AppConstants.ALL_SUBJECTS.lowercase())
+                .collection("${userLevel.lowercase()}${AppConstants.PUBLIC_NOTES}")
         viewModel.getNotesByIds(collection, bookmarkList) {
             adapter.setNotes(it)
         }

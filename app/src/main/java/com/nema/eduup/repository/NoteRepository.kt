@@ -157,8 +157,10 @@ object NoteRepository {
         Tasks.whenAllSuccess<DocumentSnapshot>(noteTasks)
             .addOnSuccessListener { documentList ->
                 val notesList = java.util.ArrayList<Note>()
-                for (document in documentList) {
-                    notesList.add(parseNoteDocument(document))
+                if (documentList.isNotEmpty()) {
+                    for (document in documentList) {
+                        notesList.add(parseNoteDocument(document))
+                    }
                 }
                 onComplete(notesList)
             }

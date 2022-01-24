@@ -183,7 +183,6 @@
 
 
             <androidx.cardview.widget.CardView
-
                 android:id="@+id/cv_download"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -211,13 +210,13 @@
                         android:background="#E6E5E5">
 
                         <com.nema.eduup.utils.EdUpTextViewBold
-                            android:id="@+id/txt_download_file"
+                            android:id="@+id/tv_download_file"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="16dp"
                             android:padding="10dp"
                             android:text="@string/download"
-                            android:textColor="@color/colorPrimaryText"
+                            android:textColor="@color/text_black_color"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toTopOf="parent" />
@@ -229,10 +228,10 @@
                             android:padding="10dp"
                             android:text="@string/pdf_name"
                             android:maxLines="1"
-                            android:textColor="@color/colorSecondaryText"
+                            android:textColor="@color/text_hint_color"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintEnd_toStartOf="@id/img_file_type"
-                            app:layout_constraintStart_toEndOf="@+id/txt_download_file"
+                            app:layout_constraintStart_toEndOf="@+id/tv_download_file"
                             app:layout_constraintTop_toTopOf="parent" />
 
                         <ImageView
@@ -243,7 +242,6 @@
                             android:layout_weight="0.5"
                             android:padding="4dp"
                             android:scaleType="fitCenter"
-                            app:tint="@color/grey_btm_nav"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintTop_toTopOf="parent"
@@ -285,7 +283,7 @@
                     android:layout_marginTop="20dp"
                     android:padding="@dimen/et_note_padding"
                     android:text="@string/reviews"
-                    android:textColor="@color/colorPrimaryText"
+                    android:textColor="@color/text_black_color"
                     android:textSize="14sp"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/tv_rate_note" />
@@ -315,6 +313,7 @@
                         android:layout_height="wrap_content"
                         android:foreground="?attr/selectableItemBackground"
                         android:padding="8dp"
+                        android:textColor="@color/text_black_color"
                         android:text="@string/edit_review"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
@@ -325,7 +324,7 @@
                         android:layout_height="wrap_content"
                         android:padding="@dimen/txt_padding"
                         android:text="@string/yourComment"
-                        android:textColor="@color/colorPrimaryText"
+                        android:textColor="@color/text_black_color"
                         android:textSize="14sp"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
@@ -335,6 +334,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="2"
+                        android:textColor="@color/text_hint_color"
                         android:padding="@dimen/txt_padding"
                         android:textSize="14sp"
                         android:text="@string/dateSample"
@@ -365,7 +365,7 @@
                         android:gravity="start|top"
                         android:padding="@dimen/txt_padding"
                         android:text="@string/yourComment"
-                        android:textColor="@color/colorPrimaryText"
+                        android:textColor="@color/text_black_color"
                         android:textSize="14sp"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="@id/user_rating_value_bar"

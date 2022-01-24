@@ -30,6 +30,7 @@ import com.nema.eduup.utils.AppConstants.hideKeyboard
 import com.nema.eduup.utils.AppConstants.isValidEmail
 import com.nema.eduup.utils.AppConstants.isValidPassword
 import com.nema.eduup.utils.AppConstants.setFocusAndKeyboard
+import com.nema.eduup.utils.AppConstants.showKeyboard
 
 class RegisterFragment : Fragment(), View.OnClickListener, View.OnFocusChangeListener {
 
@@ -69,6 +70,7 @@ class RegisterFragment : Fragment(), View.OnClickListener, View.OnFocusChangeLis
         // Inflate the layout for this fragment
         binding = FragmentRegisterBinding.inflate(layoutInflater, container, false)
         init()
+        etFirstNames.setFocusAndKeyboard()
         val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
             .requestIdToken(getString(R.string.clientId))
             .requestEmail()
@@ -134,7 +136,7 @@ class RegisterFragment : Fragment(), View.OnClickListener, View.OnFocusChangeLis
     private fun init() {
         etFirstNames = binding.etFirstNames
         etFamilyName = binding.etFamilyName
-        etEmail = binding.etEmail
+        etEmail = binding.etEmailRegister
         etPassword = binding.etPassword
         etConfirmPassword = binding.etConfirmPassword
         tilFirstNames = binding.tilFirstName
@@ -152,10 +154,14 @@ class RegisterFragment : Fragment(), View.OnClickListener, View.OnFocusChangeLis
         if (view != null) {
             when (view.id) {
                 R.id.etEmail,R.id.et_first_names, R.id.et_family_name,
-                R.id.etEmailForgotPassword, R.id.etPassword -> {
+                R.id.et_email_register, R.id.etPassword -> {
                     if (!hasFocus) {
                         hideKeyboard()
                     }
+                    else {
+                        view.showKeyboard()
+                    }
+
                 }
             }
         }

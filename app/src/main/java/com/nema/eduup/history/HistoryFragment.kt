@@ -89,9 +89,8 @@ class HistoryFragment : Fragment(), AllNotesRecyclerAdapter.OnBookmarkListener,
 
     private fun getHistory() {
         val collection =
-            firestoreInstance.collection(AppConstants.NOTES).document(AppConstants.PUBLIC_NOTES)
-                .collection(userLevel)
-
+            firestoreInstance.collection(userLevel.lowercase()).document(AppConstants.ALL_SUBJECTS.lowercase())
+                .collection("${userLevel.lowercase()}${AppConstants.PUBLIC_NOTES}")
         viewModel.getNotesByIds(collection, historyIdsList) {
             adapter.setNotes(it)
         }

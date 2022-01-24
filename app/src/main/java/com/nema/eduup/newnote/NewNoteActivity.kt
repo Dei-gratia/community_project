@@ -303,7 +303,6 @@ class NewNoteActivity : BaseActivity(), View.OnClickListener, View.OnFocusChange
         }
     }
 
-
     private fun openPdf(pdf: File) {
         val intent = Intent(Intent.ACTION_VIEW)
         intent.setDataAndType(uriFromFile(this, pdf),"application/pdf")

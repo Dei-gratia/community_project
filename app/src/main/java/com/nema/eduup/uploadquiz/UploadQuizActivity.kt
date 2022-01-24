@@ -57,6 +57,7 @@ class UploadQuizActivity : BaseActivity(), View.OnClickListener, QuestionsRecycl
         setContentView(binding.root)
         init()
         setupActionBar()
+        acQuizSubject.setFocusAndKeyboard()
         val json = sharedPreferences.getString(AppConstants.CURRENT_USER, "")
         if (!json.isNullOrBlank()){
             currentUser = Gson().fromJson(json, User::class.java)
@@ -64,7 +65,7 @@ class UploadQuizActivity : BaseActivity(), View.OnClickListener, QuestionsRecycl
                 userLevel = currentUser.schoolLevel
             }
         }
-        val quizLevels = arrayOf("All levels", "College","A Level", "O Level", "Primary")
+
         val spinnerAdapter = ArrayAdapter(
             this, R.layout.spinner_item, AppConstants.levels)
         spinnerQuizLevel.adapter = spinnerAdapter

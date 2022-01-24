@@ -28,6 +28,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.firestore.*
 import com.google.gson.Gson
 import com.nema.eduup.BaseActivity
+import com.nema.eduup.BuildConfig
 import com.nema.eduup.R
 import com.nema.eduup.auth.User
 import com.nema.eduup.databinding.ActivityViewNoteBinding
@@ -36,6 +37,9 @@ import com.nema.eduup.roomDatabase.Note
 import com.nema.eduup.utils.AppConstants
 import com.nema.eduup.utils.AppConstants.fileTypeImage
 import com.nema.eduup.utils.AppConstants.roundTo
+import com.nema.eduup.utils.buildPdf
+import com.nema.eduup.utils.getFiles
+import com.nema.eduup.utils.proposalExists
 import java.io.File
 import java.util.*
 import kotlin.collections.ArrayList
@@ -134,16 +138,11 @@ class ViewNoteActivity : BaseActivity(), View.OnClickListener, RatingBar.OnRatin
         getUserRating()
         loadNoteRatings()
 
-        if (noteFileUrl.isBlank()) {
-            cvDownload.visibility = View.GONE
-        }
-
-
         requestStoragePermissionsResultLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
             if (result.resultCode == RESULT_OK) {
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
                     if (Environment.isExternalStorageManager()) {
-                        downloadFile(note.title, noteFileUrl)
+                        pdfGenerateOrDownload(note.title, noteFileUrl)
                     } else {
                         Toast.makeText(this, resources.getString(R.string.read_store_permission_denied),
                             Toast.LENGTH_LONG).show()
@@ -154,7 +153,7 @@ class ViewNoteActivity : BaseActivity(), View.OnClickListener, RatingBar.OnRatin
 
         askStoragePermissions = registerForActivityResult(ActivityResultContracts.RequestMultiplePermissions()) { map: MutableMap<String, Boolean> ->
             if (!map.values.contains(false)){
-                downloadFile(note.title, noteFileUrl)
+                pdfGenerateOrDownload(note.title, noteFileUrl)
             } else {
                 Toast.makeText(this, resources.getString(R.string.read_store_permission_denied),
                     Toast.LENGTH_LONG).show()
@@ -179,7 +178,7 @@ class ViewNoteActivity : BaseActivity(), View.OnClickListener, RatingBar.OnRatin
         tvNoteDescription = binding.tvNoteDescription
         tvNoteBody = binding.tvNoteBody
         tvFileName = binding.txtFileName
-        tvDownloadFile = binding.txtDownloadFile
+        tvDownloadFile = binding.tvDownloadFile
         tvRateNote = binding.tvRateNote
         tvNoteRating = binding.tvNoteRating
         tvNumComments = binding.tvNumComments
@@ -232,13 +231,23 @@ class ViewNoteActivity : BaseActivity(), View.OnClickListener, RatingBar.OnRatin
         }else{
             imgBookmark.setImageResource(R.drawable.ic_bookmark_border_black_24)
         }
-
+        Log.e(TAG, "Setting file view")
         if (!note.fileUrl.isNullOrBlank()){
-            downloadFileLayout.visibility = View.VISIBLE
+            Log.e(TAG, "file not null")
             tvFileName.text = "${note.title}.${note.fileType}"
-            imgFileTypeId = fileTypeImage(note.fileType.toString())
+            imgFileTypeId = fileTypeImage(note.fileType)
             if (imgFileTypeId != 0) {
                 imgFileType.setImageResource(imgFileTypeId)
+            }
+        }
+        else {
+            tvFileName.text = "${note.title}.pdf"
+            imgFileType.setImageResource(R.drawable.image_pdf)
+            if (this.proposalExists(noteId, note.title)){
+                tvDownloadFile.text = "open pdf"
+            }
+            else {
+                tvDownloadFile.text = "Download"
             }
         }
     }
@@ -261,7 +270,7 @@ class ViewNoteActivity : BaseActivity(), View.OnClickListener, RatingBar.OnRatin
                     rateNote(rbUserRateValue.rating, tvUserComment.text.toString())
                 }
                 R.id.img_share -> {
-                    share()
+                    checkPdf("share")
                 }
             }
         }
@@ -270,7 +279,7 @@ class ViewNoteActivity : BaseActivity(), View.OnClickListener, RatingBar.OnRatin
     private fun checkStoragePermission() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
             if (Environment.isExternalStorageManager()) {
-                downloadFile(note.title, noteFileUrl)
+                pdfGenerateOrDownload(note.title, noteFileUrl)
             }
             else {
                 try {
@@ -290,11 +299,22 @@ class ViewNoteActivity : BaseActivity(), View.OnClickListener, RatingBar.OnRatin
             if ((ContextCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED)
                 &&
                 (ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED)) {
-                downloadFile(note.title, noteFileUrl)
+                pdfGenerateOrDownload(note.title, noteFileUrl)
             }
             else {
                 val permissions = arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE)
                 askStoragePermissions.launch(permissions)
+            }
+        }
+    }
+
+    private fun pdfGenerateOrDownload(fname : String, url : String) {
+        if (!note.fileUrl.isNullOrBlank()){
+            downloadFile(fname, url)
+        }
+        else {
+            generatePdf {
+                checkPdf("open")
             }
         }
     }
@@ -489,8 +509,6 @@ class ViewNoteActivity : BaseActivity(), View.OnClickListener, RatingBar.OnRatin
         })
     }
 
-
-
     override fun onLongClick(v: View?): Boolean {
         AlertDialog.Builder(this)
             .setTitle("Delete")
@@ -514,6 +532,70 @@ class ViewNoteActivity : BaseActivity(), View.OnClickListener, RatingBar.OnRatin
         val  documentReference = firestoreInstance.collection(AppConstants.NOTES).document(AppConstants.PUBLIC_NOTES)
             .collection(noteLevel).document(noteId).collection(AppConstants.NOTE_RATINGS).document(userId)
         viewModel.deleteReview(documentReference)
+    }
+
+    private fun checkPdf(mode: String) {
+        if (this.proposalExists(noteId, note.title)){
+            checkMode(mode)
+        }
+        else {
+            generatePdf {
+                tvDownloadFile.text = "Open pdf"
+                checkMode(mode)
+            }
+        }
+    }
+
+
+    private fun generatePdf(onComplete: () -> Unit) {
+        this.buildPdf(note){
+            if (it == 1){
+                onComplete()
+            }
+            else {
+                val toast = Toast.makeText(this, resources.getString(R.string.pdf_generation_failed), Toast.LENGTH_LONG)
+                toast.setGravity(Gravity.CENTER, 0, 0)
+                toast.show()
+            }
+        }
+    }
+
+    private fun checkMode(mode: String) {
+        val pdfs = this.getFiles(note.id)
+        for (pdf in pdfs) {
+            if (pdf.name == "${note.title}.pdf") {
+                if (mode == "share"){
+                    sharePdf(pdf)
+                }
+                else if (mode == "open"){
+                    openPdf(pdf)
+                }
+            }
+        }
+    }
+
+    private fun openPdf(pdf: File) {
+        val intent = Intent(Intent.ACTION_VIEW)
+        intent.setDataAndType(uriFromFile(this, pdf),"application/pdf")
+        intent.flags = Intent.FLAG_GRANT_READ_URI_PERMISSION
+        startActivity(Intent.createChooser(intent, "Share Note as pdf"))
+
+    }
+
+    private fun sharePdf(pdf: File) {
+        val intent = Intent(Intent.ACTION_SEND)
+        intent.type = "application/pdf"
+        intent.putExtra(Intent.EXTRA_STREAM,  uriFromFile(this,pdf))
+        intent.flags = Intent.FLAG_GRANT_READ_URI_PERMISSION
+        startActivity(Intent.createChooser(intent, "Share Note as pdf"))
+    }
+
+    private fun uriFromFile(context:Context, file:File):Uri {
+        return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+            FileProvider.getUriForFile(context, BuildConfig.APPLICATION_ID + ".provider", file)
+        } else {
+            Uri.fromFile(file)
+        }
     }
 
 }

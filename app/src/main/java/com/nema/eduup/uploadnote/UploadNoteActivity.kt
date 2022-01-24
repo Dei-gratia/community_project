@@ -25,6 +25,7 @@ import com.nema.eduup.R
 import com.nema.eduup.databinding.ActivityUploadNoteBinding
 import com.nema.eduup.roomDatabase.Note
 import com.nema.eduup.utils.AppConstants
+import com.nema.eduup.utils.AppConstants.setFocusAndKeyboard
 import java.lang.Exception
 import java.util.*
 
@@ -64,8 +65,8 @@ class UploadNoteActivity : BaseActivity(), View.OnClickListener {
         setContentView(binding.root)
         init()
         setupActionBar()
+        acNoteSubject.setFocusAndKeyboard()
 
-        val levels = arrayOf("All Levels","College", "A Level", "O Level", "Primary")
         val spinnerAdapter = ArrayAdapter(
             this, R.layout.spinner_item, AppConstants.levels)
         spinnerLevel.adapter = spinnerAdapter

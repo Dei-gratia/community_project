@@ -22,6 +22,7 @@ import com.nema.eduup.utils.AppConstants
 import com.nema.eduup.utils.AppConstants.hideKeyboard
 import com.nema.eduup.utils.AppConstants.isValidEmail
 import com.nema.eduup.utils.AppConstants.setFocusAndKeyboard
+import com.nema.eduup.utils.AppConstants.showKeyboard
 
 class ForgotPasswordFragment : Fragment(), View.OnClickListener, View.OnFocusChangeListener {
 
@@ -41,10 +42,12 @@ class ForgotPasswordFragment : Fragment(), View.OnClickListener, View.OnFocusCha
         // Inflate the layout for this fragment
         binding = FragmentForgotPasswordBinding.inflate(layoutInflater, container, false)
         init()
+        etEmail.setFocusAndKeyboard()
 
         etEmail.addTextChangedListener(generalTextWatcher)
         etEmail.onFocusChangeListener = this
         btnResetEmail.setOnClickListener(this)
+
         return binding.root
     }
 
@@ -146,9 +149,12 @@ class ForgotPasswordFragment : Fragment(), View.OnClickListener, View.OnFocusCha
     override fun onFocusChange(view: View?, hasFocus: Boolean) {
         if (view != null) {
             when (view.id) {
-                R.id.etEmail-> {
+                R.id.et_email_forgot_password-> {
                     if (!hasFocus) {
                         hideKeyboard()
+                    }
+                    else {
+                        view.showKeyboard()
                     }
                 }
             }

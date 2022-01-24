@@ -6,6 +6,7 @@ import android.content.Intent
 import android.content.SharedPreferences
 import android.graphics.Color
 import android.os.Bundle
+import android.view.Gravity
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -203,6 +204,10 @@ class HomeFragment : Fragment(), View.OnClickListener {
 
     private fun share() {
        listNotesRecyclerView.requestFocus()
+        val toast =
+            Toast.makeText(requireContext(), resources.getString(R.string.open_note_to_share), Toast.LENGTH_LONG)
+        toast.setGravity(Gravity.CENTER, 0, 0)
+        toast.show()
     }
 
 

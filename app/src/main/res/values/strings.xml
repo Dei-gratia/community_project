@@ -195,4 +195,5 @@
     <string name="share_reminder">Share reminder</string>
     <string name="action_upload_quiz">Upload quiz</string>
     <string name="quiz_saved">Thank you for uploading the quiz</string>
+    <string name="open_note_to_share">Open a note to share</string>
 </resources>

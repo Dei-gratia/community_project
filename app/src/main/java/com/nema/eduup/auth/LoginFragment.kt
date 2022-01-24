@@ -62,6 +62,7 @@ class LoginFragment : Fragment(), View.OnClickListener, View.OnFocusChangeListen
         // Inflate the layout for this fragment
         binding = FragmentLoginBinding.inflate(layoutInflater, container, false)
         init()
+        etEmail.setFocusAndKeyboard()
 
         googleSignInResultLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
             if (result.resultCode == AppCompatActivity.RESULT_OK) {
