@@ -1,6 +1,5 @@
-package com.nema.eduup.quiz
+package com.nema.eduup.quizzes
 
-import android.app.Activity
 import android.os.Bundle
 import android.text.format.DateUtils
 import androidx.fragment.app.Fragment
@@ -16,7 +15,6 @@ import androidx.navigation.Navigation
 import com.nema.eduup.R
 import com.nema.eduup.databinding.FragmentQuizBinding
 import com.nema.eduup.reminder.QuizReminderDialog
-import com.nema.eduup.reminder.ReminderDialog
 import com.nema.eduup.utils.AppConstants
 import java.util.*
 

@@ -16,6 +16,7 @@
         android:layout_height="100dp"
         android:layout_marginTop="16dp"
         android:src="@drawable/ic_timer_black_24"
+        app:tint= "@color/colorPrimaryVariant"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />

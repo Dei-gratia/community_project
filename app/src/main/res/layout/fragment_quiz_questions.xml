@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fillViewport="true"
-    tools:context=".quiz.QuizQuestionsFragment">
+    tools:context=".quizzes.QuizQuestionsFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -55,7 +55,7 @@
                 android:gravity="center"
                 android:text="Which internet company began life as an online bookstore called &#039;Cadabra&#039;?"
                 android:textColor="@color/text_black_color"
-                android:textSize="22sp"></com.nema.eduup.utils.EdUpTextView>
+                android:textSize="22sp" />
 
             <LinearLayout
                 android:id="@+id/ll_progress_details"
@@ -78,15 +78,16 @@
 
                 </ProgressBar>
 
-                <TextView
+                <com.nema.eduup.utils.EdUpTextView
                     android:id="@+id/tv_progress"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:gravity="center"
                     android:padding="15dp"
                     android:textColorHint="#7A8089"
+                    android:textColor="@color/text_hint_color"
                     android:textSize="14sp"
-                    tools:text="0/10"></TextView>
+                    tools:text="0/10" />
 
             </LinearLayout>
 
@@ -100,7 +101,7 @@
                 android:padding="15dp"
                 android:textColor="#7A8089"
                 android:textSize="18sp"
-                tools:text="Apple"></com.nema.eduup.utils.EdUpTextView>
+                tools:text="Apple" />
 
             <com.nema.eduup.utils.EdUpTextView
                 android:id="@+id/tv_option_two"
@@ -112,7 +113,7 @@
                 android:padding="15dp"
                 android:textColor="#7A8089"
                 android:textSize="18sp"
-                tools:text="Apple"></com.nema.eduup.utils.EdUpTextView>
+                tools:text="Apple" />
 
             <com.nema.eduup.utils.EdUpTextView
                 android:id="@+id/tv_option_three"
@@ -124,7 +125,7 @@
                 android:padding="15dp"
                 android:textColor="#7A8089"
                 android:textSize="18sp"
-                tools:text="Apple"></com.nema.eduup.utils.EdUpTextView>
+                tools:text="Apple" />
 
             <com.nema.eduup.utils.EdUpTextView
                 android:id="@+id/tv_option_four"
@@ -136,7 +137,7 @@
                 android:padding="15dp"
                 android:textColor="#7A8089"
                 android:textSize="18sp"
-                tools:text="Apple"></com.nema.eduup.utils.EdUpTextView>
+                tools:text="Apple" />
 
             <com.nema.eduup.utils.EdUpButton
                 android:id="@+id/btn_submit"
@@ -147,7 +148,7 @@
                 android:text="@string/btn_lbl_submit"
                 android:textColor="@android:color/white"
                 android:textSize="18sp"
-                android:textStyle="bold"></com.nema.eduup.utils.EdUpButton>
+                android:textStyle="bold" />
 
         </LinearLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>

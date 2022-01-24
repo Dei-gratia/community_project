@@ -4,8 +4,8 @@ import android.util.Log
 import com.google.android.gms.tasks.Tasks
 import com.google.firebase.firestore.*
 import com.nema.eduup.discussions.*
-import com.nema.eduup.quiz.Question
-import com.nema.eduup.quiz.Quiz
+import com.nema.eduup.quizzes.Question
+import com.nema.eduup.quizzes.Quiz
 import com.nema.eduup.utils.AppConstants
 import java.util.*
 import kotlin.collections.ArrayList

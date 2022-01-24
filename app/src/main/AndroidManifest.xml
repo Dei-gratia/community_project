@@ -65,7 +65,7 @@
             android:exported="false"
             android:windowSoftInputMode="adjustResize|stateVisible" />
         <activity
-            android:name=".quiz.PractiseQuestionsActivity"
+            android:name=".quizzes.PractiseQuestionsActivity"
             android:exported="false" />
         <activity
             android:name=".auth.SplashActivity"

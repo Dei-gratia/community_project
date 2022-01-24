@@ -9,7 +9,7 @@
     android:clickable="true"
     android:focusable="true"
     android:foreground="?android:attr/selectableItemBackground"
-    app:cardBackgroundColor="@android:color/white"
+    app:cardBackgroundColor="@color/backGroundColour"
     app:cardCornerRadius="4dp"
     app:cardElevation="4dp">
 

@@ -1,4 +1,4 @@
-package com.nema.eduup.quiz
+package com.nema.eduup.quizzes
 
 import android.app.AlertDialog
 import android.content.res.ColorStateList
@@ -225,7 +225,8 @@ class QuizQuestionsFragment : Fragment(), View.OnClickListener {
             tvQuizTimer.visibility = View.GONE
         }
         else {
-            timeLeftMilliSeconds = countDownInMilliSecond
+            //timeLeftMilliSeconds = countDownInMilliSecond
+                timeLeftMilliSeconds = countDownInMilliSecond
             statCountDownTimer()
         }
     }

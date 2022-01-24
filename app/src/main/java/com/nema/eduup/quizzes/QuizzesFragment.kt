@@ -1,4 +1,4 @@
-package com.nema.eduup.quiz
+package com.nema.eduup.quizzes
 
 import android.content.Context
 import android.content.Intent

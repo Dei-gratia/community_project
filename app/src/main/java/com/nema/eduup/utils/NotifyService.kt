@@ -12,7 +12,7 @@ import android.os.Build
 import android.os.IBinder
 import androidx.core.app.NotificationCompat
 import com.nema.eduup.R
-import com.nema.eduup.quiz.PractiseQuestionsActivity
+import com.nema.eduup.quizzes.PractiseQuestionsActivity
 import java.lang.UnsupportedOperationException
 
 

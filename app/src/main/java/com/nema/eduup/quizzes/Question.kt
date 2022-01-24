@@ -1,4 +1,4 @@
-package com.nema.eduup.quiz
+package com.nema.eduup.quizzes
 
 import android.os.Parcelable
 import androidx.room.Entity

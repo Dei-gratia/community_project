@@ -1,8 +1,7 @@
-package com.nema.eduup.quiz
+package com.nema.eduup.quizzes
 
 import android.app.Activity
 import android.content.Context
-import android.net.Uri
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,11 +10,8 @@ import androidx.cardview.widget.CardView
 import androidx.navigation.Navigation
 import androidx.recyclerview.widget.RecyclerView
 import com.nema.eduup.R
-import com.nema.eduup.utils.AppConstants.openDownloadedAttachment
-import java.text.SimpleDateFormat
 import java.util.*
 import android.os.Bundle
-import android.util.Log
 import com.nema.eduup.utils.AppConstants
 
 

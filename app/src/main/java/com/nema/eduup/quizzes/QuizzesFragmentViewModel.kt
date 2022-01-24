@@ -1,14 +1,11 @@
-package com.nema.eduup.quiz
+package com.nema.eduup.quizzes
 
 import android.app.Application
-import android.util.Log
 import androidx.lifecycle.*
 import com.google.firebase.firestore.CollectionReference
 import com.google.firebase.firestore.DocumentReference
 import com.google.firebase.firestore.ListenerRegistration
 import com.nema.eduup.repository.QuizRepository
-import com.nema.eduup.roomDatabase.Note
-import com.nema.eduup.viewnote.Rating
 import kotlinx.coroutines.launch
 
 class QuizzesFragmentViewModel(app: Application): AndroidViewModel(app),

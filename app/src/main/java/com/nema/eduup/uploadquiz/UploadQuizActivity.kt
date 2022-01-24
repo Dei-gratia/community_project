@@ -4,7 +4,6 @@ import android.app.Activity
 import android.content.Context
 import android.content.SharedPreferences
 import android.os.Bundle
-import android.text.TextWatcher
 import android.util.Log
 import android.view.Gravity
 import android.view.View
@@ -18,18 +17,12 @@ import com.google.gson.Gson
 import com.nema.eduup.BaseActivity
 import com.nema.eduup.R
 import com.nema.eduup.auth.User
-import com.nema.eduup.browse.BrowseFragment
-import com.nema.eduup.browse.BrowseFragmentViewModel
 import com.nema.eduup.databinding.ActivityUploadQuizBinding
-import com.nema.eduup.quiz.Question
-import com.nema.eduup.quiz.Quiz
-import com.nema.eduup.quiz.QuizzesFragmentViewModel
-import com.nema.eduup.repository.QuizRepository
+import com.nema.eduup.quizzes.Question
+import com.nema.eduup.quizzes.Quiz
+import com.nema.eduup.quizzes.QuizzesFragmentViewModel
 import com.nema.eduup.utils.AppConstants
 import com.nema.eduup.utils.AppConstants.hideKeyboard
-import com.nema.eduup.utils.AppConstants.intOrString
-import com.nema.eduup.utils.AppConstants.isValidEmail
-import com.nema.eduup.utils.AppConstants.isValidMobile
 import com.nema.eduup.utils.AppConstants.setFocusAndKeyboard
 import java.util.*
 

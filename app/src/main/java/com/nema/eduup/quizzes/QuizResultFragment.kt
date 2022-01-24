@@ -1,4 +1,4 @@
-package com.nema.eduup.quiz
+package com.nema.eduup.quizzes
 
 import android.content.Intent
 import android.os.Bundle
@@ -6,7 +6,6 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.navigation.Navigation
@@ -14,7 +13,6 @@ import com.nema.eduup.R
 import com.nema.eduup.databinding.FragmentQuizResultBinding
 import com.nema.eduup.home.HomeActivity
 import com.nema.eduup.utils.AppConstants
-import com.nema.eduup.utils.AppConstants.setTint
 
 
 class QuizResultFragment : Fragment(), View.OnClickListener {

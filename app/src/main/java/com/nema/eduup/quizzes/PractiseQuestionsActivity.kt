@@ -1,22 +1,18 @@
-package com.nema.eduup.quiz
+package com.nema.eduup.quizzes
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
-import android.widget.Button
 import android.widget.TextView
 import androidx.appcompat.widget.Toolbar
-import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupWithNavController
-import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.nema.eduup.R
 import com.nema.eduup.databinding.ActivityPractiseQuestionsBinding
-import com.nema.eduup.downloads.DownloadsRecyclerAdapter
 
 class PractiseQuestionsActivity : AppCompatActivity() {
 

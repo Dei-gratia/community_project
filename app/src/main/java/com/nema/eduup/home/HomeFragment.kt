@@ -36,7 +36,7 @@ import com.nema.eduup.browse.AllNotesRecyclerAdapter
 import com.nema.eduup.databinding.FragmentHomeBinding
 import com.nema.eduup.discussions.NewDiscussionActivity
 import com.nema.eduup.newnote.NewNoteActivity
-import com.nema.eduup.quiz.PractiseQuestionsActivity
+import com.nema.eduup.quizzes.PractiseQuestionsActivity
 import com.nema.eduup.roomDatabase.Note
 import com.nema.eduup.utils.AppConstants
 import com.smarteist.autoimageslider.IndicatorView.animation.type.IndicatorAnimationType

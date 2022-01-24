@@ -1,25 +1,16 @@
 package com.nema.eduup.uploadquiz
 
-import android.app.Activity
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.cardview.widget.CardView
-import androidx.navigation.Navigation
 import androidx.recyclerview.widget.RecyclerView
 import com.nema.eduup.R
 import java.util.*
-import android.os.Bundle
 import android.util.Log
-import android.widget.ArrayAdapter
-import android.widget.EditText
-import android.widget.Spinner
-import androidx.appcompat.app.AlertDialog
-import com.nema.eduup.browse.AllNotesRecyclerAdapter
-import com.nema.eduup.quiz.Question
-import com.nema.eduup.utils.AppConstants
+import com.nema.eduup.quizzes.Question
 
 
 class QuestionsRecyclerAdapter(private val context: Context, private var onQuestionSelectedListener: OnQuestionSelectedListener?) :

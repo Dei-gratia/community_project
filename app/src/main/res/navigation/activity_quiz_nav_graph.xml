@@ -7,25 +7,25 @@
 
     <fragment
         android:id="@+id/fragmentQuizzes"
-        android:name="com.nema.eduup.quiz.QuizzesFragment"
+        android:name="com.nema.eduup.quizzes.QuizzesFragment"
         android:label="Quiz List"
         tools:layout="@layout/fragment_quizzes" />
 
     <fragment
         android:id="@+id/fragmentQuiz"
-        android:name="com.nema.eduup.quiz.QuizFragment"
+        android:name="com.nema.eduup.quizzes.QuizFragment"
         android:label="Quiz"
         tools:layout="@layout/fragment_quiz" />
 
     <fragment
         android:id="@+id/fragmentQuizQuestions"
-        android:name="com.nema.eduup.quiz.QuizQuestionsFragment"
+        android:name="com.nema.eduup.quizzes.QuizQuestionsFragment"
         android:label="Question"
         tools:layout="@layout/fragment_quiz_questions" />
 
     <fragment
         android:id="@+id/fragmentQuizResult"
-        android:name="com.nema.eduup.quiz.QuizResultFragment"
+        android:name="com.nema.eduup.quizzes.QuizResultFragment"
         android:label="Quiz Result"
         tools:layout="@layout/fragment_quiz_result" />
 
