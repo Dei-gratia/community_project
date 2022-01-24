@@ -322,9 +322,10 @@ class BrowseFragment : Fragment(), AllNotesRecyclerAdapter.OnBookmarkListener,
     private fun loadBookmarks() {
         val collection = firestoreInstance.collection(AppConstants.USERS).document(userId).collection(AppConstants.BOOKMARKS)
         viewModel.getBookmarks(collection).observe(viewLifecycleOwner, { bookmarks ->
-            Log.d("Note bookmarks", bookmarks.toString())
-            bookmarkList = bookmarks as ArrayList<String>
-            adapter.addBookmarks(bookmarks)
+            for (item in bookmarks){
+                bookmarkList.add(item[AppConstants.NOTE_ID].toString())
+            }
+            adapter.addBookmarks(bookmarkList)
 
         })
     }

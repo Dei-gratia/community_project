@@ -20,6 +20,7 @@ import androidx.appcompat.widget.Toolbar
 import androidx.core.content.ContextCompat
 import androidx.documentfile.provider.DocumentFile
 import androidx.lifecycle.ViewModelProvider
+import com.google.firebase.firestore.FirebaseFirestore
 import com.nema.eduup.BaseActivity
 import com.nema.eduup.R
 import com.nema.eduup.databinding.ActivityUploadNoteBinding
@@ -57,6 +58,7 @@ class UploadNoteActivity : BaseActivity(), View.OnClickListener {
     private val resultIntent = Intent()
 
     private val viewModel by lazy { ViewModelProvider(this)[UploadNoteViewModel::class.java] }
+    private val firestoreInstance: FirebaseFirestore by lazy { FirebaseFirestore.getInstance() }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -225,8 +227,11 @@ class UploadNoteActivity : BaseActivity(), View.OnClickListener {
     }
 
     private fun uploadNote() {
+        val noteDocumentReference = firestoreInstance.collection(noteLevel.lowercase())
+            .document(noteSubject.lowercase()).collection("${noteLevel.lowercase()}${AppConstants.PUBLIC_NOTES}").document()
+        val newNoteId = noteDocumentReference.id
         val newNote = Note(
-            UUID.randomUUID().toString(),
+            newNoteId,
             noteSubject,
             noteTitle,
             noteDescription,

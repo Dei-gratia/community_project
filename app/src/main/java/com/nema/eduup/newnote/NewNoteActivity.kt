@@ -65,7 +65,6 @@ class NewNoteActivity : BaseActivity(), View.OnClickListener, View.OnFocusChange
     private lateinit var noteDescription: String
     private lateinit var noteBody: String
     private lateinit var sharedPreferences: SharedPreferences
-    private lateinit var chooseFileResultLauncher: ActivityResultLauncher<Intent>
     private lateinit var askStoragePermissions: ActivityResultLauncher<Array<String>>
     private lateinit var requestStoragePermissionsResultLauncher: ActivityResultLauncher<Intent>
     private lateinit var newNote: Note
@@ -150,25 +149,6 @@ class NewNoteActivity : BaseActivity(), View.OnClickListener, View.OnFocusChange
             }
         }
 
-        chooseFileResultLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
-            if (result.resultCode == Activity.RESULT_OK) {
-                tvFileName.visibility = View.VISIBLE
-                val data: Intent? = result.data
-                selectedFileUri = data?.data
-                if (selectedFileUri != null) {
-                    try {
-                        val file = DocumentFile.fromSingleUri(this, selectedFileUri!!)
-                        tvFileName.text = file?.name
-                        selectedFileType = AppConstants.getFileExtension(this, selectedFileUri).toString()
-
-                    }catch (e: IOException) {
-                        e.printStackTrace()
-                        Toast.makeText(this, resources.getString(R.string.image_selection_failed), Toast.LENGTH_SHORT).show()
-                    }
-                }
-            }
-        }
-
         btnSave.setOnClickListener(this)
         tvFile.setOnClickListener(this)
         imgShare.setOnClickListener(this)
@@ -248,7 +228,7 @@ class NewNoteActivity : BaseActivity(), View.OnClickListener, View.OnFocusChange
             when (view.id) {
                 R.id.btn_save -> {
                     hideKeyboard(view)
-                    checkFile()
+                    updateNote()
                 }
                 R.id.tv_file -> {
                     checkPdf("open")
@@ -348,38 +328,13 @@ class NewNoteActivity : BaseActivity(), View.OnClickListener, View.OnFocusChange
         }
     }
 
-
-    private fun checkFile() {
-        if (selectedFileUri != null){
-            showProgressDialog(resources.getString(R.string.saving))
-            val fileExtension = AppConstants.getFileExtension(this, selectedFileUri)
-            val storagePath = AppConstants.USER_FILES + "/" + userId + "/" + AppConstants.NOTES_FILES + "/" + noteTitle
-            if (fileExtension != null) {
-                viewModel.uploadFileToFirebaseStorage(selectedFileUri, fileExtension , storagePath){
-                    if (it != null){
-                        uploadedFileURI = it.toString()
-                        hideProgressDialog()
-                        checkIsNewNote()
-
-                    }
-                    else {
-                        hideProgressDialog()
-                        Toast.makeText(this, "Error uploading File", Toast.LENGTH_LONG).show()
-                    }
-                }
-            }
-        } else {
-            checkIsNewNote()
-        }
-    }
-
     override fun onBackPressed() {
         if (checkChanges()) {
             val dialog = android.app.AlertDialog.Builder(this)
             dialog.setTitle("Save note")
             dialog.setMessage("Save changes")
             dialog.setPositiveButton("Save") { _, _ ->
-                checkIsNewNote()
+                updateNote()
                 super.onBackPressed()
             }
             dialog.setNegativeButton("No") { mDialog, _ ->
@@ -394,11 +349,13 @@ class NewNoteActivity : BaseActivity(), View.OnClickListener, View.OnFocusChange
     }
 
     private fun setNewNote() {
+        val noteDocumentReference = firestoreInstance.collection(AppConstants.USERS).document(userId.lowercase())
+            .collection(AppConstants.NOTES).document()
         noteSubject =  acNoteSubject.text.toString()
         noteTitle = etNoteTitle.text.toString()
         noteDescription = etNoteDescription.text.toString()
         noteBody = etNoteBody.text.toString()
-        noteId = UUID.randomUUID().toString()
+        noteId = noteDocumentReference.id
         var time = Calendar.getInstance().timeInMillis
         var avgRating = 0.0
         var numRating = 0L
@@ -441,7 +398,7 @@ class NewNoteActivity : BaseActivity(), View.OnClickListener, View.OnFocusChange
 
     private fun checkIsNewNote() {
         if (isNewNote()) {
-            saveNewNote()
+            updateNote()
         }
         else {
             updateNote()
@@ -470,60 +427,6 @@ class NewNoteActivity : BaseActivity(), View.OnClickListener, View.OnFocusChange
             toast.setGravity(Gravity.CENTER, 0, 0)
             toast.show()
         }
-    }
-
-    private fun saveNewNote() {
-        if (checkChanges()) {
-            val collectionReference = firestoreInstance.collection(AppConstants.USERS).document(this.userId).collection(AppConstants.NOTES)
-            viewModel.addNoteToFirestore(newNote, collectionReference ) {
-                val toast =
-                    Toast.makeText(this, resources.getString(R.string.note_saved), Toast.LENGTH_LONG)
-                toast.setGravity(Gravity.CENTER, 0, 0)
-                toast.show()
-                note = newNote
-                generatePdf{}
-                setTopElementsVisibility()
-            }
-        }
-    }
-
-    private fun checkPermission() {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
-            if (Environment.isExternalStorageManager()) {
-                generatePdf {  }
-            }
-            else {
-                try {
-                    val intent = Intent(Settings.ACTION_MANAGE_APP_ALL_FILES_ACCESS_PERMISSION)
-                    intent.addCategory("android.intent.category.DEFAULT")
-                    intent.data = Uri.parse(String.format("package:%s",
-                        applicationContext?.packageName
-                    ))
-                    requestStoragePermissionsResultLauncher.launch(intent)
-                } catch (e: Exception) {
-                    val intent = Intent()
-                    intent.action = Settings.ACTION_MANAGE_ALL_FILES_ACCESS_PERMISSION
-                    requestStoragePermissionsResultLauncher.launch(intent)
-                }
-            }
-        }else {
-            if ((ContextCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED)
-                &&
-                (ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED)) {
-                generatePdf {  }
-            }else {
-                val permissions = arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE)
-                askStoragePermissions.launch(permissions)
-            }
-        }
-    }
-
-    private fun showFileChooser(){
-        val intent = Intent()
-            .setType("*/*")
-            .setAction(Intent.ACTION_GET_CONTENT)
-
-        chooseFileResultLauncher.launch(Intent.createChooser(intent, "Select a file"))
     }
 
 }

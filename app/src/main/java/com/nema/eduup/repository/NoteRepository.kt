@@ -1,16 +1,11 @@
 package com.nema.eduup.repository
 
 import android.util.Log
-import androidx.lifecycle.MutableLiveData
 import com.google.android.gms.tasks.Task
 import com.google.android.gms.tasks.Tasks
-import com.google.firebase.auth.AuthCredential
-import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.firestore.*
 import com.google.firebase.firestore.ktx.toObject
 import com.nema.eduup.discussions.*
-import com.nema.eduup.auth.User
 import com.nema.eduup.roomDatabase.Note
 import com.nema.eduup.utils.AppConstants
 import com.nema.eduup.viewnote.Rating
@@ -72,6 +67,32 @@ object NoteRepository {
             }
     }
 
+    fun addNoteToFirestore1(note: Note, documentReference: DocumentReference, onComplete: () -> Unit) {
+        val noteHashMap = HashMap<String, Any>()
+        noteHashMap[AppConstants.ID] = note.id
+        noteHashMap[AppConstants.TITLE] = note.title
+        noteHashMap[AppConstants.SUBJECT] = note.subject
+        noteHashMap[AppConstants.LEVEL] = note.level
+        noteHashMap[AppConstants.DESCRIPTION] = note.description
+        noteHashMap[AppConstants.BODY] = note.body
+        noteHashMap[AppConstants.DATE] = note.date
+        noteHashMap[AppConstants.AVERAGE_RATING] = note.avgRating
+        noteHashMap[AppConstants.NUM_RATING] = note.numRating
+        noteHashMap[AppConstants.FILE_TYPE] = note.fileType
+        noteHashMap[AppConstants.FILE_URL] = note.fileUrl
+        noteHashMap[AppConstants.REMINDERS] = note.reminders
+        documentReference
+            .set(noteHashMap)
+            .addOnSuccessListener {
+                onComplete()
+            }
+            .addOnFailureListener { e ->
+                Log.e(TAG, "Error adding note", e)
+                return@addOnFailureListener
+            }
+    }
+
+
     fun updateNote(note: Note, documentReference: DocumentReference, onComplete: () -> Unit) {
         documentReference
             .set(note)
@@ -128,8 +149,11 @@ object NoteRepository {
     }
 
     fun addBookmark(noteId: String){
+        val bookmarkHashMap = HashMap<String, Any>()
+        bookmarkHashMap[AppConstants.NOTE_ID] = noteId
+        bookmarkHashMap[AppConstants.DATE] = Calendar.getInstance().timeInMillis
         firestoreInstance.collection(AppConstants.USERS).document(currentUserId).collection(AppConstants.BOOKMARKS).document(noteId)
-            .set(mapOf(AppConstants.NOTE_ID to noteId))
+            .set(bookmarkHashMap)
             .addOnSuccessListener { result ->
 
             }
@@ -142,8 +166,11 @@ object NoteRepository {
     }
 
     fun addToHistory(noteId: String){
+        val historyHashMap = HashMap<String, Any>()
+        historyHashMap[AppConstants.NOTE_ID] = noteId
+        historyHashMap[AppConstants.DATE] = Calendar.getInstance().timeInMillis
         firestoreInstance.collection(AppConstants.USERS).document(currentUserId).collection(AppConstants.HISTORY).document(noteId)
-            .set(mapOf(AppConstants.NOTE_ID to noteId))
+            .set(historyHashMap)
             .addOnSuccessListener { result ->
 
             }
@@ -152,7 +179,7 @@ object NoteRepository {
 
 
 
-    fun getNotesByIds(notesCollection: CollectionReference, noteIds: ArrayList<String>, onComplete: (ArrayList<Note>) -> Unit) {
+    fun getNotesByIds1(notesCollection: CollectionReference, noteIds: ArrayList<String>, onComplete: (ArrayList<Note>) -> Unit) {
         val noteTasks = noteIds.map { notesCollection.document(it).get() }
         Tasks.whenAllSuccess<DocumentSnapshot>(noteTasks)
             .addOnSuccessListener { documentList ->
@@ -161,6 +188,25 @@ object NoteRepository {
                     for (document in documentList) {
                         notesList.add(parseNoteDocument(document))
                     }
+                }
+                onComplete(notesList)
+            }
+            .addOnFailureListener { e ->
+                Log.e(TAG, "Error getting notes", e)
+                return@addOnFailureListener
+            }
+    }
+
+
+    fun getNotesByIds(level: String, noteIds: ArrayList<String>, onComplete: (ArrayList<Note>) -> Unit) {
+        firestoreInstance.collectionGroup("${level.lowercase()}${AppConstants.PUBLIC_NOTES.lowercase()}").whereIn(AppConstants.ID, noteIds)
+            .orderBy("date")
+            .get()
+            .addOnSuccessListener { documentList ->
+                val notesList = java.util.ArrayList<Note>()
+                for (document in documentList) {
+                    notesList.add(parseNoteDocument(document))
+
                 }
                 onComplete(notesList)
             }
@@ -314,27 +360,6 @@ object NoteRepository {
             }
     }
 
-    fun addBookmarksListener1(collection: CollectionReference, onListen: (MutableList<Note>) -> Unit): ListenerRegistration {
-        val bookmarks = mutableListOf<Note>()
-        return collection
-            .addSnapshotListener{ querySnapshot, firebaseFirestoreException ->
-                if (firebaseFirestoreException != null) {
-                    Log.e("FIRESTORE", "Bookmarks listener error.", firebaseFirestoreException)
-                    return@addSnapshotListener
-                }
-                for (document in querySnapshot!!.documentChanges) {
-                    if (document.type == DocumentChange.Type.ADDED) {
-                        bookmarks.add(parseNoteDocument(document.document))
-                    }
-                    else if (document.type == DocumentChange.Type.REMOVED) {
-                        bookmarks.remove(parseNoteDocument(document.document))
-                    }
-                }
-                onListen(bookmarks)
-            }
-
-    }
-
     fun addBookmarksListener(collection: CollectionReference, onListen: (MutableList<String>) -> Unit): ListenerRegistration {
         val bookmarks = mutableListOf<String>()
         return collection
@@ -352,6 +377,38 @@ object NoteRepository {
                     }
                 }
                 onListen(bookmarks)
+            }
+
+    }
+
+    fun addHistoryListener(collection: CollectionReference, onListen: (MutableList<HashMap<String, Any>>) -> Unit): ListenerRegistration {
+        val mutableList = mutableListOf<HashMap<String, Any>>()
+        return collection
+            .addSnapshotListener{ querySnapshot, firebaseFirestoreException ->
+                if (firebaseFirestoreException != null) {
+                    Log.e("FIRESTORE", "Bookmarks listener error.", firebaseFirestoreException)
+                    return@addSnapshotListener
+                }
+                for (document in querySnapshot!!.documentChanges) {
+                    val hashMap = HashMap<String, Any>()
+                    if (document.type == DocumentChange.Type.ADDED) {
+                        hashMap[AppConstants.NOTE_ID] = document.document.id
+                        hashMap[AppConstants.DATE] = document.document.get(AppConstants.DATE).toString()
+                        mutableList.add(hashMap)
+                    }
+                    else if (document.type == DocumentChange.Type.REMOVED) {
+                        hashMap[AppConstants.NOTE_ID] = document.document.id
+                        hashMap[AppConstants.DATE] = document.document.get(AppConstants.DATE).toString()
+                        mutableList.remove(hashMap)
+                    }
+                    else if (document.type == DocumentChange.Type.MODIFIED) {
+                        hashMap[AppConstants.NOTE_ID] = document.document.id
+                        hashMap[AppConstants.DATE] = document.document.get(AppConstants.DATE).toString()
+                        val hashMapPosition = mutableList.indexOf(mutableList.find { it[AppConstants.NOTE_ID] == document.document.id })
+                        mutableList[hashMapPosition] = hashMap
+                    }
+                }
+                onListen(mutableList)
             }
 
     }

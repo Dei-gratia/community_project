@@ -7,6 +7,7 @@ import android.os.Bundle
 import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import com.google.firebase.firestore.CollectionReference
+import com.google.firebase.firestore.DocumentReference
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.gson.Gson
 import com.nema.eduup.R
@@ -35,5 +36,12 @@ class HomeActivityViewModel(app: Application): AndroidViewModel(app) {
             onComplete()
         }
     }
+
+    fun addNoteToFirestore1(note: Note, documentReference: DocumentReference, onComplete: () -> Unit) {
+        noteRepository.addNoteToFirestore1(note,documentReference) {
+            onComplete()
+        }
+    }
+
 
 }

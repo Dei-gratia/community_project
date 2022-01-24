@@ -31,6 +31,7 @@ import java.util.regex.Pattern
 object AppConstants {
 
     private val TAG = AppConstants::class.qualifiedName
+    const val ID = "id"
     const val APP_THEME: String = "appTheme"
     const val EDUUP_PREFERENCES = "EduUpPreferences"
     const val USERS = "users"
@@ -68,7 +69,12 @@ object AppConstants {
     const val TITLE = "title"
     const val DESCRIPTION = "description"
     const val SUBJECT = "subject"
+    const val BODY = "body"
     const val LEVEL = "level"
+    const val NUM_RATING = "numRating"
+    const val FILE_TYPE = "fileType"
+    const val FILE_URL = "fileUrl"
+    const val AVERAGE_RATING = "avgRating"
     const val TOTAL_QUESTIONS = "totalQuestions"
     const val DURATION = "duration"
     const val COLLEGE = "college"

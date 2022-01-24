@@ -126,9 +126,10 @@ class HomeActivity : BaseActivity() {
                     if (uploadNote.subject.isNotBlank()){
                         noteSubject = uploadNote.subject
                     }
-                    val collection = firestoreInstance.collection(uploadNote.level.lowercase()).document(noteSubject.lowercase()).collection("${uploadNote.level.lowercase()}${AppConstants.PUBLIC_NOTES}")
-
-                    viewModel.addNoteToFirestore(uploadNote, collection){
+                    //val collection = firestoreInstance.collection(uploadNote.level.lowercase()).document(noteSubject.lowercase()).collection("${uploadNote.level.lowercase()}${AppConstants.PUBLIC_NOTES}")
+                    val document = firestoreInstance.collection(uploadNote.level.lowercase()).document(noteSubject.lowercase())
+                        .collection("${uploadNote.level.lowercase()}${AppConstants.PUBLIC_NOTES}").document(uploadNote.id)
+                    viewModel.addNoteToFirestore1(uploadNote, document){
                         Toast.makeText(this, "New note saved to firestore!", Toast.LENGTH_LONG).show()
                     }
                 }

@@ -85,28 +85,34 @@ AllNotesRecyclerAdapter.OnNoteSelectedListener {
 
     private fun getBookmarkIds(){
         val collection = firestoreInstance.collection(AppConstants.USERS).document(userId).collection(AppConstants.BOOKMARKS)
-        viewModel.getBookmarks(collection).observe(viewLifecycleOwner, Observer {
-            bookmarkList = it as ArrayList<String>
-            getBookmarks()
+        viewModel.getBookmarks(collection).observe(viewLifecycleOwner, { bookmarks ->
 
-            if (bookmarkList.isEmpty()) {
+            if (bookmarks.isEmpty()) {
                 clNoBookmarks.visibility = View.VISIBLE
+                Log.e(TAG, "bookmark is empty")
             }
             else{
-                clNoBookmarks.visibility = View.GONE
+                for (item in bookmarks){
+                    Log.e(TAG, "bookmark $item")
+                    bookmarkList.add(item[AppConstants.NOTE_ID].toString())
+                }
+                getBookmarks()
             }
-            Log.e(TAG, bookmarkList.toString())
+
         })
 
 
     }
 
     private fun getBookmarks() {
-        val collection =
-            firestoreInstance.collection(userLevel.lowercase()).document(AppConstants.ALL_SUBJECTS.lowercase())
-                .collection("${userLevel.lowercase()}${AppConstants.PUBLIC_NOTES}")
-        viewModel.getNotesByIds(collection, bookmarkList) {
-            adapter.setNotes(it)
+        viewModel.getNotesByIds(userLevel.lowercase(), bookmarkList) {
+            if (it.isEmpty()) {
+                clNoBookmarks.visibility = View.VISIBLE
+            }
+            else{
+                clNoBookmarks.visibility = View.GONE
+                adapter.setNotes(it)
+            }
         }
     }
 

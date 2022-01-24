@@ -11,7 +11,7 @@ import kotlinx.coroutines.launch
 class HistoryFragmentViewModel(app: Application): AndroidViewModel(app) ,
     DefaultLifecycleObserver {
     private lateinit var historyListenerRegistration: ListenerRegistration
-    private var historyIds : MutableLiveData<List<String>> = MutableLiveData()
+    private var history : MutableLiveData<List<HashMap<String, Any>>> = MutableLiveData()
     private var noteRepository = NoteRepository
 
 
@@ -21,18 +21,24 @@ class HistoryFragmentViewModel(app: Application): AndroidViewModel(app) ,
         ProcessLifecycleOwner.get().lifecycle.addObserver(this)
     }
 
-    fun getHistoryIds(collection: CollectionReference): LiveData<List<String>> {
+    fun getHistory(collection: CollectionReference): LiveData<List<HashMap<String, Any>>> {
         viewModelScope.launch {
-            historyListenerRegistration = noteRepository.addBookmarksListener(collection) {
-                historyIds.value = it
+            historyListenerRegistration = noteRepository.addHistoryListener(collection) {
+                history.value = it
             }
         }
-        return  historyIds
+        return  history
     }
 
-    fun getNotesByIds(notesCollection: CollectionReference, noteIds: ArrayList<String>,onComplete: (ArrayList<Note>) -> Unit) {
-        noteRepository.getNotesByIds(notesCollection, noteIds) {
+    fun getHistoryNotes(level: String, noteIds: ArrayList<String>, onComplete: (ArrayList<Note>) -> Unit) {
+        noteRepository.getNotesByIds(level, noteIds) {
             onComplete(it)
+        }
+    }
+
+    fun addToHistory(noteId: String){
+        viewModelScope.launch {
+            noteRepository.addToHistory(noteId)
         }
     }
 
@@ -42,7 +48,4 @@ class HistoryFragmentViewModel(app: Application): AndroidViewModel(app) ,
             noteRepository.removeListener(historyListenerRegistration)
         }
     }
-
-
-
 }

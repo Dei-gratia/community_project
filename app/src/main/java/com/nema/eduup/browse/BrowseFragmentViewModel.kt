@@ -3,6 +3,7 @@ package com.nema.eduup.browse
 import android.app.Application
 import android.content.Context
 import android.content.SharedPreferences
+import android.util.Log
 import androidx.lifecycle.*
 import com.google.firebase.firestore.CollectionReference
 import com.google.firebase.firestore.FirebaseFirestore
@@ -12,10 +13,12 @@ import com.nema.eduup.repository.FirebaseStorageUtil
 import com.nema.eduup.repository.NoteRepository
 import com.nema.eduup.roomDatabase.Note
 import com.nema.eduup.utils.AppConstants
+import com.nema.eduup.viewnote.ViewNoteActivity
 import kotlinx.coroutines.launch
 
 class BrowseFragmentViewModel(app: Application): AndroidViewModel(app), DefaultLifecycleObserver {
 
+    private val TAG = BrowseFragmentViewModel::class.qualifiedName
     private lateinit var currentUser: User
     private lateinit var notesListenerRegistration: ListenerRegistration
     private lateinit var remindersListenerRegistration: ListenerRegistration
@@ -23,7 +26,7 @@ class BrowseFragmentViewModel(app: Application): AndroidViewModel(app), DefaultL
     private val firestoreInstance: FirebaseFirestore by lazy { FirebaseFirestore.getInstance() }
     private var notes : MutableLiveData<List<Note>> = MutableLiveData()
     private var reminders : MutableLiveData<List<Note>> = MutableLiveData()
-    private var bookmarks : MutableLiveData<List<String>> = MutableLiveData()
+    private var bookmarks : MutableLiveData<List<HashMap<String, Any>>> = MutableLiveData()
     private var noteRepository = NoteRepository
     private var firebaseStorageUtil = FirebaseStorageUtil
     private val sharedPreferences = app.getSharedPreferences(AppConstants.EDUUP_PREFERENCES, Context.MODE_PRIVATE) as SharedPreferences
@@ -34,8 +37,14 @@ class BrowseFragmentViewModel(app: Application): AndroidViewModel(app), DefaultL
         ProcessLifecycleOwner.get().lifecycle.addObserver(this)
     }
 
-    fun getNotesByIds(notesCollection: CollectionReference, noteIds: ArrayList<String>,onComplete: (ArrayList<Note>) -> Unit) {
-        noteRepository.getNotesByIds(notesCollection, noteIds) {
+    fun getNotesByIds1(notesCollection: CollectionReference, noteIds: ArrayList<String>,onComplete: (ArrayList<Note>) -> Unit) {
+        noteRepository.getNotesByIds1(notesCollection, noteIds) {
+            onComplete(it)
+        }
+    }
+
+    fun getNotesByIds(level: String, noteIds: ArrayList<String>,onComplete: (ArrayList<Note>) -> Unit) {
+        noteRepository.getNotesByIds(level, noteIds) {
             onComplete(it)
         }
     }
@@ -67,9 +76,9 @@ class BrowseFragmentViewModel(app: Application): AndroidViewModel(app), DefaultL
         return notes
     }
 
-    fun getBookmarks(collection: CollectionReference): LiveData<List<String>> {
+    fun getBookmarks(collection: CollectionReference): LiveData<List<HashMap<String, Any>>> {
         viewModelScope.launch {
-            bookmarksListenerRegistration = noteRepository.addBookmarksListener(collection) {
+            bookmarksListenerRegistration = noteRepository.addHistoryListener(collection) {
                 bookmarks.value = it
             }
         }

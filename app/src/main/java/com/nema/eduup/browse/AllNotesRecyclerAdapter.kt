@@ -2,20 +2,17 @@ package com.nema.eduup.browse
 
 import android.content.Context
 import android.content.Intent
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
-import androidx.annotation.Nullable
 import androidx.cardview.widget.CardView
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.nema.eduup.R
-import com.nema.eduup.home.HomeActivity
 import com.nema.eduup.roomDatabase.Note
 import com.nema.eduup.utils.AppConstants
 import com.nema.eduup.utils.AppConstants.roundTo
@@ -43,6 +40,7 @@ AllNotesRecyclerAdapter(private val context: Context,
         notes.addAll(newNotes)
         diffResult.dispatchUpdatesTo(this)
     }
+
 
     fun isBookmarksFrag(isIt: Boolean){
         isBookmarks = isIt
