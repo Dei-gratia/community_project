@@ -9,7 +9,6 @@
     android:focusableInTouchMode="true"
     android:clickable="true"
     android:focusable="true"
-    android:background="@color/backGroundColour"
     android:scrollbars="none"
     tools:context=".auth.RegisterFragment">
 
@@ -23,19 +22,13 @@
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/til_first_name"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginTop="24dp"
             android:layout_marginEnd="16dp"
             android:hint="@string/hint_first_names"
-            android:textColorHint="@color/text_hint_color"
-            app:errorIconTint="@color/black"
-            app:errorTextColor="@color/black"
-            app:boxStrokeErrorColor="@color/black"
-            app:startIconTint="@color/text_hint_color"
-            app:boxStrokeColor="@color/text_black_color"
+            style="@style/MyTextInputLayoutStyle"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
@@ -47,25 +40,20 @@
                 android:layout_height="wrap_content"
                 android:inputType="text"
                 android:padding="@dimen/et_padding"
+                android:textCursorDrawable="@drawable/edit_text_cursor"
                 android:textColor="@color/text_black_color"
                 android:textSize="@dimen/et_textSize" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/til_family_name"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginTop="16dp"
             android:layout_marginEnd="16dp"
             android:hint="@string/hint_family_name"
-            android:textColorHint="@color/text_hint_color"
-            app:errorIconTint="@color/black"
-            app:errorTextColor="@color/black"
-            app:boxStrokeErrorColor="@color/black"
-            app:startIconTint="@color/text_hint_color"
-            app:boxStrokeColor="@color/text_black_color"
+            style="@style/MyTextInputLayoutStyle"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/til_first_name"
@@ -77,25 +65,20 @@
                 android:layout_height="wrap_content"
                 android:inputType="text"
                 android:padding="@dimen/et_padding"
+                android:textCursorDrawable="@drawable/edit_text_cursor"
                 android:textColor="@color/colorPrimaryText"
                 android:textSize="@dimen/et_textSize" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/til_email"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginTop="16dp"
             android:layout_marginEnd="16dp"
             android:hint="@string/et_hint_email_id"
-            android:textColorHint="@color/text_hint_color"
-            app:errorIconTint="@color/black"
-            app:errorTextColor="@color/black"
-            app:boxStrokeErrorColor="@color/black"
-            app:startIconTint="@color/text_hint_color"
-            app:boxStrokeColor="@color/text_black_color"
+            style="@style/MyTextInputLayoutStyle"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/til_family_name"
@@ -107,25 +90,20 @@
                 android:layout_height="wrap_content"
                 android:inputType="textEmailAddress"
                 android:padding="@dimen/et_padding"
+                android:textCursorDrawable="@drawable/edit_text_cursor"
                 android:textColor="@color/text_black_color"
                 android:textSize="@dimen/et_textSize" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/til_password"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginTop="16dp"
             android:layout_marginEnd="16dp"
             android:hint="@string/et_hint_password"
-            android:textColorHint="@color/text_hint_color"
-            app:errorIconTint="@color/black"
-            app:errorTextColor="@color/black"
-            app:boxStrokeErrorColor="@color/black"
-            app:startIconTint="@color/text_hint_color"
-            app:boxStrokeColor="@color/text_black_color"
+            style="@style/MyTextInputLayoutStyle"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/til_email"
@@ -137,6 +115,7 @@
                 android:layout_height="wrap_content"
                 android:inputType="textPassword"
                 android:padding="@dimen/et_padding"
+                android:textCursorDrawable="@drawable/edit_text_cursor"
                 android:textColor="@color/text_black_color"
                 android:textSize="@dimen/et_textSize" />
         </com.google.android.material.textfield.TextInputLayout>
@@ -144,19 +123,13 @@
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/til_confirm_password"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginTop="16dp"
             android:layout_marginEnd="16dp"
             android:hint="@string/hint_confirm_password"
-            android:textColorHint="@color/text_hint_color"
-            app:errorIconTint="@color/black"
-            app:errorTextColor="@color/black"
-            app:boxStrokeErrorColor="@color/black"
-            app:startIconTint="@color/text_hint_color"
-            app:boxStrokeColor="@color/text_black_color"
+            style="@style/MyTextInputLayoutStyle"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/til_password"
@@ -168,10 +141,10 @@
                 android:layout_height="wrap_content"
                 android:inputType="textPassword"
                 android:padding="@dimen/et_padding"
+                android:textCursorDrawable="@drawable/edit_text_cursor"
                 android:textColor="@color/text_black_color"
                 android:textSize="@dimen/et_textSize" />
         </com.google.android.material.textfield.TextInputLayout>
-
 
         <LinearLayout
             android:id="@+id/ll_terms_and_condition"

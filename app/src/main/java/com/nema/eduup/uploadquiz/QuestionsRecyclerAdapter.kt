@@ -56,6 +56,10 @@ class QuestionsRecyclerAdapter(private val context: Context, private var onQuest
         holder.tvOption3.text = question.optionThree
         holder.tvOption4.text = question.optionFour
         Log.e(TAG, "Correct option is ${question.correctOption}")
+        holder.tvOption1.setTextColor(context.resources.getColor(R.color.text_hint_color))
+        holder.tvOption2.setTextColor(context.resources.getColor(R.color.text_hint_color))
+        holder.tvOption3.setTextColor(context.resources.getColor(R.color.text_hint_color))
+        holder.tvOption4.setTextColor(context.resources.getColor(R.color.text_hint_color))
         when(question.correctOption) {
             1 -> {
                 holder.tvOption1.setTextColor(context.resources.getColor(R.color.badgeGreen))

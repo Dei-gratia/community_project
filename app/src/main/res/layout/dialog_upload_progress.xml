@@ -6,7 +6,6 @@
     android:id="@+id/rlProgress"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@color/backGroundColour"
     android:padding="@dimen/progress_dialog_content_padding">
 
     <com.nema.eduup.utils.EdUpTextView

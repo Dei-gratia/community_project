@@ -13,10 +13,36 @@
         <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
         <item name="bottomNavigationStyle">@style/BottomNavigationViewStyle</item>
         <!-- Customize your theme here. -->
+        <item name="backgroundColor">#ffffff</item>
     </style>
     <style name="ToolbarTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <item name="android:textColorPrimary">@color/colorPrimaryText</item>
         <item name="android:textColorSecondary">@color/colorSecondaryText</item>
         <item name="android:textColor">@color/black</item>
     </style>`
+    <style name="RatingBar" parent="Theme.AppCompat">
+        <item name="colorControlNormal">@color/lightGrey</item>
+        <item name="colorControlActivated">@color/duskYellow</item>
+    </style>
+
+    <style name="BottomNavigationViewStyle" parent="Widget.MaterialComponents.BottomNavigationView.Colored">
+        <item name="android:background">@color/colorPrimaryVariant</item>
+        <item name="itemTextColor">@color/bottom_nav_item_color</item>
+        <item name="itemIconTint">@color/bottom_nav_item_color</item>
+    </style>
+    <style name="MyTextInputLayoutStyle" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense">
+        <item name="android:textColorHint">@color/text_hint_color</item>
+        <item name="hintTextColor">@color/colorPrimaryVariant</item>
+        <item name="errorIconTint">@color/errorColor</item>
+        <item name="errorTextColor">@color/errorColor</item>
+        <item name="boxStrokeColor">@color/colorPrimaryVariant</item>
+        <item name="boxStrokeErrorColor">@color/errorColor</item>
+        <item name="startIconTint">@color/text_hint_color</item>
+        <item name="boxBackgroundColor">@null</item>
+        <item name="boxBackgroundMode">outline</item>
+        <item name="boxStrokeWidth">0dp</item>
+    </style>
+
+    <color name="lightGrey">#A8A8A8</color>
+    <color name="duskYellow">#FF8800</color>
 </resources>

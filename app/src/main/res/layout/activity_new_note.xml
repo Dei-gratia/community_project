@@ -4,14 +4,12 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/backGroundColour"
     tools:context=".newnote.NewNoteActivity">
 
     <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:fitsSystemWindows="true"
-        android:background="@color/fui_transparent"
         android:theme="@style/ThemeOverlay.AppCompat.Dark">
 
         <androidx.appcompat.widget.Toolbar
@@ -21,7 +19,7 @@
             app:contentInsetLeft="0dp"
             app:contentInsetStart="0dp"
             app:contentInsetStartWithNavigation="0dp"
-            android:background="@color/colorPrimaryVariant"
+
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
@@ -126,11 +124,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="@string/noteSubject"
-                android:textColorHint="@color/text_hint_color"
                 android:layout_marginStart="4dp"
                 android:layout_marginTop="20dp"
                 android:layout_marginEnd="4dp"
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                style="@style/MyTextInputLayoutStyle"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/cl_top_elements">
@@ -140,11 +137,11 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="text"
-                    android:paddingTop="@dimen/et_padding"
                     android:paddingStart="4dp"
+                    android:paddingTop="@dimen/et_padding"
                     android:paddingEnd="4dp"
                     android:paddingBottom="@dimen/et_padding"
-
+                    android:textCursorDrawable="@drawable/edit_text_cursor"
                     android:textColor="@color/text_black_color"
                     android:textSize="@dimen/et_title_textSize">
 
@@ -157,12 +154,11 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="@string/noteTitle"
-                android:textColorHint="@color/text_hint_color"
                 android:layout_marginStart="4dp"
                 android:layout_marginTop="8dp"
                 android:layout_marginEnd="4dp"
                 android:gravity="bottom"
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                style="@style/MyTextInputLayoutStyle"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/til_subject">
@@ -176,6 +172,7 @@
                     android:paddingStart="4dp"
                     android:paddingEnd="4dp"
                     android:paddingBottom="@dimen/et_padding"
+                    android:textCursorDrawable="@drawable/edit_text_cursor"
                     android:textColor="@color/text_black_color"
                     android:textSize="@dimen/et_textSize"/>
             </com.google.android.material.textfield.TextInputLayout>
@@ -187,9 +184,8 @@
                 android:layout_marginStart="4dp"
                 android:layout_marginTop="8dp"
                 android:layout_marginEnd="4dp"
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:hint="@string/noteDescription"
-                android:textColorHint="@color/text_hint_color"
+                style="@style/MyTextInputLayoutStyle"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/til_title">
@@ -203,6 +199,7 @@
                     android:paddingStart="4dp"
                     android:paddingEnd="4dp"
                     android:paddingBottom="@dimen/et_padding"
+                    android:textCursorDrawable="@drawable/edit_text_cursor"
                     android:textColor="@color/text_black_color"
                     android:textSize="@dimen/et_textSize"
                     android:gravity="start|top"
@@ -217,9 +214,8 @@
                 android:layout_marginStart="4dp"
                 android:layout_marginTop="8dp"
                 android:layout_marginEnd="4dp"
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:hint="@string/noteBody"
-                android:textColorHint="@color/text_hint_color"
+                style="@style/MyTextInputLayoutStyle"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/til_note_description">
@@ -233,6 +229,7 @@
                     android:paddingStart="4dp"
                     android:paddingEnd="4dp"
                     android:paddingBottom="@dimen/et_padding"
+                    android:textCursorDrawable="@drawable/edit_text_cursor"
                     android:textColor="@color/text_black_color"
                     android:textSize="@dimen/et_textSize"
                     android:minLines="10"
@@ -281,8 +278,8 @@
                 android:layout_height="wrap_content"
                 android:text="@string/save"
                 android:layout_margin="16dp"
-                android:textColor="@color/colorSecondaryText"
-                android:background="@drawable/button_background"
+                android:textColor="@color/white"
+                android:background="@color/colorPrimaryVariant"
                 android:foreground="?attr/selectableItemBackground"
                 android:gravity="center"
                 app:layout_constraintLeft_toLeftOf="parent"

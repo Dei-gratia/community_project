@@ -7,41 +7,37 @@
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
-    <color name="edit_text_cursor_color">#4f00b9</color>
-    <color name="fab_background_color">#4f00b9</color>
 
 
-
-    <color name="colorPrimary">#4f00b9</color>
+    <color name="colorPrimary">#8826ed</color>
     <color name="colorPrimaryVariant">#4f00b9</color>
-    <color name="colorOnPrimary">#bf5cff</color>
-    <color name="colorPrimaryText">#FF000000</color>
+    <color name="colorOnPrimary">#000000</color>
+    <color name="colorPrimaryText">#FFFFFF</color>
 
     <color name="colorSecondary">#2626ed</color>
     <color name="colorSecondaryVariant">#0000b9</color>
-    <color name="colorOnSecondary">#7555ff</color>
+    <color name="colorOnSecondary">#000000</color>
     <color name="colorSecondaryText">#ffffff</color>
 
-    <color name="backgroundColor">#ffffff</color>
-    <color name="colorOnBackground">#000000</color>
-    <color name="surfaceColor">#212121</color>
+    <color name="backgroundColor">#121212</color>
+    <color name="colorOnBackground">#FFFFFF</color>
+    <color name="surfaceColor">#00121212</color>
     <color name="colorOnSurface">#FFFFFF</color>
-
 
     <color name="errorColor">#CF6679</color>
     <color name="colorOnError">#000000</color>
 
-    <color name="home_card_1_color">@color/colorPrimaryVariant</color>
-    <color name="home_card_2_color">@color/colorPrimary</color>
-    <color name="home_card_3_color">@color/colorSecondaryVariant</color>
-    <color name="home_card_4_color">@color/colorSecondaryVariant</color>
-    <color name="home_card_icon_color">@color/white</color>
+    <color name="home_card_1_color">@color/surfaceColor</color>
+    <color name="home_card_2_color">@color/surfaceColor</color>
+    <color name="home_card_3_color">@color/surfaceColor</color>
+    <color name="home_card_4_color">@color/surfaceColor</color>
+    <color name="home_card_icon_color">@color/colorPrimary</color>
 
     <color name="colorAscent">#ffffff</color>
     <color name="color_ascent">#4f00b9</color>
     <color name="hintGrey">#EBA8A7A7</color>
     <color name="text_hint_color">#EBA8A7A7</color>
-    <color name="text_black_color">#EB434343</color>
+    <color name="text_black_color">#fff</color>
     <color name="isFav">#BA0808</color>
     <color name="rating_yellow">#ffc107</color>
     <color name="colorLightGrey">#F1F1F1</color>
@@ -51,6 +47,8 @@
     <color name="grey_btm_nav">#919191</color>
     <color name="red_wrong">#FF3C3C</color>
     <color name="timer_warning_1">#E08703</color>
+    <color name="edit_text_cursor_color">#fff</color>
+    <color name="fab_background_color">@color/colorSecondary</color>
     <color name="colorSnackBarError">#F72400</color>
     <color name="colorSnackBarSuccess">#8BC34A</color>
 

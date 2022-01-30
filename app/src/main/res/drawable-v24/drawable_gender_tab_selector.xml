@@ -16,7 +16,7 @@
         <shape android:shape="rectangle">
 
             <stroke android:width="@dimen/gender_radio_button_stroke_width"
-                android:color="@color/colorSecondaryText"/>
+                android:color="@color/text_black_color"/>
 
             <corners android:bottomLeftRadius="@dimen/gender_radio_button_radius"
                 android:bottomRightRadius="@dimen/gender_radio_button_radius"

@@ -19,7 +19,6 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:visibility="gone"
-        android:background="@color/backGroundColour"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:id="@+id/cl_no_quizzes">

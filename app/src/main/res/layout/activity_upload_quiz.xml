@@ -4,7 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/backGroundColour"
     android:focusableInTouchMode="true"
     android:clickable="true"
     android:focusable="true"
@@ -14,7 +13,6 @@
         android:id="@+id/appBarLayout2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/fui_transparent"
         android:fitsSystemWindows="true"
         android:theme="@style/ThemeOverlay.AppCompat.Dark"
         app:layout_constraintEnd_toEndOf="parent"
@@ -25,7 +23,6 @@
             android:id="@+id/toolbar_upload_quiz_activity"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
-            android:background="@color/colorPrimaryVariant"
             app:contentInsetLeft="0dp"
             app:contentInsetStart="0dp"
             app:contentInsetStartWithNavigation="0dp"
@@ -95,15 +92,13 @@
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/til_subject"
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="8dp"
                 android:layout_marginEnd="8dp"
                 android:hint="@string/noteSubject"
-                android:textColorHint="@color/text_hint_color"
-                app:boxStrokeColor="@color/text_black_color"
+                style="@style/MyTextInputLayoutStyle"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/spinner_quiz_level"
                 app:layout_constraintTop_toBottomOf="@+id/tv_upload_notice">
@@ -114,6 +109,7 @@
                     android:layout_height="wrap_content"
                     android:inputType="text"
                     android:padding="@dimen/et_note_padding"
+                    android:textCursorDrawable="@drawable/edit_text_cursor"
                     android:textColor="@color/text_black_color"
                     android:textSize="@dimen/et_title_textSize">
 
@@ -123,7 +119,6 @@
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/til_title"
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
@@ -131,9 +126,7 @@
                 android:layout_marginEnd="8dp"
                 android:gravity="bottom"
                 android:hint="@string/quiz_title"
-                android:textColorHint="@color/text_hint_color"
-                app:errorTextColor="@color/black"
-                app:boxStrokeColor="@color/text_black_color"
+                style="@style/MyTextInputLayoutStyle"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/til_subject">
@@ -144,21 +137,20 @@
                     android:layout_height="wrap_content"
                     android:inputType="text"
                     android:padding="@dimen/et_note_padding"
+                    android:textCursorDrawable="@drawable/edit_text_cursor"
                     android:textColor="@color/text_black_color"
                     android:textSize="@dimen/et_textSize" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/til_quiz_description"
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="8dp"
                 android:layout_marginEnd="8dp"
                 android:hint="@string/quiz_description"
-                android:textColorHint="@color/text_hint_color"
-                app:boxStrokeColor="@color/text_black_color"
+                style="@style/MyTextInputLayoutStyle"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/til_title">
@@ -171,6 +163,7 @@
                     android:inputType="text"
                     android:minLines="3"
                     android:padding="@dimen/et_note_padding"
+                    android:textCursorDrawable="@drawable/edit_text_cursor"
                     android:textColor="@color/text_black_color"
                     android:textSize="@dimen/et_textSize" />
 
@@ -178,15 +171,13 @@
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/til_quiz_duration"
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="8dp"
                 android:layout_marginEnd="8dp"
                 android:hint="@string/quiz_time"
-                android:textColorHint="@color/text_hint_color"
-                app:boxStrokeColor="@color/text_black_color"
+                style="@style/MyTextInputLayoutStyle"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/til_quiz_description">
@@ -199,6 +190,7 @@
                     android:inputType="number"
                     android:maxLines="1"
                     android:padding="@dimen/et_note_padding"
+                    android:textCursorDrawable="@drawable/edit_text_cursor"
                     android:textColor="@color/text_black_color"
                     android:textSize="@dimen/et_textSize" />
 

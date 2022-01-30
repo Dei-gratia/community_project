@@ -133,7 +133,7 @@ class UploadQuizActivity : BaseActivity(), View.OnClickListener, QuestionsRecycl
                 R.id.btn_upload_quiz -> {
                     this.hideKeyboard(rootView)
                     removeEditTextFocus()
-                    uploadQuiz()
+                    //uploadQuiz()
                 }
             }
         }
@@ -231,12 +231,16 @@ class UploadQuizActivity : BaseActivity(), View.OnClickListener, QuestionsRecycl
         etOption3.setText(question.optionThree)
         etOption4.setText(question.optionFour)
         spinnerCorrectOption.setSelection(spinnerAdapter.getPosition(question.correctOption.toString()))
-
+        etQuestion.requestFocus()
+        var positiveButtonText = "Add Question"
+        if(question != Question()){
+            positiveButtonText = "Update Question"
+        }
         AlertDialog.Builder(this)
             .setTitle("Add New Question")
             .setView(questionView)
             .setCancelable(false)
-            .setPositiveButton("Add Question") { _, _ ->
+            .setPositiveButton(positiveButtonText) { _, _ ->
                 val qn = etQuestion.text.toString()
                 if (qn.isNotBlank()){
                     val option1 = etOption1.text.toString()
@@ -244,7 +248,11 @@ class UploadQuizActivity : BaseActivity(), View.OnClickListener, QuestionsRecycl
                     val option3 = etOption3.text.toString()
                     val option4 = etOption4.text.toString()
                     val correctOption = spinnerCorrectOption.selectedItem.toString().toInt()
-                    val newQuestion = Question(UUID.randomUUID().toString(), qn, option1, option2, option3, option4, correctOption)
+                    var questionId = UUID.randomUUID().toString()
+                    if (question != Question()){
+                        questionId = question.id
+                    }
+                    val newQuestion = Question(questionId, qn, option1, option2, option3, option4, correctOption)
                     if (question == newQuestion || newQuestion == Question()){
                         Log.e(TAG, "Question not changed or empty")
                     }
@@ -264,7 +272,7 @@ class UploadQuizActivity : BaseActivity(), View.OnClickListener, QuestionsRecycl
     }
 
     private fun update(newQuestion: Question){
-        val qnPosition= questionsList.indexOfFirst {
+        val qnPosition = questionsList.indexOfFirst {
             it.id == newQuestion.id
         }
         this.questionsList[qnPosition] = newQuestion

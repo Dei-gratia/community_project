@@ -19,6 +19,7 @@ import androidx.activity.result.ActivityResult
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AlertDialog
+import androidx.appcompat.app.AppCompatDelegate
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
@@ -59,10 +60,6 @@ class HomeActivity : BaseActivity() {
     private lateinit var googleSignInClient : GoogleSignInClient
     private lateinit var startUploadActivityForResult: ActivityResultLauncher<Intent>
     private lateinit var fabNew             : FloatingActionButton
-    private lateinit var radioGroup         : RadioGroup
-    private lateinit var rbLightTheme       : RadioButton
-    private lateinit var rbDarkTheme        : RadioButton
-    private lateinit var settingsView       : View
     lateinit var pullToRefreshHome          : SwipeRefreshLayout
     lateinit var appBarLayout               : AppBarLayout
     lateinit var etSearch                   : EditText
@@ -180,7 +177,7 @@ class HomeActivity : BaseActivity() {
             }
 
             R.id.action_settings -> {
-                toggleTheme()
+                appSettings()
                 return true
             }
 
@@ -277,40 +274,59 @@ class HomeActivity : BaseActivity() {
         startUploadActivityForResult.launch(uploadIntent)
     }
 
-    private fun toggleTheme() {
-        settingsView = View.inflate(
-            this,
-            R.layout.settings_layout,
-            null
-        )
+    private fun appSettings() {
+        val options = arrayOf("App Theme")
+        val builder: android.app.AlertDialog.Builder = android.app.AlertDialog.Builder(this)
+        builder.setTitle(getString(R.string.app_settings))
+        builder.setItems(options) { dialog, which ->
+            when (which) {
+                0 -> {
+                    chooseThemeDialog()
+                }
+            }
+        }
 
-        radioGroup = settingsView.findViewById(R.id.group_radio)
-        rbLightTheme = settingsView.findViewById(R.id.radio_light_theme)
-        rbDarkTheme = settingsView.findViewById(R.id.radio_dark_theme)
-        var theme = "1"
-        AlertDialog.Builder(this)
-            .setTitle("Select AppTheme")
-            .setView(settingsView)
-            .setPositiveButton("OK") { _, _ ->
-                if (rbLightTheme.isChecked) {
-                    theme = "1"
+        builder.show()
+    }
+
+    private fun chooseThemeDialog() {
+        val builder = AlertDialog.Builder(this)
+        builder.setTitle(getString(R.string.choose_theme_text))
+        val styles = arrayOf("Light","Dark","System default")
+        val checkedItem = sharedPreferences.getInt(AppConstants.APP_THEME, 2)
+        builder.setSingleChoiceItems(styles, checkedItem) { dialog, which ->
+
+            when (which) {
+                0 -> {
+                    AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
+                    sharedPreferences.edit().putInt(AppConstants.APP_THEME, 0).apply()
+                    delegate.applyDayNight()
+                    dialog.dismiss()
+                }
+                1 -> {
+                    AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
+                    delegate.applyDayNight()
+                    sharedPreferences.edit().putInt(AppConstants.APP_THEME, 1).apply()
+                    dialog.dismiss()
+                }
+                2 -> {
+                    AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM)
+                    sharedPreferences.edit().putInt(AppConstants.APP_THEME, 2).apply()
+                    delegate.applyDayNight()
+                    dialog.dismiss()
                 }
 
-                if (rbDarkTheme.isChecked) {
-                    theme = "2"
-                }
-                setTheme(theme)
             }
-            .setNegativeButton("Cancel") { _, _ ->
+        }
 
-            }
-            .create()
-            .show()
+        val dialog = builder.create()
+        dialog.show()
     }
 
 
 
-    private fun  setTheme(theme: String) {
+
+        private fun  setTheme(theme: String) {
         AlertDialog.Builder(this)
             .setTitle("Restart")
             .setMessage("App will restart to apply changes")

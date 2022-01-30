@@ -4,7 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/backGroundColour"
     tools:context=".discussions.NewDiscussionActivity">
 
     <com.google.android.material.appbar.AppBarLayout
@@ -22,7 +21,6 @@
             style="@style/Widget.MaterialComponents.Toolbar.PrimarySurface"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
-            android:background="@drawable/app_gradient_color_background"
             android:clickable="true"
             android:elevation="4dp"
             android:focusable="true"
@@ -39,11 +37,12 @@
                 android:layout_marginBottom="6dp"
                 android:background="@drawable/rounded_corner_search"
                 android:drawableStart="@drawable/ic_search_black_24"
-                android:drawableTint="@color/colorPrimaryText"
+                android:drawableTint="@color/text_hint_color"
+                android:textColorHint="@color/text_hint_color"
+                android:textColor="@color/text_color_dark"
                 android:hint="@string/search_people"
                 android:maxLines="1"
-                android:padding="5dp"
-                android:textColorHint="@color/colorPrimaryText" />
+                android:padding="5dp" />
         </com.google.android.material.appbar.MaterialToolbar>
 
     </com.google.android.material.appbar.AppBarLayout>
@@ -71,10 +70,8 @@
 
         <androidx.viewpager.widget.ViewPager
             android:id="@+id/view_pager"
-            android:backgroundTint="@color/backGroundColour"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/white"/>
+            android:layout_height="wrap_content" />
 
     </LinearLayout>
 

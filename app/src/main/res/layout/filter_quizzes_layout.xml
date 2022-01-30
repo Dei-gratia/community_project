@@ -8,7 +8,6 @@
     android:clickable="true"
     android:focusable="true"
     android:foreground="?android:attr/selectableItemBackground"
-    app:cardBackgroundColor="@android:color/white"
     app:cardCornerRadius="4dp"
     app:cardElevation="4dp">
 
@@ -31,12 +30,11 @@
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/til_subject"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="4dp"
             android:hint="@string/noteSubject"
-            android:textColorHint="@color/text_hint_color"
+            style="@style/MyTextInputLayoutStyle"
             app:layout_constraintEnd_toEndOf="@+id/spinner_quizzes_level"
             app:layout_constraintStart_toStartOf="@+id/spinner_quizzes_level"
             app:layout_constraintTop_toBottomOf="@+id/spinner_quizzes_level">
@@ -50,7 +48,7 @@
                 android:paddingTop="@dimen/et_padding"
                 android:paddingEnd="4dp"
                 android:paddingBottom="@dimen/et_padding"
-
+                android:textCursorDrawable="@drawable/edit_text_cursor"
                 android:textColor="@color/text_black_color"
                 android:textSize="@dimen/et_title_textSize">
 

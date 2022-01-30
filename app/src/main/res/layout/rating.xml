@@ -23,9 +23,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="@string/additionComments"
-        android:textColorHint="@color/colorSecondaryText"
         android:layout_marginTop="8dp"
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+        style="@style/MyTextInputLayoutStyle">
 
         <com.nema.eduup.utils.EdUpEditText
             android:id="@+id/etComment"
@@ -33,7 +32,8 @@
             android:layout_height="wrap_content"
             android:inputType="textMultiLine"
             android:padding="@dimen/et_note_padding"
-            android:textColor="@color/colorPrimaryText"
+            android:textColor="@color/text_black_color"
+            android:textCursorDrawable="@drawable/edit_text_cursor"
             android:textSize="@dimen/et_textSize"
             android:layout_gravity="top"
             android:gravity="top"

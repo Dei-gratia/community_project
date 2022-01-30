@@ -28,7 +28,6 @@
                     android:layout_width="match_parent"
                     android:layout_marginTop="2dp"
                     android:layout_height="200dp"
-                    android:background="@color/colorPrimary"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent">
@@ -55,7 +54,6 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="2dp"
-                    android:background="@color/white"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/frameLayout">
@@ -66,7 +64,7 @@
                         android:layout_height="150dp"
                         android:layout_margin="2dp"
                         app:cardCornerRadius="4dp"
-                        app:cardBackgroundColor="@color/colorPrimaryVariant"
+                        app:cardBackgroundColor="@color/home_card_1_color"
                         app:layout_constraintEnd_toStartOf="@+id/divider2"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent">
@@ -110,7 +108,7 @@
                         android:layout_height="150dp"
                         app:cardCornerRadius="4dp"
                         android:layout_margin="2dp"
-                        app:cardBackgroundColor="@color/colorPrimary"
+                        app:cardBackgroundColor="@color/home_card_2_color"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toEndOf="@+id/divider2"
                         app:layout_constraintTop_toTopOf="parent">
@@ -153,7 +151,7 @@
                         android:layout_width="0dp"
                         android:layout_height="150dp"
                         android:layout_margin="2dp"
-                        app:cardBackgroundColor="@color/colorSecondaryVariant"
+                        app:cardBackgroundColor="@color/home_card_3_color"
                         app:layout_constraintEnd_toStartOf="@+id/divider2"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@id/cv_home_quizzes">
@@ -194,12 +192,11 @@
                         android:layout_width="0dp"
                         android:layout_height="150dp"
                         android:layout_margin="2dp"
-                        app:cardBackgroundColor="@color/colorSecondaryVariant"
+                        app:cardBackgroundColor="@color/home_card_4_color"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toEndOf="@+id/divider2"
                         app:layout_constraintTop_toBottomOf="@id/cv_home_new_content">
-
 
                         <androidx.constraintlayout.widget.ConstraintLayout
                             android:layout_width="match_parent"
@@ -268,7 +265,6 @@
                     app:layout_constraintTop_toTopOf="parent"
                     tools:listitem="@layout/item_note" />
 
-
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/list_notes_recycler_view"
                     android:layout_width="match_parent"
@@ -282,6 +278,7 @@
                     tools:listitem="@layout/item_dashboard" />
 
                 <androidx.constraintlayout.widget.ConstraintLayout
+                    android:visibility="invisible"
                     android:id="@+id/cl_progress_layout"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"

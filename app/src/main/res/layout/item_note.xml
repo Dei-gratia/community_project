@@ -3,7 +3,6 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:background="@color/backGroundColour"
     android:layout_height="wrap_content">
 
     <androidx.cardview.widget.CardView
@@ -11,7 +10,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:cardCornerRadius="4dp"
-        app:cardBackgroundColor="@color/backGroundColour"
         app:cardElevation="1dp"
         app:cardUseCompatPadding="true"
         app:contentPadding="8dp">

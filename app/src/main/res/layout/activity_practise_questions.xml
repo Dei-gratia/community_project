@@ -4,12 +4,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/backGroundColour"
     tools:context=".quizzes.PractiseQuestionsActivity">
 
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/app_bar_layout"
-        android:background="@color/fui_transparent"
         style="@style/Widget.MaterialComponents.AppBarLayout.PrimarySurface"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -23,7 +21,6 @@
             android:focusableInTouchMode="true"
             android:clickable="true"
             android:focusable="true"
-            android:background="@color/colorPrimaryVariant"
             android:elevation="4dp"
             app:contentInsetLeft="0dp"
             app:contentInsetStart="0dp"
