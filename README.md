@@ -18,5 +18,45 @@ Features
 Languages: Kotlin, XML
 Database: Room Database, Firebase Firestore 
 
-appscreenshorts
+Sample images
+
+Logo and Launcher
+![app launcher](/appscreenshorts/Screenshot_20211222_150126_com.huawei.android.launcher.jpg)
+![app logo](/appscreenshorts/Screenshot_20211219_222107_com.nema.eduup.jpg)
+
+Login page
+![login](/appscreenshorts/Screenshot_20211219_223416_com.nema.eduup.jpg)
+
+Register page
+![register](/appscreenshorts/Screenshot_20211219_225625_com.nema.eduup.jpg)
+
+
+Home page
+![home](/appscreenshorts/Screenshot_20211222_152041_com.nema.eduup.jpg)
+![home](/appscreenshorts/Screenshot_20211222_152050_com.nema.eduup.jpg)
+
+
+Profile page
+![profile page](/appscreenshorts/Screenshot_20211222_152113_com.nema.eduup.jpg)
+
+Notes page
+![upload note](/appscreenshorts/Screenshot_20211222_152100_com.nema.eduup.jpg)
+
+Bookmarks
+![upload note](/appscreenshorts/Screenshot_20211222_152156_com.nema.eduup.jpg)
+
+Downloads
+![downloads](/appscreenshorts/Screenshot_20211222_152104_com.nema.eduup.jpg
+)
+
+Upload Note page
+![upload note](/appscreenshorts/Screenshot_20211222_150209_com.nema.eduup.jpg)
+
+Discussion Forum
+![upload note](/appscreenshorts/Screenshot_20211222_152502_com.nema.eduup.jpg)
+
+More app screenshorts
 [appscreenshots](/appscreenshorts)
+
+
+
