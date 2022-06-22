@@ -15,6 +15,7 @@ Features
 •	cache images locally for offline reading
 •	real time discussion chatting system
 
+Languages: Kotlin, XML
 
 appscreenshorts
 [appscreenshots](/appscreenshorts)
