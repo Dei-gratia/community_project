@@ -16,6 +16,7 @@ Features
 •	real time discussion chatting system
 
 Languages: Kotlin, XML
+Database: Room Database, Firebase Firestore 
 
 appscreenshorts
 [appscreenshots](/appscreenshorts)
